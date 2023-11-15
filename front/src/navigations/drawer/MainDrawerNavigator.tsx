@@ -10,7 +10,7 @@ function MainDrawerNavigator() {
     <Drawer.Navigator>
       <Drawer.Screen name="MapHome" component={MapHomeScreen} />
       <Drawer.Screen name="FeedHome" component={FeedHomeScreen} />
-      <Drawer.Screen name="Calendar" component={CalendarHomeScreen} />
+      <Drawer.Screen name="CalendarHome" component={CalendarHomeScreen} />
     </Drawer.Navigator>
   );
 }
