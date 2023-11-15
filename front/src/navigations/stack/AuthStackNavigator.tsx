@@ -4,10 +4,12 @@ import {createStackNavigator} from '@react-navigation/stack';
 import AuthHomeScreen from '../../screens/AuthHomeScreen';
 import LoginScreen from '../../screens/LoginScreen';
 import {authNaviagtions} from '../../constants';
+import SignScreen from '../../screens/SignScreen';
 
 export type AuthStackParamList = {
   [authNaviagtions.AUTH_HOME]: undefined;
   [authNaviagtions.LOGIN]: undefined;
+  [authNaviagtions.SIGNUP]: undefined;
 };
 
 const Stack = createStackNavigator<AuthStackParamList>();
@@ -20,6 +22,7 @@ function AuthStackNavigator() {
         component={AuthHomeScreen}
       />
       <Stack.Screen name={authNaviagtions.LOGIN} component={LoginScreen} />
+      <Stack.Screen name={authNaviagtions.SIGNUP} component={SignScreen} />
     </Stack.Navigator>
   );
 }
