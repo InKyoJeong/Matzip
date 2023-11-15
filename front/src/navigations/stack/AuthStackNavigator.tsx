@@ -16,13 +16,42 @@ const Stack = createStackNavigator<AuthStackParamList>();
 
 function AuthStackNavigator() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        cardStyle: {
+          backgroundColor: 'white',
+        },
+        headerStyle: {
+          shadowColor: 'gray',
+          backgroundColor: 'white', // red,
+        },
+        headerTitleStyle: {
+          fontSize: 15,
+        },
+        headerTintColor: 'black', // red
+      }}>
       <Stack.Screen
         name={authNaviagtions.AUTH_HOME}
         component={AuthHomeScreen}
+        options={{
+          headerTitle: ' ',
+          headerShown: false,
+        }}
       />
-      <Stack.Screen name={authNaviagtions.LOGIN} component={LoginScreen} />
-      <Stack.Screen name={authNaviagtions.SIGNUP} component={SignScreen} />
+      <Stack.Screen
+        name={authNaviagtions.LOGIN}
+        component={LoginScreen}
+        options={{
+          headerTitle: '로그인',
+        }}
+      />
+      <Stack.Screen
+        name={authNaviagtions.SIGNUP}
+        component={SignScreen}
+        options={{
+          headerTitle: '회원가입',
+        }}
+      />
     </Stack.Navigator>
   );
 }
