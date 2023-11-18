@@ -8,6 +8,7 @@ import {
   Dimensions,
   StyleProp,
 } from 'react-native';
+import {colors} from '../constants';
 
 type Variant = 'filled' | 'outlined';
 type Size = 'medium' | 'large';
@@ -72,30 +73,30 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   filled: {
-    backgroundColor: '#C63B64',
+    backgroundColor: colors.PINK_700,
   },
   outlined: {
-    borderColor: '#C63B64',
+    borderColor: colors.PINK_700,
     borderWidth: 1,
   },
   filledPressed: {
-    backgroundColor: '#BF5C79',
+    backgroundColor: colors.PINK_500,
   },
   outlinedPressed: {
-    borderColor: '#C63B64',
+    borderColor: colors.PINK_700,
     borderWidth: 1,
     opacity: 0.5,
   },
   text: {
-    color: 'white',
+    color: colors.WHITE,
     fontSize: 16,
     fontWeight: '700',
   },
   filledText: {
-    color: 'white',
+    color: colors.WHITE,
   },
   outlinedText: {
-    color: '#C63B64',
+    color: colors.PINK_700,
   },
 });
 
