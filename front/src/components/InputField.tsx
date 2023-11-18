@@ -39,18 +39,16 @@ function InputField({
           disabled && styles.disabled,
           touched && Boolean(error) && styles.inputError,
         ]}>
-        <View style={styles.innerContainer}>
-          <TextInput
-            ref={innerRef}
-            style={[styles.input, disabled && styles.disabled]}
-            autoCapitalize="none"
-            placeholderTextColor={colors.GRAY_500}
-            editable={!disabled}
-            autoCorrect={false}
-            spellCheck={false}
-            {...props}
-          />
-        </View>
+        <TextInput
+          ref={innerRef}
+          style={[styles.input, disabled && styles.disabled]}
+          autoCapitalize="none"
+          placeholderTextColor={colors.GRAY_500}
+          editable={!disabled}
+          autoCorrect={false}
+          spellCheck={false}
+          {...props}
+        />
         {touched && Boolean(error) && <Text style={styles.error}>{error}</Text>}
       </View>
     </Pressable>
@@ -72,11 +70,6 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
     paddingLeft: 0,
     color: colors.BLACK,
-  },
-  innerContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
   },
   disabled: {
     backgroundColor: colors.GRAY_200,
