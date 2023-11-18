@@ -1,27 +1,27 @@
 import React, {useRef} from 'react';
 import {
   Dimensions,
-  Pressable,
   StyleSheet,
-  Text,
   TextInput,
-  TextInputProps,
   View,
+  TextInputProps,
+  Text,
+  Pressable,
 } from 'react-native';
 import {colors} from '../constants';
 
 interface InputFieldProps extends TextInputProps {
-  error?: string;
   disabled?: boolean;
+  error?: string;
   touched?: boolean;
 }
 
 const deviceHeight = Dimensions.get('screen').height;
 
 function InputField({
+  disabled = false,
   error,
   touched,
-  disabled = false,
   ...props
 }: InputFieldProps) {
   const innerRef = useRef<TextInput | null>(null);
@@ -35,18 +35,17 @@ function InputField({
       <View
         style={[
           styles.container,
-          props.multiline && styles.multiLine,
           disabled && styles.disabled,
           touched && Boolean(error) && styles.inputError,
         ]}>
         <TextInput
           ref={innerRef}
+          editable={!disabled}
+          placeholderTextColor={colors.GRAY_500}
           style={[styles.input, disabled && styles.disabled]}
           autoCapitalize="none"
-          placeholderTextColor={colors.GRAY_500}
-          editable={!disabled}
-          autoCorrect={false}
           spellCheck={false}
+          autoCorrect={false}
           {...props}
         />
         {touched && Boolean(error) && <Text style={styles.error}>{error}</Text>}
@@ -59,17 +58,12 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 1,
     borderColor: colors.GRAY_200,
-    paddingVertical: deviceHeight > 640 ? 15 : 10,
-    paddingHorizontal: deviceHeight > 640 ? 15 : 10,
-  },
-  multiLine: {
-    paddingBottom: deviceHeight > 640 ? 45 : 30,
+    padding: deviceHeight > 700 ? 15 : 10,
   },
   input: {
     fontSize: 16,
-    paddingVertical: 0,
-    paddingLeft: 0,
     color: colors.BLACK,
+    padding: 0,
   },
   disabled: {
     backgroundColor: colors.GRAY_200,
@@ -83,7 +77,6 @@ const styles = StyleSheet.create({
     color: colors.RED_500,
     fontSize: 12,
     paddingTop: 5,
-    paddingLeft: 0,
   },
 });
 
