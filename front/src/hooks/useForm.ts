@@ -29,11 +29,7 @@ function useForm<T>({initialValue, validate}: UseFormProps<T>) {
     const onChangeText = (text: string) => handleChangeText(name, text);
     const onBlur = () => handleBlur(name);
 
-    return {
-      value,
-      onChangeText,
-      onBlur,
-    };
+    return {value, onChangeText, onBlur};
   };
 
   useEffect(() => {
