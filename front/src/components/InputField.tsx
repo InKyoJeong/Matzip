@@ -13,11 +13,17 @@ import {colors} from '../constants';
 interface InputFieldProps extends TextInputProps {
   error?: string;
   disabled?: boolean;
+  touched?: boolean;
 }
 
 const deviceHeight = Dimensions.get('screen').height;
 
-function InputField({error, disabled = false, ...props}: InputFieldProps) {
+function InputField({
+  error,
+  touched,
+  disabled = false,
+  ...props
+}: InputFieldProps) {
   const innerRef = useRef<TextInput | null>(null);
 
   const handlePressInput = () => {
@@ -31,10 +37,11 @@ function InputField({error, disabled = false, ...props}: InputFieldProps) {
           styles.container,
           props.multiline && styles.multiLine,
           disabled && styles.disabled,
-          Boolean(error) && styles.inputError,
+          touched && Boolean(error) && styles.inputError,
         ]}>
         <View style={styles.innerContainer}>
           <TextInput
+            ref={innerRef}
             style={[styles.input, disabled && styles.disabled]}
             autoCapitalize="none"
             placeholderTextColor={colors.GRAY_500}
@@ -44,7 +51,7 @@ function InputField({error, disabled = false, ...props}: InputFieldProps) {
             {...props}
           />
         </View>
-        {Boolean(error) && <Text style={styles.error}>{error}</Text>}
+        {touched && Boolean(error) && <Text style={styles.error}>{error}</Text>}
       </View>
     </Pressable>
   );
