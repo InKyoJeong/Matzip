@@ -23,12 +23,12 @@ function AuthStackNavigator() {
         },
         headerStyle: {
           shadowColor: 'gray',
-          backgroundColor: 'white', // red,
+          backgroundColor: 'white',
         },
         headerTitleStyle: {
           fontSize: 15,
         },
-        headerTintColor: 'black', // red
+        headerTintColor: 'black',
       }}>
       <Stack.Screen
         name={authNaviagtions.AUTH_HOME}
