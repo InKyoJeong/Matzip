@@ -21,6 +21,7 @@ function SignupScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
         <InputField
+          autoFocus
           placeholder="이메일"
           error={signup.errors.email}
           touched={signup.touched.email}
