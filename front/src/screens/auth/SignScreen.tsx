@@ -1,8 +1,8 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
 import InputField from '../../components/InputField';
-import CustomButton from '../../components/CustomButton';
 import useForm from '../../hooks/useForm';
+import CustomButton from '../../components/CustomButton';
 import {validateSignup} from '../../utils';
 
 function SignupScreen() {
@@ -10,10 +10,6 @@ function SignupScreen() {
     initialValue: {email: '', password: '', passwordConfirm: ''},
     validate: validateSignup,
   });
-
-  const handleSubmit = () => {
-    console.log('signup.values', signup.values);
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,12 +36,7 @@ function SignupScreen() {
           {...signup.getTextInputProps('passwordConfirm')}
         />
       </View>
-      <CustomButton
-        label="회원가입"
-        variant="filled"
-        size="large"
-        onPress={handleSubmit}
-      />
+      <CustomButton label="회원가입" />
     </SafeAreaView>
   );
 }
