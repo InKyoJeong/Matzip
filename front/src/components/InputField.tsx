@@ -1,4 +1,4 @@
-import React, {ForwardedRef, forwardRef, useEffect, useRef} from 'react';
+import React, {ForwardedRef, forwardRef, useRef} from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -7,7 +7,6 @@ import {
   TextInputProps,
   Text,
   Pressable,
-  LayoutAnimation,
 } from 'react-native';
 import {colors} from '../constants';
 import {mergeRefs} from '../utils/common';
@@ -30,12 +29,6 @@ const InputField = forwardRef(
     const handlePressInput = () => {
       innerRef.current?.focus();
     };
-
-    useEffect(() => {
-      if (touched && Boolean(error)) {
-        LayoutAnimation.configureNext(LayoutAnimation.Presets.spring);
-      }
-    }, [error, touched]);
 
     return (
       <Pressable onPress={handlePressInput}>
