@@ -37,7 +37,7 @@ export class AuthController {
     return this.authService.signin(authCredentialsDto);
   }
 
-  @Post('/refresh')
+  @Get('/refresh')
   @UseGuards(AuthGuard())
   refresh(@GetUser() user: User): Promise<{
     accessToken: string;
