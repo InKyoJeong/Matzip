@@ -23,7 +23,6 @@ import {
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: postSignup,
-    // onError: error => console.log('error', error.response?.data.message),
     ...mutationOptions,
   });
 }
@@ -54,13 +53,17 @@ function useGetRefreshToken() {
   });
 
   useEffect(() => {
-    setHeader('Authorization', `Bearer ${data?.accessToken}`);
-    setEncryptStorage('refreshToken', data?.refreshToken);
+    if (isSuccess) {
+      setHeader('Authorization', `Bearer ${data.accessToken}`);
+      setEncryptStorage('refreshToken', data.refreshToken);
+    }
   }, [isSuccess]);
 
   useEffect(() => {
-    removeHeader('Authorization');
-    removeEncryptStorage('refreshToken');
+    if (isError) {
+      removeHeader('Authorization');
+      removeEncryptStorage('refreshToken');
+    }
   }, [isError]);
 
   return {isSuccess, isError};
