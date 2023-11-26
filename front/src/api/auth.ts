@@ -35,18 +35,14 @@ const getProfile = async (): Promise<ResponseProfile> => {
   return data;
 };
 
-const updateAccessToken = async (): Promise<ResponseToken> => {
+const getAccessToken = async (): Promise<ResponseToken> => {
   const refreshToken = await getEncryptStorage('refreshToken');
 
-  const {data} = await axiosInstance.post(
-    '/auth/refresh',
-    {},
-    {
-      headers: {
-        Authorization: `Bearer ${refreshToken}`,
-      },
+  const {data} = await axiosInstance.get('/auth/refresh', {
+    headers: {
+      Authorization: `Bearer ${refreshToken}`,
     },
-  );
+  });
 
   return data;
 };
@@ -55,5 +51,5 @@ const logout = async () => {
   await axiosInstance.post('/auth/logout');
 };
 
-export {postSignup, postLogin, getProfile, updateAccessToken, logout};
+export {postSignup, postLogin, getProfile, getAccessToken, logout};
 export type {RequestUser, ResponseToken, ResponseProfile};
