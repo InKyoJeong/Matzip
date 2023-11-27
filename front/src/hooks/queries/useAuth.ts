@@ -6,6 +6,7 @@ import {
   ResponseProfile,
   getAccessToken,
   getProfile,
+  logout,
   postLogin,
   postSignup,
 } from '@/api/auth';
@@ -82,6 +83,20 @@ function useGetProfile(queryOptions?: UseQueryCustomOptions<ResponseProfile>) {
   });
 }
 
+function useLogout(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      removeHeader('Authorization');
+      removeEncryptStorage(storageKeys.REFRESH_TOKEN);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: [queryKeys.AUTH]});
+    },
+    ...mutationOptions,
+  });
+}
+
 function useAuth() {
   const signupMutation = useSignup();
   const refreshTokenQuery = useGetRefreshToken();
@@ -90,12 +105,14 @@ function useAuth() {
   });
   const isLogin = getProfileQuery.isSuccess;
   const loginMutation = useLogin();
+  const logoutMutation = useLogout();
 
   return {
     signupMutation,
     loginMutation,
     getProfileQuery,
     isLogin,
+    logoutMutation,
   };
 }
 
