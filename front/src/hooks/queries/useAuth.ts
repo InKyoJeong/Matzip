@@ -1,5 +1,5 @@
 import {useEffect} from 'react';
-import {UseQueryOptions, useMutation, useQuery} from '@tanstack/react-query';
+import {useMutation, useQuery} from '@tanstack/react-query';
 import {
   ResponseProfile,
   getAccessToken,
@@ -8,7 +8,6 @@ import {
   postSignup,
 } from '../../api/auth';
 import type {
-  ResponseError,
   UseMutationCustomOptions,
   UseQueryCustomOptions,
 } from '../../types/common';
@@ -19,6 +18,7 @@ import {
   removeEncryptStorage,
   setEncryptStorage,
 } from '../../utils';
+import {numbers, queryKeys, storageKeys} from '../../constants';
 
 function useSignup(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
@@ -32,11 +32,15 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
     mutationFn: postLogin,
     onSuccess: ({accessToken, refreshToken}) => {
       setHeader('Authorization', `Bearer ${accessToken}`);
-      setEncryptStorage('refreshToken', refreshToken);
+      setEncryptStorage(storageKeys.REFRESH_TOKEN, refreshToken);
     },
     onSettled: () => {
-      queryClient.refetchQueries({queryKey: ['auth', 'getAccessToken']});
-      queryClient.invalidateQueries({queryKey: ['auth', 'getProfile']});
+      queryClient.refetchQueries({
+        queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
+      });
     },
     ...mutationOptions,
   });
@@ -44,10 +48,10 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
 
 function useGetRefreshToken() {
   const {data, error, isSuccess, isError} = useQuery({
-    queryKey: ['auth', 'getAccessToken'],
+    queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
     queryFn: getAccessToken,
-    staleTime: 1000 * 60 * 30 - 1000 * 60 * 3,
-    refetchInterval: 1000 * 60 * 30 - 1000 * 60 * 3,
+    staleTime: numbers.ACCESS_TOKEN_REFRESH_TIME,
+    refetchInterval: numbers.ACCESS_TOKEN_REFRESH_TIME,
     refetchOnReconnect: true,
     refetchIntervalInBackground: true,
   });
@@ -55,14 +59,14 @@ function useGetRefreshToken() {
   useEffect(() => {
     if (isSuccess) {
       setHeader('Authorization', `Bearer ${data.accessToken}`);
-      setEncryptStorage('refreshToken', data.refreshToken);
+      setEncryptStorage(storageKeys.REFRESH_TOKEN, data.refreshToken);
     }
   }, [isSuccess]);
 
   useEffect(() => {
     if (isError) {
       removeHeader('Authorization');
-      removeEncryptStorage('refreshToken');
+      removeEncryptStorage(storageKeys.REFRESH_TOKEN);
     }
   }, [isError]);
 
@@ -72,7 +76,7 @@ function useGetRefreshToken() {
 function useGetProfile(queryOptions?: UseQueryCustomOptions<ResponseProfile>) {
   return useQuery({
     queryFn: getProfile,
-    queryKey: ['auth', 'getProfile'],
+    queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
     ...queryOptions,
   });
 }
