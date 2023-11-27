@@ -1,6 +1,5 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {getEncryptStorage} from '../../utils';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 function MapHomeScreen() {
   return (
