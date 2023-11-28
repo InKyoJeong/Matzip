@@ -213,12 +213,6 @@ type ResponseProfile = Profile & Category;
 
 ## Marker & Post
 
-> Type
-
-```ts
-type ResponsePost = Post & { images: ImageUri[] };
-```
-
 #### GET /markers/my
 
 - responseBody
@@ -240,6 +234,8 @@ Marker[]
 - requestBody
 
 ```ts
+// type ResponsePost = Post & { images: ImageUri[] };
+
 type ResponseSinglePost = ResponsePost & { isFavorite: boolean };
 ```
 
@@ -253,7 +249,7 @@ type ResponseSinglePost = ResponsePost & { isFavorite: boolean };
 }
 ```
 
-#### GET /posts/my?page=${page}
+#### GET /posts/my
 
 - query
 
@@ -266,6 +262,7 @@ type ResponseSinglePost = ResponsePost & { isFavorite: boolean };
 - responseBody
 
 ```js
+// type ResponsePost = Post & { images: ImageUri[] };
 ResponsePost[];
 ```
 
@@ -283,6 +280,7 @@ ResponsePost[];
 - responseBody
 
 ```js
+// type ResponsePost = Post & { images: ImageUri[] };
 ResponsePost[];
 ```
 
