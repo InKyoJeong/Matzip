@@ -32,3 +32,351 @@ JWT_REFRESH_TOKEN_EXPIRATION=30d
 ```
 npm run start:dev
 ```
+
+<br>
+
+# Domain
+
+```ts
+type MarkerColor = 'RED' | 'YELLOW' | 'GREEN' | 'BLUE' | 'PURPLE';
+
+type Category = {
+  [key in MarkerColor]: string;
+};
+
+interface ImageUri {
+  id?: number;
+  uri: string;
+}
+
+interface Marker {
+  id: number;
+  latitude: number;
+  longitude: number;
+  color: MarkerColor;
+  score: number;
+}
+
+interface Post extends Marker {
+  title: string;
+  address: string;
+  date: Date | string;
+  description: string;
+}
+
+interface Profile {
+  id: number;
+  email: string;
+  nickname: string | null;
+  imageUri: string | null;
+  kakaoImageUri: string | null;
+  loginType: 'email' | 'kakao' | 'apple';
+}
+```
+
+# API
+
+## Auth
+
+#### POST /auth/signup
+
+- requestBody
+
+```
+{
+    email: string
+    password: string
+}
+```
+
+#### POST /auth/signin
+
+- requestBody
+
+```js
+{
+  email: string;
+  password: string;
+}
+```
+
+- responseBody
+
+```js
+{
+  accessToken: string;
+  refreshToken: string;
+}
+```
+
+#### GET /auth/refresh
+
+- header
+
+```js
+Authorization: `Bearer ${refreshToken}`;
+```
+
+- responseBody
+
+```js
+{
+  accessToken: string;
+  refreshToken: string;
+}
+```
+
+#### GET /auth/me (getProfile)
+
+- responseBody
+
+```ts
+type ResponseProfile = Profile & Category;
+```
+
+#### PATCH /auth/me (editProfile)
+
+- requestBody
+
+```ts
+type RequestProfile = Omit<
+  Profile,
+  'id' | 'email' | 'kakaoImageUri' | 'loginType'
+>;
+```
+
+- responseBody
+
+```ts
+type ResponseProfile = Profile & Category;
+```
+
+#### POST /auth/logout
+
+#### DELETE /auth/me
+
+#### PATCH /auth/category
+
+- requestBody
+
+```ts
+type Category
+```
+
+- responseBody
+
+```ts
+type ResponseProfile = Profile & Category;
+```
+
+#### POST /auth/oauth/kakao
+
+- requestBody
+
+```js
+{
+  token: string;
+}
+```
+
+- responseBody
+
+```js
+{
+  accessToken: string;
+  refreshToken: string;
+}
+```
+
+#### POST /auth/oauth/apple
+
+- requestBody
+
+```js
+{
+  identityToken: string;
+  appId: string;
+  nickname: string | null;
+}
+```
+
+- responseBody
+
+```js
+{
+  accessToken: string;
+  refreshToken: string;
+}
+```
+
+<br>
+
+## Marker & Post
+
+> Type
+
+```ts
+type ResponsePost = Post & { images: ImageUri[] };
+```
+
+#### GET /markers/my
+
+- responseBody
+
+```ts
+Marker[]
+```
+
+#### GET /posts/:id
+
+- param
+
+```ts
+{
+  id: number;
+}
+```
+
+- requestBody
+
+```ts
+type ResponseSinglePost = ResponsePost & { isFavorite: boolean };
+```
+
+#### DELETE /posts/:id
+
+- param
+
+```ts
+{
+  id: number;
+}
+```
+
+#### GET /posts/my?page=${page}
+
+- query
+
+```js
+{
+  page: number;
+}
+```
+
+- responseBody
+
+```js
+ResponsePost[];
+```
+
+#### GET /posts/my/search
+
+- query
+
+```js
+{
+  query: string;
+  page: number;
+}
+```
+
+- responseBody
+
+```js
+ResponsePost[];
+```
+
+#### POST /posts
+
+- requestBody
+
+```ts
+type RequestCreatePost = Omit<Post, 'id'> & { imageUris: ImageUri[] };
+```
+
+#### PATCH /post/:id
+
+- param
+
+```ts
+{
+  id: number;
+}
+```
+
+- requestBody
+
+```ts
+type RequestUpdatePost = {
+  id: number;
+  body: Omit<Post, 'id' | 'longitude' | 'latitude' | 'address'> & {
+    imageUris: ImageUri[];
+  };
+};
+```
+
+- responseBody
+
+```ts
+type ResponseSinglePost = ResponsePost & { isFavorite: boolean };
+```
+
+#### GET /posts (getCalendarPosts)
+
+- query
+
+```ts
+{
+  year: number;
+  month: number;
+}
+```
+
+- responseBody
+
+```ts
+// type CalendarPost = {
+//   id: number;
+//   title: string;
+//   address: string;
+// };
+
+type ResponseCalendarPost = Record<number, CalendarPost[]>;
+```
+
+#### GET /favorites/my
+
+- query
+
+```ts
+{
+  page: number;
+}
+```
+
+#### POST /favorites/:id
+
+- param
+
+```ts
+{
+  id: number;
+}
+```
+
+- responseBody
+
+```ts
+{
+  id: number;
+}
+```
+
+<br>
+
+## Image
+
+#### POST /images
+
+- requestBody : `FormData`
+- responseBody : `string[]`
