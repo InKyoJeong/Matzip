@@ -12,6 +12,7 @@ const getEncryptStorage = async (key: string) => {
 
 const removeEncryptStorage = async (key: string) => {
   const data = await getEncryptStorage(key);
+
   if (data) {
     await EncryptedStorage.removeItem(key);
   }

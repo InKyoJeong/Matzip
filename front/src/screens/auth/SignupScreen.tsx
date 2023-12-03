@@ -7,9 +7,9 @@ import useAuth from '../../hooks/queries/useAuth';
 import {validateSignup} from '../../utils';
 
 function SignupScreen() {
-  const {signupMutation, loginMutation} = useAuth();
   const passwordRef = useRef<TextInput | null>(null);
   const passwordConfirmRef = useRef<TextInput | null>(null);
+  const {signupMutation, loginMutation} = useAuth();
   const signup = useForm({
     initialValue: {email: '', password: '', passwordConfirm: ''},
     validate: validateSignup,

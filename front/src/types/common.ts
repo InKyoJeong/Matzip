@@ -1,8 +1,8 @@
 import {AxiosError} from 'axios';
 import {
-  QueryKey,
   UseMutationOptions,
   UseQueryOptions,
+  QueryKey,
 } from '@tanstack/react-query';
 
 type ResponseError = AxiosError<{

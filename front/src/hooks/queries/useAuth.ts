@@ -1,29 +1,29 @@
 import {useEffect} from 'react';
 import {useMutation, useQuery} from '@tanstack/react-query';
 import {
-  ResponseProfile,
   getAccessToken,
   getProfile,
+  logout,
   postLogin,
   postSignup,
 } from '../../api/auth';
-import type {
+import {
   UseMutationCustomOptions,
   UseQueryCustomOptions,
 } from '../../types/common';
-import queryClient from '../../api/queryClient';
 import {
-  removeHeader,
-  setHeader,
   removeEncryptStorage,
   setEncryptStorage,
+  removeHeader,
+  setHeader,
 } from '../../utils';
+import queryClient from '../../api/queryClient';
 import {numbers, queryKeys, storageKeys} from '../../constants';
 
-function useSignup(mutationOptions?: UseMutationCustomOptions) {
+function useSignup(mutaionOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: postSignup,
-    ...mutationOptions,
+    ...mutaionOptions,
   });
 }
 
@@ -31,8 +31,8 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: postLogin,
     onSuccess: ({accessToken, refreshToken}) => {
-      setHeader('Authorization', `Bearer ${accessToken}`);
       setEncryptStorage(storageKeys.REFRESH_TOKEN, refreshToken);
+      setHeader('Authorization', `Bearer ${accessToken}`);
     },
     onSettled: () => {
       queryClient.refetchQueries({
@@ -47,7 +47,7 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
 }
 
 function useGetRefreshToken() {
-  const {data, error, isSuccess, isError} = useQuery({
+  const {isSuccess, data, isError} = useQuery({
     queryKey: [queryKeys.AUTH, queryKeys.GET_ACCESS_TOKEN],
     queryFn: getAccessToken,
     staleTime: numbers.ACCESS_TOKEN_REFRESH_TIME,
@@ -73,11 +73,25 @@ function useGetRefreshToken() {
   return {isSuccess, isError};
 }
 
-function useGetProfile(queryOptions?: UseQueryCustomOptions<ResponseProfile>) {
+function useGetProfile(queryOptions?: UseQueryCustomOptions) {
   return useQuery({
-    queryFn: getProfile,
     queryKey: [queryKeys.AUTH, queryKeys.GET_PROFILE],
+    queryFn: getProfile,
     ...queryOptions,
+  });
+}
+
+function useLogout(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({
+    mutationFn: logout,
+    onSuccess: () => {
+      removeHeader('Authorization');
+      removeEncryptStorage(storageKeys.REFRESH_TOKEN);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({queryKey: [queryKeys.AUTH]});
+    },
+    ...mutationOptions,
   });
 }
 
@@ -89,12 +103,14 @@ function useAuth() {
   });
   const isLogin = getProfileQuery.isSuccess;
   const loginMutation = useLogin();
+  const logoutMutation = useLogout();
 
   return {
     signupMutation,
     loginMutation,
-    getProfileQuery,
     isLogin,
+    getProfileQuery,
+    logoutMutation,
   };
 }
 
