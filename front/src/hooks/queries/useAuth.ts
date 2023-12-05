@@ -1,7 +1,6 @@
 import {useEffect} from 'react';
 import {useMutation, useQuery} from '@tanstack/react-query';
 
-import queryClient from '@/api/queryClient';
 import {
   ResponseProfile,
   getAccessToken,
@@ -16,6 +15,7 @@ import {
   setEncryptStorage,
   setHeader,
 } from '@/utils';
+import queryClient from '@/api/queryClient';
 import {numbers, queryKeys, storageKeys} from '@/constants';
 import type {
   UseMutationCustomOptions,
