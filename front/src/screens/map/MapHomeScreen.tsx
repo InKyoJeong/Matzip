@@ -1,11 +1,12 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, LatLng} from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import {StackNavigationProp} from '@react-navigation/stack';
+import Geolocation from '@react-native-community/geolocation';
 
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import useAuth from '@/hooks/queries/useAuth';
@@ -21,12 +22,32 @@ function MapHomeScreen() {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
 
+  const [userLocation, setUserLocation] = useState<LatLng>();
+  const [isUserLocationError, setIsUserLocationError] = useState(false);
+
+  console.log('userLocation', userLocation);
   //1: 나의 위치 구하기
   //2: 지도를 이동시키기
 
   const handleLogout = () => {
     logoutMutation.mutate(null);
   };
+
+  useEffect(() => {
+    Geolocation.getCurrentPosition(
+      info => {
+        const {latitude, longitude} = info.coords;
+        setUserLocation({latitude, longitude});
+        setIsUserLocationError(false);
+      },
+      () => {
+        setIsUserLocationError(true);
+      },
+      {
+        enableHighAccuracy: true,
+      },
+    );
+  }, []);
 
   return (
     <>

@@ -401,6 +401,8 @@ PODS:
     - glog
   - react-native-encrypted-storage (4.0.3):
     - React-Core
+  - react-native-geolocation (3.1.0):
+    - React-Core
   - react-native-google-maps (1.8.3):
     - Google-Maps-iOS-Utils (= 4.2.2)
     - GoogleMaps (= 7.4.0)
@@ -608,6 +610,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-encrypted-storage (from `../node_modules/react-native-encrypted-storage`)
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -699,6 +702,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-encrypted-storage:
     :path: "../node_modules/react-native-encrypted-storage"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
   react-native-google-maps:
     :path: "../node_modules/react-native-maps"
   react-native-maps:
@@ -787,6 +792,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 194e32c6aab382d88713ad3dd0025c5f5c4ee072
   React-logger: cebf22b6cf43434e471dc561e5911b40ac01d289
   react-native-encrypted-storage: db300a3f2f0aba1e818417c1c0a6be549038deb7
+  react-native-geolocation: ef66fb798d96284c6043f0b16c15d9d1d4955db4
   react-native-google-maps: e63e064f77df4af32655d05fbcd2f1ad1078db4a
   react-native-maps: a5f431a3eaaef69f2e6f8d39901fb3f2e9de931e
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
