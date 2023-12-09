@@ -11,7 +11,7 @@ function MainDrawerNavigator() {
   return (
     <Drawer.Navigator
       screenOptions={{
-        // headerShown: false,
+        headerShown: false,
         drawerType: 'front',
       }}>
       <Drawer.Screen
