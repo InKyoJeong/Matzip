@@ -1,9 +1,16 @@
 import {createDrawerNavigator} from '@react-navigation/drawer';
+import {NavigatorScreenParams} from '@react-navigation/native';
 
-import MapHomeScreen from '@/screens/map/MapHomeScreen';
 import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
-import MapStackNavigator from '../stack/MapStackNavigator';
+import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
+import {mainNavigations} from '@/constants';
+
+export type MainDrawerParamList = {
+  [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
+  [mainNavigations.FEED]: undefined;
+  [mainNavigations.CALENDAR]: undefined;
+};
 
 const Drawer = createDrawerNavigator();
 
@@ -15,17 +22,17 @@ function MainDrawerNavigator() {
         drawerType: 'front',
       }}>
       <Drawer.Screen
-        name="MapHome"
+        name={mainNavigations.HOME}
         component={MapStackNavigator}
         options={{title: '홈'}}
       />
       <Drawer.Screen
-        name="FeedHome"
+        name={mainNavigations.FEED}
         component={FeedHomeScreen}
         options={{title: '피드'}}
       />
       <Drawer.Screen
-        name="CalendarHome"
+        name={mainNavigations.CALENDAR}
         component={CalendarHomeScreen}
         options={{title: '캘린더'}}
       />

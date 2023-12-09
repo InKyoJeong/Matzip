@@ -2,13 +2,24 @@ import React from 'react';
 import {Pressable, StyleSheet, Text} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import {StackNavigationProp} from '@react-navigation/stack';
 
+import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import useAuth from '@/hooks/queries/useAuth';
 import {colors} from '@/constants';
 
-function MapHomeScreen({navigation}: any) {
+type Navigation = CompositeNavigationProp<
+  StackNavigationProp<MapStackParamList>,
+  DrawerNavigationProp<MainDrawerParamList>
+>;
+
+function MapHomeScreen() {
   const {logoutMutation} = useAuth();
   const insets = useSafeAreaInsets();
+  const navigation = useNavigation<Navigation>();
 
   //1: 나의 위치 구하기
   //2: 지도를 이동시키기
