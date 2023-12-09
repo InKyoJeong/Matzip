@@ -4,4 +4,8 @@ const authNaviagtions = {
   SIGNUP: 'Signup',
 } as const;
 
-export {authNaviagtions};
+const mapNavigations = {
+  MAP_HOME: 'MapHome',
+} as const;
+
+export {authNaviagtions, mapNavigations};
