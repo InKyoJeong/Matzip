@@ -12,7 +12,7 @@ export type MainDrawerParamList = {
   [mainNavigations.CALENDAR]: undefined;
 };
 
-const Drawer = createDrawerNavigator();
+const Drawer = createDrawerNavigator<MainDrawerParamList>();
 
 function MainDrawerNavigator() {
   return (
@@ -24,17 +24,23 @@ function MainDrawerNavigator() {
       <Drawer.Screen
         name={mainNavigations.HOME}
         component={MapStackNavigator}
-        options={{title: '홈'}}
+        options={{
+          title: '홈',
+        }}
       />
       <Drawer.Screen
         name={mainNavigations.FEED}
         component={FeedHomeScreen}
-        options={{title: '피드'}}
+        options={{
+          title: '피드',
+        }}
       />
       <Drawer.Screen
         name={mainNavigations.CALENDAR}
         component={CalendarHomeScreen}
-        options={{title: '캘린더'}}
+        options={{
+          title: '캘린더',
+        }}
       />
     </Drawer.Navigator>
   );

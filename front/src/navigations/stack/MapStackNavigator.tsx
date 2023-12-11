@@ -1,6 +1,8 @@
-import {mapNavigations} from '@/constants';
-import MapHomeScreen from '@/screens/map/MapHomeScreen';
+import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
+
+import MapHomeScreen from '@/screens/map/MapHomeScreen';
+import {mapNavigations} from '@/constants';
 
 export type MapStackParamList = {
   [mapNavigations.MAP_HOME]: undefined;

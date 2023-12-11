@@ -2,14 +2,14 @@ import React, {useRef} from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
 import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {DrawerNavigationProp} from '@react-navigation/drawer';
-import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
-import {StackNavigationProp} from '@react-navigation/stack';
 
-import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import useAuth from '@/hooks/queries/useAuth';
 import {colors} from '@/constants';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useUserLocation from '@/hooks/useUserLocation';
 
 type Navigation = CompositeNavigationProp<
@@ -18,10 +18,10 @@ type Navigation = CompositeNavigationProp<
 >;
 
 function MapHomeScreen() {
-  const mapRef = useRef<MapView | null>(null);
+  const inset = useSafeAreaInsets();
   const {logoutMutation} = useAuth();
-  const insets = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
+  const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
 
   const handleLogout = () => {
@@ -30,7 +30,7 @@ function MapHomeScreen() {
 
   const handlePressUserLocation = () => {
     if (isUserLocationError) {
-      // 에러메세지 표시하기
+      // 에러메세지를 표시하기
       return;
     }
 
@@ -53,7 +53,7 @@ function MapHomeScreen() {
         showsMyLocationButton={false}
       />
       <Pressable
-        style={[styles.drawerButton, {top: insets.top || 20}]}
+        style={[styles.drawerButton, {top: inset.top || 20}]}
         onPress={() => navigation.openDrawer()}>
         <Text>서랍</Text>
       </Pressable>
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     left: 0,
     paddingVertical: 10,
     paddingHorizontal: 12,
+    backgroundColor: colors.PINK_700,
     borderTopRightRadius: 50,
     borderBottomRightRadius: 50,
-    backgroundColor: colors.PINK_700,
     shadowColor: colors.BLACK,
     shadowOffset: {width: 1, height: 1},
     shadowOpacity: 0.5,
@@ -85,16 +85,16 @@ const styles = StyleSheet.create({
   },
   buttonList: {
     position: 'absolute',
-    bottom: 50,
+    bottom: 30,
     right: 15,
   },
   mapButton: {
+    backgroundColor: colors.PINK_700,
     marginVertical: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
     height: 48,
     width: 48,
-    backgroundColor: colors.PINK_700,
+    alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 30,
     shadowColor: colors.BLACK,
     shadowOffset: {width: 1, height: 2},
