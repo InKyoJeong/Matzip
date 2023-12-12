@@ -24,7 +24,7 @@ function MapHomeScreen() {
   const navigation = useNavigation<Navigation>();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
-  usePermission();
+  usePermission('LOCATION');
 
   const handleLogout = () => {
     logoutMutation.mutate(null);
