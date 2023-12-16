@@ -11,16 +11,16 @@ import {
 
 type PermissionType = 'LOCATION' | 'PHOTO';
 
-type PerssionOS = {
+type PermissionOS = {
   [key in PermissionType]: Permission;
 };
 
-const androidPermissons: PerssionOS = {
+const androidPermissons: PermissionOS = {
   LOCATION: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
   PHOTO: PERMISSIONS.ANDROID.READ_MEDIA_IMAGES,
 };
 
-const iosPermissons: PerssionOS = {
+const iosPermissons: PermissionOS = {
   LOCATION: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
   PHOTO: PERMISSIONS.IOS.PHOTO_LIBRARY,
 };
