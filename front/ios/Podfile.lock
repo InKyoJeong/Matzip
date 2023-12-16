@@ -526,7 +526,7 @@ PODS:
   - RNGestureHandler (2.13.4):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - RNPermissions (4.0.0):
+  - RNPermissions (4.0.1):
     - React-Core
   - RNReanimated (3.5.4):
     - DoubleConversion
@@ -820,7 +820,7 @@ SPEC CHECKSUMS:
   ReactCommon: dd03c17275c200496f346af93a7b94c53f3093a4
   RNCMaskedView: f7c74478c83c4fdfc5cf4df51f80c0dd5cf125c6
   RNGestureHandler: 6e46dde1f87e5f018a54fe5d40cd0e0b942b49ee
-  RNPermissions: f0f6dfc5028f8fcf79cb42f802ff6ff3bfdd4fc7
+  RNPermissions: a558af0eadfad85f0d5392820100066e54799dc9
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
   RNScreens: 3c2d122f5e08c192e254c510b212306da97d2581
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
