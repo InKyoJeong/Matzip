@@ -67,6 +67,7 @@ function MainDrawerNavigator() {
         component={MapStackNavigator}
         options={{
           title: '홈',
+          swipeEnabled: false,
         }}
       />
       <Drawer.Screen
