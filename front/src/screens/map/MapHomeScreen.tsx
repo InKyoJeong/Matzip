@@ -10,18 +10,17 @@ import MapView, {
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import useAuth from '@/hooks/queries/useAuth';
-import {colors} from '@/constants';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {DrawerNavigationProp} from '@react-navigation/drawer';
+
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
-import mapStyle from '@/style/mapStyle';
 import CustomMarker from '@/components/CustomMarker';
+import mapStyle from '@/style/mapStyle';
+import {colors} from '@/constants';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -30,16 +29,11 @@ type Navigation = CompositeNavigationProp<
 
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
-  const {logoutMutation} = useAuth();
   const navigation = useNavigation<Navigation>();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng>();
   usePermission('LOCATION');
-
-  const handleLogout = () => {
-    logoutMutation.mutate(null);
-  };
 
   const handleLongPressMapView = ({nativeEvent}: LongPressEvent) => {
     setSelectLocation(nativeEvent.coordinate);
