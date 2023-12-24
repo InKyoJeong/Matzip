@@ -72,15 +72,14 @@ function MapHomeScreen() {
         onLongPress={handleLongPressMapView}>
         <CustomMarker
           color="RED"
-          score={2}
           coordinate={{
             latitude: 37.5516032365118,
             longitude: 126.98989626020192,
           }}
         />
         <CustomMarker
-          color="YELLOW"
-          score={5}
+          color="BLUE"
+          score={1}
           coordinate={{
             latitude: 37.5616032365118,
             longitude: 126.98989626020192,

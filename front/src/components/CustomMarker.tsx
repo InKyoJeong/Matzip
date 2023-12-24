@@ -3,11 +3,11 @@ import {StyleSheet, View} from 'react-native';
 import {LatLng, MapMarkerProps, Marker} from 'react-native-maps';
 
 import {colors} from '@/constants';
-import type {MarkerColor} from '@/types';
+import {MarkerColor} from '@/types';
 
 interface CustomMarkerProps extends MapMarkerProps {
   coordinate: LatLng;
-  color?: MarkerColor;
+  color: MarkerColor;
   score?: number;
 }
 
@@ -21,7 +21,7 @@ const colorHex = {
 
 function CustomMarker({
   coordinate,
-  color = 'RED',
+  color,
   score = 5,
   ...props
 }: CustomMarkerProps) {
@@ -42,18 +42,18 @@ function CustomMarker({
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
     height: 35,
     width: 32,
+    alignItems: 'center',
   },
   marker: {
     transform: [{rotate: '45deg'}],
-    borderColor: colors.BLACK,
     width: 27,
     height: 27,
     borderRadius: 27,
     borderBottomRightRadius: 1,
     borderWidth: 1,
+    borderColor: colors.BLACK,
   },
   eye: {
     position: 'absolute',
@@ -72,8 +72,8 @@ const styles = StyleSheet.create({
   },
   mouth: {
     transform: [{rotate: '45deg'}],
-    borderBottomColor: 'rgba(255,255,255 / 0.01)',
     borderTopColor: 'rgba(255,255,255 / 0.01)',
+    borderBottomColor: 'rgba(255,255,255 / 0.01)',
     width: 12,
     height: 12,
     borderWidth: 1,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     marginTop: 13,
     width: 8,
     height: 8,
-    borderColor: colors.BLACK,
+    borderLeftColor: colors.BLACK,
     borderLeftWidth: 1,
     transform: [{rotate: '45deg'}],
   },
