@@ -49,12 +49,6 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
           <Text style={styles.nameText}>{nickname ?? email}</Text>
         </View>
         <DrawerItemList {...props} />
-
-        <Pressable
-          onPress={handleLogout}
-          style={{alignItems: 'flex-end', padding: 10}}>
-          <Text>로그아웃</Text>
-        </Pressable>
       </DrawerContentScrollView>
       <Pressable
         onPress={handleLogout}
