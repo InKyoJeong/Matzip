@@ -411,6 +411,9 @@ PODS:
     - React-Core
   - react-native-safe-area-context (4.7.4):
     - React-Core
+  - react-native-slider (4.5.0):
+    - RCT-Folly (= 2021.07.22.00)
+    - React-Core
   - React-NativeModulesApple (0.72.6):
     - hermes-engine
     - React-callinvoker
@@ -560,9 +563,6 @@ PODS:
   - RNScreens (3.27.0):
     - RCT-Folly (= 2021.07.22.00)
     - React-Core
-  - RNVectorIcons (10.0.3):
-    - RCT-Folly (= 2021.07.22.00)
-    - React-Core
   - SocketRocket (0.6.1)
   - Yoga (1.14.0)
   - YogaKit (1.18.1):
@@ -619,6 +619,7 @@ DEPENDENCIES:
   - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - "react-native-slider (from `../node_modules/@react-native-community/slider`)"
   - React-NativeModulesApple (from `../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -641,7 +642,6 @@ DEPENDENCIES:
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
-  - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
@@ -717,6 +717,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-maps"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-slider:
+    :path: "../node_modules/@react-native-community/slider"
   React-NativeModulesApple:
     :path: "../node_modules/react-native/ReactCommon/react/nativemodule/core/platform/ios"
   React-perflogger:
@@ -761,8 +763,6 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
-  RNVectorIcons:
-    :path: "../node_modules/react-native-vector-icons"
   Yoga:
     :path: "../node_modules/react-native/ReactCommon/yoga"
 
@@ -807,6 +807,7 @@ SPEC CHECKSUMS:
   react-native-google-maps: e63e064f77df4af32655d05fbcd2f1ad1078db4a
   react-native-maps: a5f431a3eaaef69f2e6f8d39901fb3f2e9de931e
   react-native-safe-area-context: 2cd91d532de12acdb0a9cbc8d43ac72a8e4c897c
+  react-native-slider: cc89964e1432fa31aa9db7a0fa9b21e26b5d5152
   React-NativeModulesApple: 02e35e9a51e10c6422f04f5e4076a7c02243fff2
   React-perflogger: e3596db7e753f51766bceadc061936ef1472edc3
   React-RCTActionSheet: 17ab132c748b4471012abbcdcf5befe860660485
@@ -829,7 +830,6 @@ SPEC CHECKSUMS:
   RNPermissions: a558af0eadfad85f0d5392820100066e54799dc9
   RNReanimated: ab2e96c6d5591c3dfbb38a464f54c8d17fb34a87
   RNScreens: 3c2d122f5e08c192e254c510b212306da97d2581
-  RNVectorIcons: 64e6a523ac30a3241efa9baf1ffbcc5e76ff747a
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
   Yoga: b76f1acfda8212aa16b7e26bcce3983230c82603
   YogaKit: f782866e155069a2cca2517aafea43200b01fd5a
