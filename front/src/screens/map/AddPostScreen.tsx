@@ -20,6 +20,7 @@ import {validateAddPost} from '@/utils';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {MarkerColor} from '@/types';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
+import useGetAddress from '@/hooks/useGetAddress';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -30,7 +31,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const {location} = route.params;
   const descriptionRef = useRef<TextInput | null>(null);
   const createPost = useMutateCreatePost();
-  const [address, setAddress] = useState('');
+  const address = useGetAddress(location);
   const addPost = useForm({
     initialValue: {
       title: '',
@@ -73,7 +74,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
         scrollIndicatorInsets={{right: 1}}>
         <View style={styles.inputContainer}>
           <InputField
-            value={''}
+            value={address}
             disabled={true}
             icon={
               <Octicons name="location" size={16} color={colors.GRAY_500} />
