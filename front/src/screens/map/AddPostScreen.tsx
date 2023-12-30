@@ -1,10 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
-  Text,
   TextInput,
   View,
 } from 'react-native';
@@ -22,6 +20,7 @@ import {MarkerColor} from '@/types';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
+import ScoreInput from '@/components/ScoreInput';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -45,6 +44,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   const handleSelectMarker = (name: MarkerColor) => {
     setMarkerColor(name);
+  };
+
+  const handleChangeScore = (value: number) => {
+    setScore(value);
   };
 
   const handleSubmit = () => {
@@ -107,9 +110,11 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             multiline
           />
           <MarkerSelector
+            score={score}
             markerColor={markerColor}
             onPressMarker={handleSelectMarker}
           />
+          <ScoreInput score={score} onChangeScore={handleChangeScore} />
         </View>
       </ScrollView>
     </SafeAreaView>

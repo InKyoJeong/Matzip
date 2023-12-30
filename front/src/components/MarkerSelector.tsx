@@ -15,6 +15,7 @@ import CustomMarker from './CustomMarker';
 interface MarkerSelectorProps extends PressableProps {
   markerColor: MarkerColor;
   onPressMarker: (name: MarkerColor) => void;
+  score?: number;
 }
 
 const categoryList: MarkerColor[] = [
@@ -25,7 +26,11 @@ const categoryList: MarkerColor[] = [
   'PURPLE',
 ];
 
-const MarkerSelector = ({markerColor, onPressMarker}: MarkerSelectorProps) => {
+const MarkerSelector = ({
+  markerColor,
+  score = 5,
+  onPressMarker,
+}: MarkerSelectorProps) => {
   return (
     <View style={styles.markerInputContainer}>
       <Text style={styles.markerLabel}>마커선택</Text>
@@ -40,7 +45,7 @@ const MarkerSelector = ({markerColor, onPressMarker}: MarkerSelectorProps) => {
                   markerColor === color && styles.pressedMarker,
                 ]}
                 onPress={() => onPressMarker(color)}>
-                <CustomMarker color={color} />
+                <CustomMarker color={color} score={score} />
               </Pressable>
             );
           })}
