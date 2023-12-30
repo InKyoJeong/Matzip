@@ -21,6 +21,7 @@ import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {MarkerColor} from '@/types';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import useGetAddress from '@/hooks/useGetAddress';
+import MarkerSelector from '@/components/MarkerSelector';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -41,6 +42,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   });
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
+
+  const handleSelectMarker = (name: MarkerColor) => {
+    setMarkerColor(name);
+  };
 
   const handleSubmit = () => {
     const body = {
@@ -100,6 +105,10 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             placeholder="기록하고 싶은 내용을 입력하세요. (선택)"
             returnKeyType="next"
             multiline
+          />
+          <MarkerSelector
+            markerColor={markerColor}
+            onPressMarker={handleSelectMarker}
           />
         </View>
       </ScrollView>
