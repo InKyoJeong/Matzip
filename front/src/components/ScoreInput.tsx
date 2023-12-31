@@ -24,7 +24,7 @@ function ScoreInput({score, onChangeScore}: ScoreInputProps) {
         maximumValue={5}
         minimumTrackTintColor={colors.PINK_700}
         maximumTrackTintColor={colors.GRAY_300}
-        thumbTintColor={colors.GRAY_300}
+        thumbTintColor={colors.GRAY_100}
       />
     </View>
   );

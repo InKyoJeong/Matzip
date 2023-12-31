@@ -64,7 +64,6 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
       {address, ...location, ...body},
       {
         onSuccess: () => navigation.goBack(),
-        onError: error => console.log(error.response?.data.message),
       },
     );
   };
@@ -77,9 +76,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <ScrollView
-        style={styles.contentContainer}
-        scrollIndicatorInsets={{right: 1}}>
+      <ScrollView style={styles.contentContainer}>
         <View style={styles.inputContainer}>
           <InputField
             value={address}
