@@ -14,7 +14,7 @@ import {colors, mapNavigations} from '@/constants';
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
 import useForm from '@/hooks/useForm';
-import {validateAddPost} from '@/utils';
+import {getDateWithSeparator, validateAddPost} from '@/utils';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {MarkerColor} from '@/types';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
@@ -74,7 +74,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   const handleSubmit = () => {
     const body = {
-      date: new Date(),
+      date,
       title: addPost.values.title,
       description: addPost.values.description,
       color: markerColor,
@@ -110,7 +110,9 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
           <CustomButton
             variant="outlined"
             size="large"
-            label={'날짜 선택'}
+            label={
+              isPicked ? `${getDateWithSeparator(date, '. ')}` : '날짜 선택'
+            }
             onPress={show}
           />
           <InputField
