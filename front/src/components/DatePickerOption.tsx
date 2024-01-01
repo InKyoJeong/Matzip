@@ -24,7 +24,7 @@ function DatePickerOption({
   onConfirmDate,
 }: DatePickerOptionProps) {
   return (
-    <Modal visible={isVisible} transparent={true} animationType={'fade'}>
+    <Modal visible={isVisible} transparent={true} animationType={'slide'}>
       <SafeAreaView style={[styles.optionBackground, styles.dimmed]}>
         <View style={styles.optionContainer}>
           <View style={styles.pickerContainer}>
