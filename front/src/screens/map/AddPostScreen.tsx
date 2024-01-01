@@ -23,6 +23,8 @@ import DatePickerOption from '@/components/DatePickerOption';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors, mapNavigations} from '@/constants';
 import {MarkerColor} from '@/types';
+import ImageInput from '@/components/ImageInput';
+import usePermission from '@/hooks/usePermission';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -46,6 +48,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const [isPicked, setIsPicked] = useState(false);
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
+  usePermission('PHOTO');
 
   const handleChangeDate = (pickedDate: Date) => {
     setDate(pickedDate);
@@ -133,6 +136,8 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             onPressMarker={handleSelectMarker}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
+          <ImageInput onChange={() => {}} />
+
           <DatePickerOption
             date={date}
             isVisible={datePickerModal.isVisible}
