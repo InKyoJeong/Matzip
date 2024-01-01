@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {Alert, LayoutAnimation} from 'react-native';
+import {Alert} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
 import useMutateImages from './queries/useMutateImages';
@@ -33,8 +33,6 @@ function useImagePicker({initialImages = []}: UseImagePickerProps) {
     const [removedImage] = copyImageUris.splice(fromIndex, 1);
     copyImageUris.splice(toIndex, 0, removedImage);
     setImageUris(copyImageUris);
-
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
 
   const handleChange = () => {
