@@ -1,9 +1,9 @@
 import {useState} from 'react';
-import {Alert} from 'react-native';
+import {Alert, LayoutAnimation} from 'react-native';
 import ImagePicker from 'react-native-image-crop-picker';
 
-import type {ImageUri} from '@/types';
 import useMutateImages from './queries/useMutateImages';
+import type {ImageUri} from '@/types';
 import {getFormDataImages} from '@/utils';
 
 interface UseImagePickerProps {
@@ -21,6 +21,20 @@ function useImagePicker({initialImages = []}: UseImagePickerProps) {
     }
 
     setImageUris(prev => [...prev, ...uris.map(uri => ({uri}))]);
+  };
+
+  const deleteImageUri = (uri: string) => {
+    const newImageUris = imageUris.filter(image => image.uri !== uri);
+    setImageUris(newImageUris);
+  };
+
+  const changeImageUrisOrder = (fromIndex: number, toIndex: number) => {
+    const copyImageUris = [...imageUris];
+    const [removedImage] = copyImageUris.splice(fromIndex, 1);
+    copyImageUris.splice(toIndex, 0, removedImage);
+    setImageUris(copyImageUris);
+
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   };
 
   const handleChange = () => {
@@ -49,6 +63,8 @@ function useImagePicker({initialImages = []}: UseImagePickerProps) {
   return {
     imageUris,
     handleChange,
+    delete: deleteImageUri,
+    changeOrder: changeImageUrisOrder,
     isUploading: uploadImages.isPending,
   };
 }
