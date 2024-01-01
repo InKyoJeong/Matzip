@@ -22,6 +22,7 @@ import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
 import DatePickerOption from '@/components/DatePickerOption';
+import useModal from '@/hooks/useModal';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -40,20 +41,11 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
     },
     validate: validateAddPost,
   });
+  const datePickerModal = useModal();
   const [date, setDate] = useState(new Date());
   const [isPicked, setIsPicked] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
-
-  const show = () => {
-    setIsVisible(true);
-  };
-
-  const hide = () => {
-    setIsVisible(false);
-  };
 
   const handleChangeDate = (pickedDate: Date) => {
     setDate(pickedDate);
@@ -61,7 +53,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
 
   const handleConfirmDate = () => {
     setIsPicked(true);
-    hide();
+    datePickerModal.hide();
   };
 
   const handleSelectMarker = (name: MarkerColor) => {
@@ -113,7 +105,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             label={
               isPicked ? `${getDateWithSeparator(date, '. ')}` : '날짜 선택'
             }
-            onPress={show}
+            onPress={datePickerModal.show}
           />
           <InputField
             {...addPost.getTextInputProps('title')}
@@ -143,7 +135,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
           <DatePickerOption
             date={date}
-            isVisible={isVisible}
+            isVisible={datePickerModal.isVisible}
             onChangeDate={handleChangeDate}
             onConfirmDate={handleConfirmDate}
           />
