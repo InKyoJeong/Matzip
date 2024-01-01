@@ -10,19 +10,19 @@ import {StackScreenProps} from '@react-navigation/stack';
 import Octicons from 'react-native-vector-icons/Octicons';
 
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
-import {colors, mapNavigations} from '@/constants';
+import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
+import useGetAddress from '@/hooks/useGetAddress';
+import useModal from '@/hooks/useModal';
+import useForm from '@/hooks/useForm';
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
-import useForm from '@/hooks/useForm';
-import {getDateWithSeparator, validateAddPost} from '@/utils';
-import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
-import {MarkerColor} from '@/types';
 import AddPostHeaderRight from '@/components/AddPostHeaderRight';
-import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
 import DatePickerOption from '@/components/DatePickerOption';
-import useModal from '@/hooks/useModal';
+import {getDateWithSeparator, validateAddPost} from '@/utils';
+import {colors, mapNavigations} from '@/constants';
+import {MarkerColor} from '@/types';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
