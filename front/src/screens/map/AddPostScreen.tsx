@@ -28,6 +28,7 @@ import {MarkerColor} from '@/types';
 import ImageInput from '@/components/ImageInput';
 import usePermission from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagePicker';
+import PreviewImageList from '@/components/PreviewImageList';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -146,24 +147,7 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
           <View style={styles.imagesViewer}>
             <ImageInput onChange={imagePicker.handleChange} />
-
-            <View style={{width: 70, height: 70}}>
-              {imagePicker.imageUris.map(({uri}, index) => {
-                return (
-                  <Image
-                    key={index}
-                    source={{
-                      uri: `${
-                        Platform.OS === 'ios'
-                          ? 'http://localhost:3030/'
-                          : 'http://10.0.2.2:3030/'
-                      }${uri}`,
-                    }}
-                    style={{width: '100%', height: '100%'}}
-                  />
-                );
-              })}
-            </View>
+            <PreviewImageList imageUris={imagePicker.imageUris} />
           </View>
           <DatePickerOption
             date={date}
