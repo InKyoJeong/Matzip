@@ -21,6 +21,7 @@ import AddPostHeaderRight from '@/components/AddPostHeaderRight';
 import useGetAddress from '@/hooks/useGetAddress';
 import MarkerSelector from '@/components/MarkerSelector';
 import ScoreInput from '@/components/ScoreInput';
+import DatePickerOption from '@/components/DatePickerOption';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -39,8 +40,29 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
     },
     validate: validateAddPost,
   });
+  const [date, setDate] = useState(new Date());
+  const [isPicked, setIsPicked] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
+
+  const show = () => {
+    setIsVisible(true);
+  };
+
+  const hide = () => {
+    setIsVisible(false);
+  };
+
+  const handleChangeDate = (pickedDate: Date) => {
+    setDate(pickedDate);
+  };
+
+  const handleConfirmDate = () => {
+    setIsPicked(true);
+    hide();
+  };
 
   const handleSelectMarker = (name: MarkerColor) => {
     setMarkerColor(name);
@@ -85,7 +107,12 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
               <Octicons name="location" size={16} color={colors.GRAY_500} />
             }
           />
-          <CustomButton variant="outlined" size="large" label={'날짜 선택'} />
+          <CustomButton
+            variant="outlined"
+            size="large"
+            label={'날짜 선택'}
+            onPress={show}
+          />
           <InputField
             {...addPost.getTextInputProps('title')}
             error={addPost.errors.title}
@@ -112,6 +139,12 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             onPressMarker={handleSelectMarker}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
+          <DatePickerOption
+            date={date}
+            isVisible={isVisible}
+            onChangeDate={handleChangeDate}
+            onConfirmDate={handleConfirmDate}
+          />
         </View>
       </ScrollView>
     </SafeAreaView>
