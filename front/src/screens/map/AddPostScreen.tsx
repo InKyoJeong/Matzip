@@ -1,5 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {
+  Image,
+  Platform,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -25,6 +27,7 @@ import {colors, mapNavigations} from '@/constants';
 import {MarkerColor} from '@/types';
 import ImageInput from '@/components/ImageInput';
 import usePermission from '@/hooks/usePermission';
+import useImagePicker from '@/hooks/useImagePicker';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,
@@ -48,6 +51,11 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const [isPicked, setIsPicked] = useState(false);
   const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
   const [score, setScore] = useState(5);
+  const imagePicker = useImagePicker({
+    initialImages: [],
+  });
+
+  console.log('imagePicker.imageUris', imagePicker.imageUris);
   usePermission('PHOTO');
 
   const handleChangeDate = (pickedDate: Date) => {
@@ -136,8 +144,27 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
             onPressMarker={handleSelectMarker}
           />
           <ScoreInput score={score} onChangeScore={handleChangeScore} />
-          <ImageInput onChange={() => {}} />
+          <View style={styles.imagesViewer}>
+            <ImageInput onChange={imagePicker.handleChange} />
 
+            <View style={{width: 70, height: 70}}>
+              {imagePicker.imageUris.map(({uri}, index) => {
+                return (
+                  <Image
+                    key={index}
+                    source={{
+                      uri: `${
+                        Platform.OS === 'ios'
+                          ? 'http://localhost:3030/'
+                          : 'http://10.0.2.2:3030/'
+                      }${uri}`,
+                    }}
+                    style={{width: '100%', height: '100%'}}
+                  />
+                );
+              })}
+            </View>
+          </View>
           <DatePickerOption
             date={date}
             isVisible={datePickerModal.isVisible}
@@ -162,6 +189,9 @@ const styles = StyleSheet.create({
   inputContainer: {
     gap: 20,
     marginBottom: 20,
+  },
+  imagesViewer: {
+    flexDirection: 'row',
   },
 });
 
