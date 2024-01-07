@@ -3,12 +3,14 @@ import {
   Dimensions,
   Image,
   Modal,
+  Pressable,
   SafeAreaView,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 import Octicons from 'react-native-vector-icons/Octicons';
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import useGetPost from '@/hooks/queries/useGetPost';
 import {colors} from '@/constants';
@@ -31,7 +33,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   return (
     <Modal visible={isVisible} transparent={true} animationType={'slide'}>
       <SafeAreaView style={[styles.optionBackground]} onTouchEnd={hide}>
-        <View style={styles.cardContainer}>
+        <Pressable style={styles.cardContainer} onPress={() => {}}>
           <View style={styles.cardInner}>
             <View style={styles.cardAlign}>
               {post.images.length > 0 && (
@@ -67,8 +69,16 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
                 </Text>
               </View>
             </View>
+
+            <View style={styles.nextButton}>
+              <MaterialIcons
+                name="arrow-forward-ios"
+                size={20}
+                color={colors.BLACK}
+              />
+            </View>
           </View>
-        </View>
+        </Pressable>
       </SafeAreaView>
     </Modal>
   );
@@ -142,6 +152,13 @@ const styles = StyleSheet.create({
     fontSize: 12,
     fontWeight: 'bold',
     color: colors.PINK_700,
+  },
+  nextButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'center',
   },
 });
 
