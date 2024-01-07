@@ -1,5 +1,5 @@
 import React, {useRef, useState} from 'react';
-import {Alert, Pressable, StyleSheet, Text, View} from 'react-native';
+import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import MapView, {
   Callout,
   LatLng,
@@ -16,12 +16,14 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {MapStackParamList} from '@/navigations/stack/MapStackNavigator';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import useModal from '@/hooks/useModal';
+import useGetMarkers from '@/hooks/queries/useGetMarkers';
 import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
 import CustomMarker from '@/components/CustomMarker';
+import MarkerModal from '@/components/MarkerModal';
 import mapStyle from '@/style/mapStyle';
 import {alerts, colors, mapNavigations} from '@/constants';
-import useGetMarkers from '@/hooks/queries/useGetMarkers';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -34,6 +36,8 @@ function MapHomeScreen() {
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
+  const [markerId, setMarkerId] = useState<number | null>(null);
+  const markerModal = useModal();
   const {data: markers = []} = useGetMarkers();
   usePermission('LOCATION');
 
@@ -45,7 +49,9 @@ function MapHomeScreen() {
     });
   };
 
-  const handlePressMarker = (coordinate: LatLng) => {
+  const handlePressMarker = (id: number, coordinate: LatLng) => {
+    setMarkerId(id);
+    markerModal.show();
     moveMapView(coordinate);
   };
 
@@ -98,7 +104,7 @@ function MapHomeScreen() {
             color={color}
             score={score}
             coordinate={coordinate}
-            onPress={() => handlePressMarker(coordinate)}
+            onPress={() => handlePressMarker(id, coordinate)}
           />
         ))}
         {selectLocation && (
@@ -121,6 +127,12 @@ function MapHomeScreen() {
           <MaterialIcons name="my-location" color={colors.WHITE} size={25} />
         </Pressable>
       </View>
+
+      <MarkerModal
+        markerId={markerId}
+        isVisible={markerModal.isVisible}
+        hide={markerModal.hide}
+      />
     </>
   );
 }
