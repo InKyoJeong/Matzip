@@ -3,6 +3,7 @@ import {
   Dimensions,
   Image,
   Modal,
+  Platform,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -25,10 +26,10 @@ interface MarkerModalProps {
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   const {data: post, isPending, isError} = useGetPost(markerId);
-
   if (isPending || isError) {
     return <></>;
   }
+  console.log('post.images', post.images);
 
   return (
     <Modal visible={isVisible} transparent={true} animationType={'slide'}>
@@ -41,7 +42,11 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
                   <Image
                     style={styles.image}
                     source={{
-                      uri: post.images[0]?.uri,
+                      uri: `${
+                        Platform.OS === 'ios'
+                          ? 'http://localhost:3030/'
+                          : 'http://10.0.2.2:3030/'
+                      }${post.images[0]?.uri}`,
                     }}
                     resizeMode="cover"
                   />
