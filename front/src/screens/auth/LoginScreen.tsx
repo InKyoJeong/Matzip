@@ -16,7 +16,6 @@ function LoginScreen() {
   });
 
   const handleSubmit = () => {
-    console.log('login.values', login.values);
     loginMutation.mutate(login.values);
   };
 

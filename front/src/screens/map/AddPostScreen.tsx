@@ -55,8 +55,6 @@ function AddPostScreen({route, navigation}: AddPostScreenProps) {
   const imagePicker = useImagePicker({
     initialImages: [],
   });
-
-  console.log('imagePicker.imageUris', imagePicker.imageUris);
   usePermission('PHOTO');
 
   const handleChangeDate = (pickedDate: Date) => {

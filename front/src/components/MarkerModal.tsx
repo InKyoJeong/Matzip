@@ -29,7 +29,6 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   if (isPending || isError) {
     return <></>;
   }
-  console.log('post.images', post.images);
 
   return (
     <Modal visible={isVisible} transparent={true} animationType={'slide'}>
