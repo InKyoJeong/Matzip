@@ -4,9 +4,9 @@ import {NavigatorScreenParams, RouteProp} from '@react-navigation/native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import CustomDrawerContent from './CustomDrawerContent';
-import FeedHomeScreen from '@/screens/feed/FeedHomeScreen';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
+import FeedStackNavigator from '../stack/FeedStackNavigator';
 import {colors, mainNavigations} from '@/constants';
 
 export type MainDrawerParamList = {
@@ -74,7 +74,7 @@ function MainDrawerNavigator() {
       />
       <Drawer.Screen
         name={mainNavigations.FEED}
-        component={FeedHomeScreen}
+        component={FeedStackNavigator}
         options={{
           title: '피드',
         }}
