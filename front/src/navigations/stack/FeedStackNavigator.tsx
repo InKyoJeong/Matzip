@@ -32,12 +32,13 @@ function FeedStackNavigator() {
       <Stack.Screen
         name={feedNavigations.FEED_HOME}
         component={FeedHomeScreen}
-        options={{
+        options={({navigation}) => ({
           headerTitle: '피드',
+          headerLeft: () => FeedHomeHeaderLeft(navigation),
           cardStyle: {
             backgroundColor: colors.WHITE,
           },
-        }}
+        })}
       />
       <Stack.Screen
         name={feedNavigations.FEED_DETAIL}
