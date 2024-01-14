@@ -18,6 +18,7 @@ import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import useGetPost from '@/hooks/queries/useGetPost';
 import {colorHex, colors, feedNavigations} from '@/constants';
 import {getDateLocaleFormat} from '@/utils';
+import PreviewImageList from '@/components/common/PreviewImageList';
 
 type FeedDetailScreenProps = StackScreenProps<
   FeedStackParamList,
@@ -115,6 +116,12 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
         </View>
         <Text style={styles.descriptionText}>{post.description}</Text>
       </View>
+
+      {post.images.length > 0 && (
+        <View style={styles.imageContentsContainer}>
+          <PreviewImageList imageUris={post.images} />
+        </View>
+      )}
     </ScrollView>
   );
 }
@@ -201,6 +208,11 @@ const styles = StyleSheet.create({
     color: colors.BLACK,
     lineHeight: 25,
     fontSize: 16,
+  },
+  imageContentsContainer: {
+    paddingVertical: 15,
+    backgroundColor: colors.WHITE,
+    marginBottom: 10,
   },
 });
 
