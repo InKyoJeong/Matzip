@@ -17,6 +17,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import useGetPost from '@/hooks/queries/useGetPost';
 import {colorHex, colors, feedNavigations} from '@/constants';
+import {getDateLocaleFormat} from '@/utils';
 
 type FeedDetailScreenProps = StackScreenProps<
   FeedStackParamList,
@@ -92,7 +93,7 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
             <View style={styles.infoColumn}>
               <Text style={styles.infoColumnKeyText}>방문날짜</Text>
               <Text style={styles.infoColumnValueText}>
-                {/* {getDateLocaleFormat(post.date)} */}
+                {getDateLocaleFormat(post.date)}
               </Text>
             </View>
             <View style={styles.infoColumn}>
