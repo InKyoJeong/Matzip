@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import {Alert, Pressable, StyleSheet, View} from 'react-native';
 import MapView, {
   Callout,
@@ -24,7 +24,6 @@ import CustomMarker from '@/components/common/CustomMarker';
 import MarkerModal from '@/components/map/MarkerModal';
 import mapStyle from '@/style/mapStyle';
 import {alerts, colors, mapNavigations} from '@/constants';
-import useLocationStore from '@/store/useLocationStore';
 import useMoveMapView from '@/hooks/useMoveMapView';
 
 type Navigation = CompositeNavigationProp<
@@ -40,7 +39,6 @@ function MapHomeScreen() {
   const [markerId, setMarkerId] = useState<number | null>(null);
   const markerModal = useModal();
   const {data: markers = []} = useGetMarkers();
-  const {moveLocation} = useLocationStore();
   const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
   usePermission('LOCATION');
 
