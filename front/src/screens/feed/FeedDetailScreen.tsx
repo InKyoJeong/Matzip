@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   emptyImageContainer: {
-    height: Dimensions.get('screen').width / 1.5,
+    height: Dimensions.get('screen').width,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: colors.GRAY_200,
