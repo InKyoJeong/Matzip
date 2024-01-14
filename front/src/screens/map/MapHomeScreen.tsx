@@ -20,8 +20,8 @@ import useModal from '@/hooks/useModal';
 import useGetMarkers from '@/hooks/queries/useGetMarkers';
 import useUserLocation from '@/hooks/useUserLocation';
 import usePermission from '@/hooks/usePermission';
-import CustomMarker from '@/components/CustomMarker';
-import MarkerModal from '@/components/MarkerModal';
+import CustomMarker from '@/components/common/CustomMarker';
+import MarkerModal from '@/components/map/MarkerModal';
 import mapStyle from '@/style/mapStyle';
 import {alerts, colors, mapNavigations} from '@/constants';
 

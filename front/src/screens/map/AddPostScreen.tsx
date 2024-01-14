@@ -16,19 +16,19 @@ import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import useGetAddress from '@/hooks/useGetAddress';
 import useModal from '@/hooks/useModal';
 import useForm from '@/hooks/useForm';
-import InputField from '@/components/InputField';
-import CustomButton from '@/components/CustomButton';
-import AddPostHeaderRight from '@/components/AddPostHeaderRight';
-import MarkerSelector from '@/components/MarkerSelector';
-import ScoreInput from '@/components/ScoreInput';
-import DatePickerOption from '@/components/DatePickerOption';
+import InputField from '@/components/common/InputField';
+import CustomButton from '@/components/common/CustomButton';
+import AddPostHeaderRight from '@/components/post/AddPostHeaderRight';
+import MarkerSelector from '@/components/post/MarkerSelector';
+import ScoreInput from '@/components/post/ScoreInput';
+import DatePickerOption from '@/components/post/DatePickerOption';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors, mapNavigations} from '@/constants';
 import {MarkerColor} from '@/types';
-import ImageInput from '@/components/ImageInput';
+import ImageInput from '@/components/post/ImageInput';
 import usePermission from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagePicker';
-import PreviewImageList from '@/components/PreviewImageList';
+import PreviewImageList from '@/components/common/PreviewImageList';
 
 type AddPostScreenProps = StackScreenProps<
   MapStackParamList,

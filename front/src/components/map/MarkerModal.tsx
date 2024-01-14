@@ -16,7 +16,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import useGetPost from '@/hooks/queries/useGetPost';
 import {colors} from '@/constants';
 import {getDateWithSeparator} from '@/utils';
-import CustomMarker from './CustomMarker';
+import CustomMarker from '../common/CustomMarker';
 
 interface MarkerModalProps {
   markerId: number | null;
