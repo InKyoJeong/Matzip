@@ -1,13 +1,12 @@
-import {
-  InfiniteData,
-  QueryKey,
-  useInfiniteQuery,
-  UseInfiniteQueryOptions,
-} from '@tanstack/react-query';
-
 import {ResponsePost, getPosts} from '@/api';
 import {queryKeys} from '@/constants';
 import {ResponseError} from '@/types';
+import {
+  InfiniteData,
+  QueryKey,
+  UseInfiniteQueryOptions,
+  useInfiniteQuery,
+} from '@tanstack/react-query';
 
 function useGetInfinitePosts(
   queryOptions?: UseInfiniteQueryOptions<

@@ -3,15 +3,13 @@ import {
   Dimensions,
   Image,
   Platform,
-  Pressable,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
-
-import {getDateWithSeparator} from '@/utils';
+import {ResponsePost} from '@/api';
 import {colors} from '@/constants';
-import type {ResponsePost} from '@/api';
+import {getDateWithSeparator} from '@/utils';
 
 interface FeedItemProps {
   post: ResponsePost;
@@ -20,43 +18,38 @@ interface FeedItemProps {
 function FeedItem({post}: FeedItemProps) {
   return (
     <View style={styles.container}>
-      <Pressable>
-        <View>
-          {post.images.length > 0 && (
-            <View key={post.id} style={styles.imageContainer}>
-              <Image
-                style={styles.image}
-                source={{
-                  uri: `${
-                    Platform.OS === 'ios'
-                      ? 'http://localhost:3030/'
-                      : 'http://10.0.2.2:3030/'
-                  }${post.images[0]?.uri}`,
-                }}
-                resizeMode="cover"
-              />
-            </View>
-          )}
-          {post.images.length === 0 && (
-            <View style={[styles.imageContainer, styles.emptyImageContainer]}>
-              <Text style={styles.descriptionText}>No Image</Text>
-            </View>
-          )}
-
-          <View style={styles.textContainer}>
-            <Text style={styles.dateText}>
-              {getDateWithSeparator(post.date, '/')}
-            </Text>
-            <Text style={styles.titleText}>{post.title}</Text>
-            <Text
-              numberOfLines={1}
-              ellipsizeMode="tail"
-              style={styles.descriptionText}>
-              {post.description}
-            </Text>
+      <View>
+        {post.images.length > 0 && (
+          <View key={post.id} style={styles.imageContainer}>
+            <Image
+              style={styles.image}
+              source={{
+                uri: `${
+                  Platform.OS === 'ios'
+                    ? 'http://localhost:3030/'
+                    : 'http://10.0.2.2:3030/'
+                }${post.images[0]?.uri}`,
+              }}
+              resizeMode="cover"
+            />
           </View>
+        )}
+        {post.images.length === 0 && (
+          <View style={[styles.imageContainer, styles.emptyImageContainer]}>
+            <Text style={styles.descriptionText}>No Image</Text>
+          </View>
+        )}
+
+        <View style={styles.textContainer}>
+          <Text style={styles.dateText}>
+            {getDateWithSeparator(post.date, '/')}
+          </Text>
+          <Text style={styles.titleText}>{post.title}</Text>
+          <Text style={styles.descriptionText} numberOfLines={1}>
+            {post.description}
+          </Text>
         </View>
-      </Pressable>
+      </View>
     </View>
   );
 }
@@ -79,7 +72,7 @@ const styles = StyleSheet.create({
   emptyImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.GRAY_200,
+    borderColor: colors.GRAY_500,
     borderRadius: 5,
     borderWidth: 1,
   },
