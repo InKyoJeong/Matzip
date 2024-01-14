@@ -25,6 +25,7 @@ import MarkerModal from '@/components/map/MarkerModal';
 import mapStyle from '@/style/mapStyle';
 import {alerts, colors, mapNavigations} from '@/constants';
 import useLocationStore from '@/store/useLocationStore';
+import useMoveMapView from '@/hooks/useMoveMapView';
 
 type Navigation = CompositeNavigationProp<
   StackNavigationProp<MapStackParamList>,
@@ -34,22 +35,14 @@ type Navigation = CompositeNavigationProp<
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const navigation = useNavigation<Navigation>();
-  const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
   const [markerId, setMarkerId] = useState<number | null>(null);
   const markerModal = useModal();
   const {data: markers = []} = useGetMarkers();
   const {moveLocation} = useLocationStore();
+  const {mapRef, moveMapView} = useMoveMapView();
   usePermission('LOCATION');
-
-  const moveMapView = (coordinate: LatLng) => {
-    mapRef.current?.animateToRegion({
-      ...coordinate,
-      latitudeDelta: 0.0922,
-      longitudeDelta: 0.0421,
-    });
-  };
 
   const handlePressMarker = (id: number, coordinate: LatLng) => {
     setMarkerId(id);
@@ -83,10 +76,6 @@ function MapHomeScreen() {
 
     moveMapView(userLocation);
   };
-
-  useEffect(() => {
-    moveLocation && moveMapView(moveLocation);
-  }, [moveLocation]);
 
   return (
     <>
