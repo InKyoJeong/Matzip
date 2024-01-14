@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   emptyImageContainer: {
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: colors.GRAY_500,
+    borderColor: colors.GRAY_200,
     borderRadius: 5,
     borderWidth: 1,
   },
