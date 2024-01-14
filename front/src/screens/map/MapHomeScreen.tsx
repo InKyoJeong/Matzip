@@ -41,7 +41,7 @@ function MapHomeScreen() {
   const markerModal = useModal();
   const {data: markers = []} = useGetMarkers();
   const {moveLocation} = useLocationStore();
-  const {mapRef, moveMapView} = useMoveMapView();
+  const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
   usePermission('LOCATION');
 
   const handlePressMarker = (id: number, coordinate: LatLng) => {
@@ -88,6 +88,7 @@ function MapHomeScreen() {
         showsMyLocationButton={false}
         customMapStyle={mapStyle}
         onLongPress={handleLongPressMapView}
+        onRegionChangeComplete={handleChangeDelta}
         region={{
           ...userLocation,
           latitudeDelta: 0.0922,
