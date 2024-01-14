@@ -19,4 +19,12 @@ const colors = {
   BLACK: '#000',
 };
 
-export {colors};
+const colorHex = {
+  RED: colors.PINK_400,
+  BLUE: colors.BLUE_400,
+  GREEN: colors.GREEN_400,
+  YELLOW: colors.YELLOW_400,
+  PURPLE: colors.PURPLE_400,
+} as const;
+
+export {colors, colorHex};
