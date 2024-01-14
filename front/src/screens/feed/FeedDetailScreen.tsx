@@ -3,7 +3,6 @@ import {
   Dimensions,
   Image,
   Platform,
-  Pressable,
   SafeAreaView,
   ScrollView,
   StyleSheet,
@@ -34,7 +33,7 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
   }
 
   return (
-    <ScrollView style={styles.relativeContainer}>
+    <ScrollView style={styles.container}>
       <SafeAreaView style={styles.header}>
         <View
           style={{
@@ -127,7 +126,7 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
 }
 
 const styles = StyleSheet.create({
-  relativeContainer: {
+  container: {
     position: 'relative',
   },
   header: {
