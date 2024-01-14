@@ -6,12 +6,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import CustomDrawerContent from './CustomDrawerContent';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
 import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
-import FeedStackNavigator from '../stack/FeedStackNavigator';
+import FeedStackNavigator, {
+  FeedStackParamList,
+} from '../stack/FeedStackNavigator';
 import {colors, mainNavigations} from '@/constants';
 
 export type MainDrawerParamList = {
   [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
-  [mainNavigations.FEED]: undefined;
+  [mainNavigations.FEED]: NavigatorScreenParams<FeedStackParamList>;
   [mainNavigations.CALENDAR]: undefined;
 };
 

@@ -12,14 +12,16 @@ import {
 } from 'react-native';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import useGetPost from '@/hooks/queries/useGetPost';
-import {colors, feedNavigations} from '@/constants';
-import {getDateWithSeparator} from '@/utils';
-import CustomMarker from '../common/CustomMarker';
-import {useNavigation} from '@react-navigation/native';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import useGetPost from '@/hooks/queries/useGetPost';
+import CustomMarker from '../common/CustomMarker';
+import {colors, feedNavigations, mainNavigations} from '@/constants';
+import {getDateWithSeparator} from '@/utils';
 
 interface MarkerModalProps {
   markerId: number | null;
@@ -27,7 +29,10 @@ interface MarkerModalProps {
   hide: () => void;
 }
 
-type Navigation = StackNavigationProp<FeedStackParamList>;
+type Navigation = CompositeNavigationProp<
+  DrawerNavigationProp<MainDrawerParamList>,
+  StackNavigationProp<FeedStackParamList>
+>;
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   const navigation = useNavigation<Navigation>();
@@ -37,8 +42,12 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   }
 
   const handlePressModal = () => {
-    navigation.navigate(feedNavigations.FEED_DETAIL, {
-      id: post.id,
+    navigation.navigate(mainNavigations.FEED, {
+      screen: feedNavigations.FEED_DETAIL,
+      params: {
+        id: post.id,
+      },
+      initial: false,
     });
   };
 
