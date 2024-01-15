@@ -9,9 +9,9 @@ import {
   Text,
   View,
 } from 'react-native';
-import {StackScreenProps} from '@react-navigation/stack';
 import Octicons from 'react-native-vector-icons/Octicons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import {StackScreenProps} from '@react-navigation/stack';
 
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import useGetPost from '@/hooks/queries/useGetPost';
@@ -34,29 +34,19 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
 
   return (
     <ScrollView style={styles.container}>
-      <SafeAreaView style={styles.header}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            paddingHorizontal: 15,
-            paddingVertical: 10,
-          }}>
+      <SafeAreaView style={styles.headerContainer}>
+        <View style={styles.header}>
           <Octicons
             name="arrow-left"
             size={30}
             color={colors.WHITE}
             onPress={() => navigation.goBack()}
           />
-          <Ionicons
-            name="ellipsis-vertical"
-            size={30}
-            color={colors.WHITE}
-            onPress={() => {}}
-          />
+          <Ionicons name="ellipsis-vertical" size={30} color={colors.WHITE} />
         </View>
       </SafeAreaView>
-      <View key={post.id} style={styles.imageContainer}>
+
+      <View style={styles.imageContainer}>
         {post.images.length > 0 && (
           <Image
             style={styles.image}
@@ -129,11 +119,17 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
   },
-  header: {
-    position: 'absolute',
+  headerContainer: {
     top: 0,
     zIndex: 1,
     width: '100%',
+    position: 'absolute',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   imageContainer: {
     width: Dimensions.get('screen').width,
@@ -185,13 +181,6 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 10,
-  },
-  emptyCategoryContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: colors.GRAY_300,
-    padding: 2,
-    borderRadius: 2,
   },
   addressContainer: {
     gap: 5,

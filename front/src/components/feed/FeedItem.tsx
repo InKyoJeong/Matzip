@@ -19,8 +19,10 @@ interface FeedItemProps {
   post: ResponsePost;
 }
 
+type Navigation = StackNavigationProp<FeedStackParamList>;
+
 function FeedItem({post}: FeedItemProps) {
-  const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
+  const navigation = useNavigation<Navigation>();
 
   const handlePressFeed = () => {
     navigation.navigate(feedNavigations.FEED_DETAIL, {id: post.id});
