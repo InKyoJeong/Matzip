@@ -27,10 +27,10 @@ import {getDateLocaleFormat} from '@/utils';
 import PreviewImageList from '@/components/common/PreviewImageList';
 import CustomButton from '@/components/common/CustomButton';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import useLocationStore from '@/store/useLocationStore';
-import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
-import {DrawerScreenProps} from '@react-navigation/drawer';
 import {CompositeScreenProps} from '@react-navigation/native';
+import {DrawerScreenProps} from '@react-navigation/drawer';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import useLocationStore from '@/store/useLocationStore';
 
 type FeedDetailScreenProps = CompositeScreenProps<
   StackScreenProps<FeedStackParamList, typeof feedNavigations.FEED_DETAIL>,
@@ -58,34 +58,25 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
   return (
     <>
       <ScrollView
+        scrollIndicatorInsets={{right: 1}}
         style={
           insets.bottom
             ? [styles.container, {marginBottom: insets.bottom + 50}]
             : [styles.container, styles.scrollNoInsets]
         }>
-        <SafeAreaView style={styles.header}>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              paddingHorizontal: 15,
-              paddingVertical: 10,
-            }}>
+        <SafeAreaView style={styles.headerContainer}>
+          <View style={styles.header}>
             <Octicons
               name="arrow-left"
               size={30}
               color={colors.WHITE}
               onPress={() => navigation.goBack()}
             />
-            <Ionicons
-              name="ellipsis-vertical"
-              size={30}
-              color={colors.WHITE}
-              onPress={() => {}}
-            />
+            <Ionicons name="ellipsis-vertical" size={30} color={colors.WHITE} />
           </View>
         </SafeAreaView>
-        <View key={post.id} style={styles.imageContainer}>
+
+        <View style={styles.imageContainer}>
           {post.images.length > 0 && (
             <Image
               style={styles.image}
@@ -162,8 +153,7 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
             style={({pressed}) => [
               pressed && styles.bookmarkPressedContainer,
               styles.bookmarkContainer,
-            ]}
-            onPress={() => {}}>
+            ]}>
             <Octicons name="star-fill" size={30} color={colors.GRAY_100} />
           </Pressable>
           <CustomButton
@@ -185,11 +175,17 @@ const styles = StyleSheet.create({
   scrollNoInsets: {
     marginBottom: 65,
   },
-  header: {
+  headerContainer: {
     position: 'absolute',
     top: 0,
     zIndex: 1,
     width: '100%',
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   imageContainer: {
     width: Dimensions.get('screen').width,
@@ -292,8 +288,8 @@ const styles = StyleSheet.create({
     backgroundColor: colors.PINK_700,
     height: '100%',
     paddingHorizontal: 5,
-    borderRadius: 3,
     justifyContent: 'center',
+    borderRadius: 3,
   },
   bookmarkPressedContainer: {
     opacity: 0.5,

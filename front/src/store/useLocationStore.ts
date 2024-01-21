@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import type {LatLng} from 'react-native-maps';
+import {LatLng} from 'react-native-maps';
 
 interface LocationState {
   moveLocation: LatLng | null;
@@ -9,7 +9,7 @@ interface LocationState {
 const useLocationStore = create<LocationState>(set => ({
   moveLocation: null,
   setMoveLocation: (moveLocation: LatLng) => {
-    set(state => ({...state, moveLocation}));
+    set({moveLocation});
   },
 }));
 

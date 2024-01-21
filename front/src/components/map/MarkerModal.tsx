@@ -19,9 +19,9 @@ import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useGetPost from '@/hooks/queries/useGetPost';
-import CustomMarker from '../common/CustomMarker';
 import {colors, feedNavigations, mainNavigations} from '@/constants';
 import {getDateWithSeparator} from '@/utils';
+import CustomMarker from '../common/CustomMarker';
 
 interface MarkerModalProps {
   markerId: number | null;
@@ -37,6 +37,7 @@ type Navigation = CompositeNavigationProp<
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   const navigation = useNavigation<Navigation>();
   const {data: post, isPending, isError} = useGetPost(markerId);
+
   if (isPending || isError) {
     return <></>;
   }
