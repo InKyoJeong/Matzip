@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {CompoundOption} from '../common/CompoundOption';
 
 interface FeedDetailOptionProps {
@@ -16,7 +15,6 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
           <CompoundOption.Divider />
           <CompoundOption.Button>수정하기</CompoundOption.Button>
         </CompoundOption.Container>
-
         <CompoundOption.Container>
           <CompoundOption.Button onPress={hideOption}>
             취소

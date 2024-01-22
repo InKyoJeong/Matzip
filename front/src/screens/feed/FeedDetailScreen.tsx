@@ -31,8 +31,8 @@ import {CompositeScreenProps} from '@react-navigation/native';
 import {DrawerScreenProps} from '@react-navigation/drawer';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useLocationStore from '@/store/useLocationStore';
-import FeedDetailOption from '@/components/feed/FeedDetailOption';
 import useModal from '@/hooks/useModal';
+import FeedDetailOption from '@/components/feed/FeedDetailOption';
 
 type FeedDetailScreenProps = CompositeScreenProps<
   StackScreenProps<FeedStackParamList, typeof feedNavigations.FEED_DETAIL>,

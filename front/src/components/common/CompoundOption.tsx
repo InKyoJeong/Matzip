@@ -1,21 +1,15 @@
-import React, {
-  PropsWithChildren,
-  ReactNode,
-  createContext,
-  useContext,
-} from 'react';
+import {PropsWithChildren, ReactNode, createContext, useContext} from 'react';
 import {
   GestureResponderEvent,
   Modal,
   ModalProps,
   Pressable,
+  PressableProps,
+  SafeAreaView,
   StyleSheet,
   Text,
   View,
-  SafeAreaView,
-  PressableProps,
 } from 'react-native';
-
 import {colors} from '@/constants';
 
 interface OptionContextValue {
@@ -58,11 +52,7 @@ function OptionMain({
   );
 }
 
-interface BackgroundProps {
-  children: ReactNode;
-}
-
-function Background({children}: BackgroundProps) {
+function Background({children}: PropsWithChildren) {
   const optionContext = useContext(OptionContext);
 
   return (
@@ -76,14 +66,6 @@ function Background({children}: BackgroundProps) {
 
 function Container({children}: PropsWithChildren) {
   return <View style={styles.optionContainer}>{children}</View>;
-}
-
-function Title({children}: PropsWithChildren) {
-  return (
-    <View style={styles.titleContainer}>
-      <Text style={styles.titleText}>{children}</Text>
-    </View>
-  );
 }
 
 interface ButtonProps extends PressableProps {
@@ -106,15 +88,23 @@ function Button({children, isDanger = false, ...props}: ButtonProps) {
   );
 }
 
+function Title({children}: PropsWithChildren) {
+  return (
+    <View style={styles.titleContainer}>
+      <Text style={styles.titleText}>{children}</Text>
+    </View>
+  );
+}
+
 function Divider() {
   return <View style={styles.border} />;
 }
 
 export const CompoundOption = Object.assign(OptionMain, {
-  Background,
   Container,
-  Title,
+  Background,
   Button,
+  Title,
   Divider,
 });
 
@@ -131,15 +121,6 @@ const styles = StyleSheet.create({
     backgroundColor: colors.GRAY_100,
     overflow: 'hidden',
   },
-  titleContainer: {
-    alignItems: 'center',
-    padding: 15,
-  },
-  titleText: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: colors.BLACK,
-  },
   optionButton: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -155,11 +136,20 @@ const styles = StyleSheet.create({
     color: colors.BLUE_500,
     fontWeight: '500',
   },
+  dangerText: {
+    color: colors.RED_500,
+  },
+  titleContainer: {
+    alignItems: 'center',
+    padding: 15,
+  },
+  titleText: {
+    fontSize: 16,
+    fontWeight: '500',
+    color: colors.BLACK,
+  },
   border: {
     borderBottomColor: colors.GRAY_200,
     borderBottomWidth: 1,
-  },
-  dangerText: {
-    color: colors.RED_500,
   },
 });
