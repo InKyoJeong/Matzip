@@ -132,7 +132,9 @@ function PostForm({location, isEdit = false}: PostFormProps) {
             variant="outlined"
             size="large"
             label={
-              isPicked ? `${getDateWithSeparator(date, '. ')}` : '날짜 선택'
+              isPicked || isEdit
+                ? `${getDateWithSeparator(date, '. ')}`
+                : '날짜 선택'
             }
             onPress={datePickerModal.show}
           />
