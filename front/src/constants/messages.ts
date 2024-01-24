@@ -15,6 +15,10 @@ const alerts = {
     TITLE: '추가할 위치를 선택해주세요.',
     DESCRIPTION: '지도를 길게 누르면 위치가 선택됩니다.',
   },
+  DELETE_POST: {
+    TITLE: '삭제하시겠습니까?',
+    DESCRIPTION: '피드와 지도에서 모두 삭제됩니다.',
+  },
 } as const;
 
 export {errorMessages, alerts};
