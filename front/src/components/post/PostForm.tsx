@@ -30,6 +30,7 @@ import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors} from '@/constants';
 import {MarkerColor} from '@/types';
 import useDetailPostStore from '@/store/useDetailPostStore';
+import useMutateUpdatePost from '@/hooks/queries/useMutateUpdatePost';
 
 interface PostFormProps {
   isEdit?: boolean;
@@ -40,6 +41,7 @@ function PostForm({location, isEdit = false}: PostFormProps) {
   const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
   const descriptionRef = useRef<TextInput | null>(null);
   const createPost = useMutateCreatePost();
+  const updatePost = useMutateUpdatePost();
   const {detailPost} = useDetailPostStore();
   const isEditMode = isEdit && detailPost;
   const address = useGetAddress(location);
@@ -90,6 +92,16 @@ function PostForm({location, isEdit = false}: PostFormProps) {
       score,
       imageUris: imagePicker.imageUris,
     };
+
+    if (isEditMode) {
+      updatePost.mutate(
+        {id: detailPost.id, body},
+        {
+          onSuccess: () => navigation.goBack(),
+        },
+      );
+      return;
+    }
 
     createPost.mutate(
       {address, ...location, ...body},
