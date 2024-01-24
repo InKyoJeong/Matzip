@@ -29,6 +29,7 @@ import PreviewImageList from '@/components/common/PreviewImageList';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors} from '@/constants';
 import {MarkerColor} from '@/types';
+import useDetailPostStore from '@/store/useDetailPostStore';
 
 interface PostFormProps {
   isEdit?: boolean;
@@ -39,21 +40,27 @@ function PostForm({location, isEdit = false}: PostFormProps) {
   const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
   const descriptionRef = useRef<TextInput | null>(null);
   const createPost = useMutateCreatePost();
+  const {detailPost} = useDetailPostStore();
+  const isEditMode = isEdit && detailPost;
   const address = useGetAddress(location);
   const addPost = useForm({
     initialValue: {
-      title: '',
-      description: '',
+      title: isEditMode ? detailPost.title : '',
+      description: isEditMode ? detailPost.description : '',
     },
     validate: validateAddPost,
   });
   const datePickerModal = useModal();
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(
+    isEditMode ? new Date(String(detailPost.date)) : new Date(),
+  );
   const [isPicked, setIsPicked] = useState(false);
-  const [markerColor, setMarkerColor] = useState<MarkerColor>('RED');
-  const [score, setScore] = useState(5);
+  const [markerColor, setMarkerColor] = useState<MarkerColor>(
+    isEditMode ? detailPost.color : 'RED',
+  );
+  const [score, setScore] = useState(isEditMode ? detailPost.score : 5);
   const imagePicker = useImagePicker({
-    initialImages: [],
+    initialImages: isEditMode ? detailPost.images : [],
   });
   usePermission('PHOTO');
 
