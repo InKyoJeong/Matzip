@@ -67,10 +67,15 @@ function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
         pagingEnabled
         decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
+        initialScrollIndex={initialIndex}
         onScrollToIndexFailed={() => {
           setInitialIndex(0);
         }}
-        initialScrollIndex={initialIndex}
+        getItemLayout={(_, index) => ({
+          length: deviceWidth,
+          offset: deviceWidth * index,
+          index,
+        })}
       />
 
       <View style={[styles.pageContainer, {bottom: insets.bottom + 10}]}>
