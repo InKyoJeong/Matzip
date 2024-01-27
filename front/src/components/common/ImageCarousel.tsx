@@ -17,11 +17,12 @@ import {Image} from 'react-native';
 
 interface ImageCarouselProps {
   images: ImageUri[];
+  pressedIndex?: number;
 }
 
 const deviceWidth = Dimensions.get('window').width;
 
-function ImageCarousel({images}: ImageCarouselProps) {
+function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
@@ -55,6 +56,7 @@ function ImageCarousel({images}: ImageCarouselProps) {
         pagingEnabled
         decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
+        initialScrollIndex={pressedIndex}
       />
     </View>
   );

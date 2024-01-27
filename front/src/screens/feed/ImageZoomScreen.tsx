@@ -12,10 +12,15 @@ type ImageZoomScreenProps = StackScreenProps<
 >;
 
 function ImageZoomScreen({route}: ImageZoomScreenProps) {
-  const {index} = route.params;
+  const {index: pressedIndex} = route.params;
   const {detailPost} = useDetailPostStore();
 
-  return <ImageCarousel images={detailPost?.images ?? []} />;
+  return (
+    <ImageCarousel
+      images={detailPost?.images ?? []}
+      pressedIndex={pressedIndex}
+    />
+  );
 }
 
 export default ImageZoomScreen;
