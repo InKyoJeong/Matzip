@@ -5,7 +5,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import useMutateDeletePost from '@/hooks/queries/useMutateDeletePost';
-import useDetailPostStore from '@/store/useDetailPostStore';
+import useDetailStore from '@/store/useDetailPostStore';
 import {CompoundOption} from '../common/CompoundOption';
 import {alerts, feedNavigations} from '@/constants';
 
@@ -16,8 +16,8 @@ interface FeedDetailOptionProps {
 
 function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
   const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
-  const {detailPost} = useDetailPostStore();
   const deletePost = useMutateDeletePost();
+  const {detailPost} = useDetailStore();
 
   const handleDeletePost = () => {
     if (!detailPost) {
@@ -27,13 +27,14 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
     Alert.alert(alerts.DELETE_POST.TITLE, alerts.DELETE_POST.DESCRIPTION, [
       {
         text: '삭제',
-        onPress: () =>
+        onPress: () => {
           deletePost.mutate(detailPost.id, {
             onSuccess: () => {
               hideOption();
               navigation.goBack();
             },
-          }),
+          });
+        },
         style: 'destructive',
       },
       {
@@ -61,7 +62,7 @@ function FeedDetailOption({isVisible, hideOption}: FeedDetailOptionProps) {
     <CompoundOption isVisible={isVisible} hideOption={hideOption}>
       <CompoundOption.Background>
         <CompoundOption.Container>
-          <CompoundOption.Button onPress={handleDeletePost} isDanger>
+          <CompoundOption.Button isDanger onPress={handleDeletePost}>
             삭제하기
           </CompoundOption.Button>
           <CompoundOption.Divider />

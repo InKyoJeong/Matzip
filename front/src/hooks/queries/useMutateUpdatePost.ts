@@ -1,9 +1,8 @@
-import {useMutation} from '@tanstack/react-query';
-
-import {updatePost} from '@/api/post';
-import {UseMutationCustomOptions} from '@/types';
+import {updatePost} from '@/api';
 import queryClient from '@/api/queryClient';
 import {queryKeys} from '@/constants';
+import {UseMutationCustomOptions} from '@/types';
+import {useMutation} from '@tanstack/react-query';
 
 function useMutateUpdatePost(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({

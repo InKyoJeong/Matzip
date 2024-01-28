@@ -1,14 +1,13 @@
-import {useMutation} from '@tanstack/react-query';
-
-import {deletePost} from '@/api/post';
-import {Marker, UseMutationCustomOptions} from '@/types';
+import {deletePost} from '@/api';
 import queryClient from '@/api/queryClient';
 import {queryKeys} from '@/constants';
+import {Marker, UseMutationCustomOptions} from '@/types';
+import {useMutation} from '@tanstack/react-query';
 
 function useMutateDeletePost(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: deletePost,
-    onSuccess: deletedId => {
+    onSuccess: deleteId => {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.POST, queryKeys.GET_POSTS],
       });
@@ -18,11 +17,10 @@ function useMutateDeletePost(mutationOptions?: UseMutationCustomOptions) {
       //   queryClient.setQueryData<Marker[]>(
       //     [queryKeys.MARKER, queryKeys.GET_MARKERS],
       //     existingMarkers => {
-      //       return existingMarkers?.filter(marker => marker.id !== deletedId);
+      //       return existingMarkers?.filter(marker => marker.id !== deleteId);
       //     },
       //   );
     },
-
     ...mutationOptions,
   });
 }

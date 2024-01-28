@@ -13,7 +13,7 @@ type EditPostScreenProps = StackScreenProps<
 function EditPostScreen({route}: EditPostScreenProps) {
   const {location} = route.params;
 
-  return <PostForm isEdit location={location} />;
+  return <PostForm location={location} isEdit />;
 }
 
 export default EditPostScreen;
