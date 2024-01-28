@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import FeedItem from './FeedItem';
-import useGetInfiniteFavoritePosts from '@/hooks/queries/useGetInfiniteFavoritePost';
+import useGetInfiniteFavoritePosts from '@/hooks/queries/useGetInfiniteFavoritePosts';
 
 function FeedFavoriteList() {
   const {
