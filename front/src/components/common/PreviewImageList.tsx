@@ -11,7 +11,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 
 import {ImageUri} from '@/types';
 import {colors, feedNavigations} from '@/constants';
-import {NavigationProp, useNavigation} from '@react-navigation/core';
+import {NavigationProp, useNavigation} from '@react-navigation/native';
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 
 interface PreviewImageListProps {

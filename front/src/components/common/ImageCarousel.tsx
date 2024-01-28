@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
 import {
   Dimensions,
+  Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  Platform,
+  Pressable,
+  FlatList,
   StyleSheet,
   View,
-  FlatList,
-  Pressable,
-  Platform,
-  Image,
-  NativeSyntheticEvent,
-  NativeScrollEvent,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -65,7 +65,6 @@ function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
         onScroll={handleScroll}
         horizontal
         pagingEnabled
-        decelerationRate="fast"
         showsHorizontalScrollIndicator={false}
         initialScrollIndex={initialIndex}
         onScrollToIndexFailed={() => {
@@ -106,10 +105,6 @@ const styles = StyleSheet.create({
     borderRadius: 40,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  imageContainer: {
-    width: 200,
-    height: 200,
   },
   image: {
     width: '100%',

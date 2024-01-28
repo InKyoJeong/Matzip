@@ -1,10 +1,11 @@
 import React from 'react';
-import type {StackScreenProps} from '@react-navigation/stack';
+import {StyleSheet} from 'react-native';
+import {StackScreenProps} from '@react-navigation/stack';
 
-import type {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import ImageCarousel from '@/components/common/ImageCarousel';
-import useDetailPostStore from '@/store/useDetailPostStore';
 import {feedNavigations} from '@/constants';
+import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
+import useDetailStore from '@/store/useDetailPostStore';
 
 type ImageZoomScreenProps = StackScreenProps<
   FeedStackParamList,
@@ -12,14 +13,11 @@ type ImageZoomScreenProps = StackScreenProps<
 >;
 
 function ImageZoomScreen({route}: ImageZoomScreenProps) {
-  const {index: pressedIndex} = route.params;
-  const {detailPost} = useDetailPostStore();
+  const {index} = route.params;
+  const {detailPost} = useDetailStore();
 
   return (
-    <ImageCarousel
-      images={detailPost?.images ?? []}
-      pressedIndex={pressedIndex}
-    />
+    <ImageCarousel images={detailPost?.images ?? []} pressedIndex={index} />
   );
 }
 
