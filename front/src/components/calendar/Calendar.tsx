@@ -8,19 +8,21 @@ import {colors} from '@/constants';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
 
-interface CalendarProps {
+interface CalendarProps<T> {
   monthYear: MonthYear;
   selectedDate: number;
+  schedules: Record<number, T[]>;
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
 
-function Calendar({
+function Calendar<T>({
   monthYear,
   selectedDate,
+  schedules,
   onPressDate,
   onChangeMonth,
-}: CalendarProps) {
+}: CalendarProps<T>) {
   const {lastDate, firstDOW, year, month} = monthYear;
 
   return (
@@ -67,6 +69,7 @@ function Calendar({
             <DateBox
               date={item.date}
               isToday={isSameAsCurrentDate(year, month, item.date)}
+              hasSchedule={Boolean(schedules[item.date])}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
             />
