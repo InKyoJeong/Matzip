@@ -1,9 +1,8 @@
-import {useMutation} from '@tanstack/react-query';
-
+import {updateFavoritePost} from '@/api';
 import queryClient from '@/api/queryClient';
-import {ResponseSinglePost, updateFavoritePost} from '@/api';
 import {queryKeys} from '@/constants';
-import type {UseMutationCustomOptions} from '@/types';
+import {UseMutationCustomOptions} from '@/types';
+import {useMutation} from '@tanstack/react-query';
 
 function useMutateFavoritePost(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
@@ -12,17 +11,6 @@ function useMutateFavoritePost(mutationOptions?: UseMutationCustomOptions) {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.POST, queryKeys.GET_POST, updatedId],
       });
-
-      //   const existingPost = queryClient.getQueryData<ResponseSinglePost>([
-      //     queryKeys.POST,
-      //     queryKeys.GET_POST,
-      //     updatedId,
-      //   ]) as ResponseSinglePost;
-
-      //   queryClient.setQueryData<ResponseSinglePost>(
-      //     [queryKeys.POST, queryKeys.GET_POST, updatedId],
-      //     {...existingPost, isFavorite: !existingPost.isFavorite},
-      //   );
     },
     ...mutationOptions,
   });

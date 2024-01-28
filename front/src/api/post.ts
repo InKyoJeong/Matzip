@@ -65,8 +65,8 @@ export {
   getPosts,
   deletePost,
   updatePost,
-  getFavoritePosts,
   updateFavoritePost,
+  getFavoritePosts,
 };
 export type {
   ResponsePost,
