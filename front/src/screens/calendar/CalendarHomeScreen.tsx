@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 
+import useGetCalendarPosts from '@/hooks/queries/useGetCalendarPosts';
 import Calendar from '@/components/calendar/Calendar';
+import EventList from '@/components/calendar/EventList';
 import {getMonthYearDetails, getNewMonthYear} from '@/utils';
 import {colors} from '@/constants';
-import useGetCalendarPosts from '@/hooks/queries/useGetCalendarPosts';
 
 function CalendarHomeScreen() {
   const currentMonthYear = getMonthYearDetails(new Date());
@@ -38,6 +39,7 @@ function CalendarHomeScreen() {
         onPressDate={handlePressDate}
         onChangeMonth={handleUpdateMonth}
       />
+      <EventList posts={posts[selectedDate]} />
     </SafeAreaView>
   );
 }
