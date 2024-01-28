@@ -19,9 +19,16 @@ import {DrawerNavigationProp} from '@react-navigation/drawer';
 import {FeedStackParamList} from '@/navigations/stack/FeedStackNavigator';
 import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import useGetPost from '@/hooks/queries/useGetPost';
-import {colors, feedNavigations, mainNavigations} from '@/constants';
+import {
+  colors,
+  feedNavigations,
+  feedTabNavigations,
+  mainNavigations,
+} from '@/constants';
 import {getDateWithSeparator} from '@/utils';
 import CustomMarker from '../common/CustomMarker';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {FeedTabParamList} from '@/navigations/tab/FeedTabNavigator';
 
 interface MarkerModalProps {
   markerId: number | null;
@@ -31,7 +38,7 @@ interface MarkerModalProps {
 
 type Navigation = CompositeNavigationProp<
   DrawerNavigationProp<MainDrawerParamList>,
-  StackNavigationProp<FeedStackParamList>
+  BottomTabNavigationProp<FeedTabParamList>
 >;
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
@@ -44,12 +51,17 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
 
   const handlePressModal = () => {
     navigation.navigate(mainNavigations.FEED, {
-      screen: feedNavigations.FEED_DETAIL,
+      screen: feedTabNavigations.FEED_HOME,
       params: {
-        id: post.id,
+        screen: feedNavigations.FEED_DETAIL,
+        params: {
+          id: post.id,
+        },
+        initial: false,
       },
-      initial: false,
     });
+
+    hide();
   };
 
   return (

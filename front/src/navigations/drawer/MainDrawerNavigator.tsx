@@ -5,14 +5,14 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import CustomDrawerContent from './CustomDrawerContent';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
-import FeedTabNavigator from '../tab/FeedTabNavigator';
+import FeedTabNavigator, {FeedTabParamList} from '../tab/FeedTabNavigator';
 import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
 import {FeedStackParamList} from '../stack/FeedStackNavigator';
 import {colors, mainNavigations} from '@/constants';
 
 export type MainDrawerParamList = {
   [mainNavigations.HOME]: NavigatorScreenParams<MapStackParamList>;
-  [mainNavigations.FEED]: NavigatorScreenParams<FeedStackParamList>;
+  [mainNavigations.FEED]: NavigatorScreenParams<FeedTabParamList>;
   [mainNavigations.CALENDAR]: undefined;
 };
 
