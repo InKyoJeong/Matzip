@@ -15,12 +15,12 @@ function useMutateDeletePost(mutationOptions?: UseMutationCustomOptions) {
       queryClient.invalidateQueries({
         queryKey: [queryKeys.MARKER, queryKeys.GET_MARKERS],
       });
-      //   queryClient.setQueryData<Marker[]>(
-      //     [queryKeys.MARKER, queryKeys.GET_MARKERS],
-      //     existingMarkers => {
-      //       return existingMarkers?.filter(marker => marker.id !== deletedId);
-      //     },
-      //   );
+      queryClient.invalidateQueries({
+        queryKey: [queryKeys.POST, queryKeys.GET_SEARCH_POSTS],
+      });
+      queryClient.invalidateQueries({
+        queryKey: [queryKeys.POST, queryKeys.GET_CALENDAR_POSTS],
+      });
     },
 
     ...mutationOptions,
