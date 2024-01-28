@@ -7,6 +7,8 @@ import {MonthYear, isSameAsCurrentDate} from '@/utils';
 import {colors} from '@/constants';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
+import useModal from '@/hooks/useModal';
+import YearSelector from './YearSelector';
 
 interface CalendarProps<T> {
   monthYear: MonthYear;
@@ -24,6 +26,12 @@ function Calendar<T>({
   onChangeMonth,
 }: CalendarProps<T>) {
   const {lastDate, firstDOW, year, month} = monthYear;
+  const yearSelector = useModal();
+
+  const handleChangeYear = (selectYear: number) => {
+    onChangeMonth((selectYear - year) * 12);
+    yearSelector.hide();
+  };
 
   return (
     <>
@@ -37,7 +45,9 @@ function Calendar<T>({
             color={colors.BLACK}
           />
         </Pressable>
-        <Pressable style={styles.monthYearContainer}>
+        <Pressable
+          style={styles.monthYearContainer}
+          onPress={yearSelector.show}>
           <Text style={styles.titleText}>
             {year}년 {month}월
           </Text>
@@ -78,6 +88,13 @@ function Calendar<T>({
           numColumns={7}
         />
       </View>
+
+      <YearSelector
+        isVisible={yearSelector.isVisible}
+        currentyear={year}
+        onChangeYear={handleChangeYear}
+        hide={yearSelector.hide}
+      />
     </>
   );
 }
