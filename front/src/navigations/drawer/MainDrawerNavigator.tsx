@@ -5,10 +5,9 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 import CustomDrawerContent from './CustomDrawerContent';
 import CalendarHomeScreen from '@/screens/calendar/CalendarHomeScreen';
+import FeedTabNavigator from '../tab/FeedTabNavigator';
 import MapStackNavigator, {MapStackParamList} from '../stack/MapStackNavigator';
-import FeedStackNavigator, {
-  FeedStackParamList,
-} from '../stack/FeedStackNavigator';
+import {FeedStackParamList} from '../stack/FeedStackNavigator';
 import {colors, mainNavigations} from '@/constants';
 
 export type MainDrawerParamList = {
@@ -76,7 +75,7 @@ function MainDrawerNavigator() {
       />
       <Drawer.Screen
         name={mainNavigations.FEED}
-        component={FeedStackNavigator}
+        component={FeedTabNavigator}
         options={{
           title: '피드',
         }}
