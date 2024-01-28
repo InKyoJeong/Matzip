@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
@@ -17,6 +17,18 @@ function YearSelector({
   onChangeYear,
   hide,
 }: YearSelectorProps) {
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const yearIndex = currentyear - numbers.MIN_CALENDAR_YEAR;
+    const currentRow = Math.floor(
+      yearIndex / numbers.CALENDAR_YEAR_SELECTOR_COLUMN,
+    );
+    const scrollToY = currentRow * 50;
+
+    setScrollY(scrollToY);
+  }, [isVisible, currentyear]);
+
   return (
     <>
       {isVisible && (
@@ -25,6 +37,7 @@ function YearSelector({
             <FlatList
               style={styles.scrollContainer}
               showsVerticalScrollIndicator={false}
+              contentOffset={{x: 0, y: scrollY}}
               initialNumToRender={currentyear - numbers.MIN_CALENDAR_YEAR}
               data={Array.from(
                 {
