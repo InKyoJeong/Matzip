@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 
 import useGetCalendarPosts from '@/hooks/queries/useGetCalendarPosts';
@@ -16,6 +16,15 @@ function CalendarHomeScreen() {
     isPending,
     isError,
   } = useGetCalendarPosts(monthYear.year, monthYear.month);
+
+  const moveToToday = () => {
+    setSelectedDate(new Date().getDate());
+    setMonthYear(getMonthYearDetails(new Date()));
+  };
+
+  useEffect(() => {
+    moveToToday();
+  }, []);
 
   if (isPending || isError) {
     return <></>;
@@ -38,6 +47,7 @@ function CalendarHomeScreen() {
         selectedDate={selectedDate}
         onPressDate={handlePressDate}
         onChangeMonth={handleUpdateMonth}
+        moveToToday={moveToToday}
       />
       <EventList posts={posts[selectedDate]} />
     </SafeAreaView>

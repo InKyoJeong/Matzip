@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {FlatList, StyleSheet, View, Pressable, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
@@ -9,6 +9,8 @@ import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
 import useModal from '@/hooks/useModal';
 import YearSelector from './YearSelector';
+import {useNavigation} from '@react-navigation/native';
+import CalendarHomeHeaderRight from './CalendarHomeHeaderRight';
 
 interface CalendarProps<T> {
   monthYear: MonthYear;
@@ -16,6 +18,7 @@ interface CalendarProps<T> {
   schedules: Record<number, T[]>;
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
+  moveToToday: () => void;
 }
 
 function Calendar<T>({
@@ -24,14 +27,22 @@ function Calendar<T>({
   schedules,
   onPressDate,
   onChangeMonth,
+  moveToToday,
 }: CalendarProps<T>) {
   const {lastDate, firstDOW, year, month} = monthYear;
+  const navigation = useNavigation();
   const yearSelector = useModal();
 
   const handleChangeYear = (selectYear: number) => {
     onChangeMonth((selectYear - year) * 12);
     yearSelector.hide();
   };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => CalendarHomeHeaderRight(moveToToday),
+    });
+  }, [moveToToday, navigation]);
 
   return (
     <>
