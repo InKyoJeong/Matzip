@@ -10,10 +10,17 @@ import DateBox from './DateBox';
 
 interface CalendarProps {
   monthYear: MonthYear;
+  selectedDate: number;
+  onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
 
-function Calendar({monthYear, onChangeMonth}: CalendarProps) {
+function Calendar({
+  monthYear,
+  selectedDate,
+  onPressDate,
+  onChangeMonth,
+}: CalendarProps) {
   const {lastDate, firstDOW, year, month} = monthYear;
 
   return (
@@ -50,6 +57,23 @@ function Calendar({monthYear, onChangeMonth}: CalendarProps) {
       </View>
 
       <DayOfWeeks />
+      <View style={styles.bodyContainer}>
+        <FlatList
+          data={Array.from({length: lastDate + firstDOW}, (_, i) => ({
+            id: i,
+            date: i - firstDOW + 1,
+          }))}
+          renderItem={({item}) => (
+            <DateBox
+              date={item.date}
+              selectedDate={selectedDate}
+              onPressDate={onPressDate}
+            />
+          )}
+          keyExtractor={item => String(item.id)}
+          numColumns={7}
+        />
+      </View>
     </>
   );
 }
@@ -74,6 +98,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: '500',
     color: colors.BLACK,
+  },
+  bodyContainer: {
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: colors.GRAY_300,
+    backgroundColor: colors.GRAY_100,
   },
 });
 

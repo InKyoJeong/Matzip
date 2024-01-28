@@ -8,14 +8,25 @@ import {colors} from '@/constants';
 function CalendarHomeScreen() {
   const currentMonthYear = getMonthYearDetails(new Date());
   const [monthYear, setMonthYear] = useState(currentMonthYear);
+  const [selectedDate, setSelectedDate] = useState(0);
+
+  const handlePressDate = (date: number) => {
+    setSelectedDate(date);
+  };
 
   const handleUpdateMonth = (increment: number) => {
+    setSelectedDate(0);
     setMonthYear(prev => getNewMonthYear(prev, increment));
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <Calendar monthYear={monthYear} onChangeMonth={handleUpdateMonth} />
+      <Calendar
+        monthYear={monthYear}
+        selectedDate={selectedDate}
+        onPressDate={handlePressDate}
+        onChangeMonth={handleUpdateMonth}
+      />
     </SafeAreaView>
   );
 }
