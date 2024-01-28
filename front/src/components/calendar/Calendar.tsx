@@ -3,7 +3,7 @@ import {FlatList, StyleSheet, View, Pressable, Text} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
-import {MonthYear} from '@/utils';
+import {MonthYear, isSameAsCurrentDate} from '@/utils';
 import {colors} from '@/constants';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
@@ -66,6 +66,7 @@ function Calendar({
           renderItem={({item}) => (
             <DateBox
               date={item.date}
+              isToday={isSameAsCurrentDate(year, month, item.date)}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
             />
