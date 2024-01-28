@@ -11,6 +11,7 @@ import FeedStackNavigator from '../stack/FeedStackNavigator';
 import FeedFavoriteScreen from '@/screens/feed/FeedFavoriteScreen';
 import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
 import {colors, feedNavigations, feedTabNavigations} from '@/constants';
+import FeedSearchScreen from '@/screens/feed/FeedSearchScreen';
 
 export type FeedTabParamList = {
   [feedTabNavigations.FEED_HOME]: {
@@ -19,6 +20,7 @@ export type FeedTabParamList = {
     initial: boolean;
   };
   [feedTabNavigations.FEED_FAVORITE]: undefined;
+  [feedTabNavigations.FEED_SEARCH]: undefined;
 };
 
 const Tab = createBottomTabNavigator<FeedTabParamList>();
@@ -33,6 +35,10 @@ function TabBarIcons(route: RouteProp<FeedTabParamList>, focused: boolean) {
     }
     case feedTabNavigations.FEED_FAVORITE: {
       iconName = focused ? 'star' : 'star-outline';
+      break;
+    }
+    case feedTabNavigations.FEED_SEARCH: {
+      iconName = 'search';
       break;
     }
   }
@@ -98,6 +104,15 @@ function FeedTabNavigator() {
         component={FeedFavoriteScreen}
         options={({navigation}) => ({
           headerTitle: '즐겨찾기',
+          headerLeft: () => FeedHomeHeaderLeft(navigation),
+        })}
+      />
+      <Tab.Screen
+        name={feedTabNavigations.FEED_SEARCH}
+        component={FeedSearchScreen}
+        options={({navigation}) => ({
+          headerTitle: '검색',
+          headerShown: false,
           headerLeft: () => FeedHomeHeaderLeft(navigation),
         })}
       />
