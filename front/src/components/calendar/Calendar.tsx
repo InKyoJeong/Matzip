@@ -11,11 +11,7 @@ import DateBox from './DateBox';
 interface CalendarProps<T> {
   monthYear: MonthYear;
   selectedDate: number;
-<<<<<<< Updated upstream
-  schedules: Record<number, T[]>;
-=======
   schedules: Record<number, T>;
->>>>>>> Stashed changes
   onPressDate: (date: number) => void;
   onChangeMonth: (increment: number) => void;
 }
@@ -27,11 +23,7 @@ function Calendar<T>({
   onPressDate,
   onChangeMonth,
 }: CalendarProps<T>) {
-<<<<<<< Updated upstream
-  const {lastDate, firstDOW, year, month} = monthYear;
-=======
   const {month, year, lastDate, firstDOW} = monthYear;
->>>>>>> Stashed changes
 
   return (
     <>
