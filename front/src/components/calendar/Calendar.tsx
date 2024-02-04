@@ -7,8 +7,8 @@ import {MonthYear, isSameAsCurrentDate} from '@/utils';
 import {colors} from '@/constants';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
-import useModal from '@/hooks/useModal';
 import YearSelector from './YearSelector';
+import useModal from '@/hooks/useModal';
 
 interface CalendarProps<T> {
   monthYear: MonthYear;
@@ -25,7 +25,7 @@ function Calendar<T>({
   onPressDate,
   onChangeMonth,
 }: CalendarProps<T>) {
-  const {lastDate, firstDOW, year, month} = monthYear;
+  const {month, year, lastDate, firstDOW} = monthYear;
   const yearSelector = useModal();
 
   const handleChangeYear = (selectYear: number) => {
@@ -39,11 +39,7 @@ function Calendar<T>({
         <Pressable
           onPress={() => onChangeMonth(-1)}
           style={styles.monthButtonContainer}>
-          <Ionicons
-            name="arrow-up-circle-outline"
-            size={25}
-            color={colors.BLACK}
-          />
+          <Ionicons name="arrow-back" size={25} color={colors.BLACK} />
         </Pressable>
         <Pressable
           style={styles.monthYearContainer}
@@ -60,11 +56,7 @@ function Calendar<T>({
         <Pressable
           onPress={() => onChangeMonth(1)}
           style={styles.monthButtonContainer}>
-          <Ionicons
-            name="arrow-down-circle-outline"
-            size={25}
-            color={colors.BLACK}
-          />
+          <Ionicons name="arrow-forward" size={25} color={colors.BLACK} />
         </Pressable>
       </View>
 
@@ -91,7 +83,7 @@ function Calendar<T>({
 
       <YearSelector
         isVisible={yearSelector.isVisible}
-        currentyear={year}
+        currentYear={year}
         onChangeYear={handleChangeYear}
         hide={yearSelector.hide}
       />

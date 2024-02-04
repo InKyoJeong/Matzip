@@ -1,19 +1,18 @@
-import React from 'react';
-import {ScrollView, StyleSheet, View, Pressable, Text} from 'react-native';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import type {DrawerNavigationProp} from '@react-navigation/drawer';
-
-import type {FeedTabParamList} from '@/navigations/tab/FeedTabNavigator';
-import type {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import {CalendarPost} from '@/api';
 import {
   colors,
   feedNavigations,
   feedTabNavigations,
   mainNavigations,
 } from '@/constants';
-import type {CalendarPost} from '@/api';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
+import {FeedTabParamList} from '@/navigations/tab/FeedTabNavigator';
+import {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {ScrollView, StyleSheet, View, Pressable, Text} from 'react-native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 interface EventListProps {
   posts: CalendarPost[];

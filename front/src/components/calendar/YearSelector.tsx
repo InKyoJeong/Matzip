@@ -1,33 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Text, Pressable, StyleSheet, View} from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
 import {colors, numbers} from '@/constants';
 
 interface YearSelectorProps {
   isVisible: boolean;
-  currentyear: number;
+  currentYear: number;
   onChangeYear: (year: number) => void;
   hide: () => void;
 }
 
 function YearSelector({
   isVisible,
-  currentyear,
+  currentYear,
   onChangeYear,
   hide,
 }: YearSelectorProps) {
   const [scrollY, setScrollY] = useState(0);
 
   useEffect(() => {
-    const yearIndex = currentyear - numbers.MIN_CALENDAR_YEAR;
+    const yearIndex = currentYear - numbers.MIN_CANLENDAR_YEAR;
     const currentRow = Math.floor(
-      yearIndex / numbers.CALENDAR_YEAR_SELECTOR_COLUMN,
+      yearIndex / numbers.CALENDER_YEAR_SELECTOR_COLUMN,
     );
+
     const scrollToY = currentRow * 50;
 
     setScrollY(scrollToY);
-  }, [isVisible, currentyear]);
+  }, [isVisible, currentYear]);
 
   return (
     <>
@@ -38,15 +38,15 @@ function YearSelector({
               style={styles.scrollContainer}
               showsVerticalScrollIndicator={false}
               contentOffset={{x: 0, y: scrollY}}
-              initialNumToRender={currentyear - numbers.MIN_CALENDAR_YEAR}
+              initialNumToRender={currentYear - numbers.MIN_CANLENDAR_YEAR}
               data={Array.from(
                 {
                   length:
-                    numbers.MAX_CALENDAR_YEAR - numbers.MIN_CALENDAR_YEAR + 1,
+                    numbers.MAX_CANLENDAR_YEAR - numbers.MIN_CANLENDAR_YEAR + 1,
                 },
                 (_, index) => ({
                   id: index,
-                  num: index + numbers.MIN_CALENDAR_YEAR,
+                  num: index + numbers.MIN_CANLENDAR_YEAR,
                 }),
               )}
               renderItem={({item}) => (
@@ -55,25 +55,25 @@ function YearSelector({
                   onPress={() => onChangeYear(item.num)}
                   style={[
                     styles.yearButton,
-                    currentyear === item.num && styles.currentYearButton,
+                    currentYear === item.num && styles.currentYearButton,
                   ]}>
                   <Text
                     style={[
                       styles.yearText,
-                      currentyear === item.num && styles.currentYearText,
+                      currentYear === item.num && styles.currentYearText,
                     ]}>
                     {item.num}
                   </Text>
                 </Pressable>
               )}
               keyExtractor={item => String(item.num)}
-              numColumns={numbers.CALENDAR_YEAR_SELECTOR_COLUMN}
+              numColumns={numbers.CALENDER_YEAR_SELECTOR_COLUMN}
             />
           </View>
           <Pressable style={styles.closeButton} onPress={hide}>
             <Text style={styles.closeText}>닫기</Text>
             <MaterialIcons
-              name="keyboard-arrow-up"
+              name="keyboard-arrow-down"
               size={20}
               color={colors.BLACK}
             />
