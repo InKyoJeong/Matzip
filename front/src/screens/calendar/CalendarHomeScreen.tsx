@@ -1,9 +1,8 @@
-import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, View} from 'react-native';
-
 import Calendar from '@/components/calendar/Calendar';
-import {getMonthYearDetails, getNewMonthYear} from '@/utils';
 import {colors} from '@/constants';
+import {getMonthYearDetails, getNewMonthYear} from '@/utils';
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet, Text} from 'react-native';
 
 function CalendarHomeScreen() {
   const currentMonthYear = getMonthYearDetails(new Date());
@@ -15,7 +14,6 @@ function CalendarHomeScreen() {
   };
 
   const handleUpdateMonth = (increment: number) => {
-    setSelectedDate(0);
     setMonthYear(prev => getNewMonthYear(prev, increment));
   };
 
@@ -23,9 +21,9 @@ function CalendarHomeScreen() {
     <SafeAreaView style={styles.container}>
       <Calendar
         monthYear={monthYear}
+        onChangeMonth={handleUpdateMonth}
         selectedDate={selectedDate}
         onPressDate={handlePressDate}
-        onChangeMonth={handleUpdateMonth}
       />
     </SafeAreaView>
   );

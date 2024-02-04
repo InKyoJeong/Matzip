@@ -1,9 +1,6 @@
+import {colors} from '@/constants';
 import React from 'react';
 import {Dimensions, StyleSheet, Text, View} from 'react-native';
-
-import {colors} from '@/constants';
-
-const deviceWidth = Dimensions.get('window').width;
 
 function DayOfWeeks() {
   return (
@@ -32,7 +29,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   item: {
-    width: deviceWidth / 7,
+    width: Dimensions.get('window').width / 7,
     alignItems: 'center',
   },
   text: {

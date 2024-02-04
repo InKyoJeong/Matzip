@@ -1,11 +1,11 @@
+import {colors} from '@/constants';
 import React from 'react';
-import {FlatList, StyleSheet, View, Pressable, Text} from 'react-native';
+import {FlatList, Text} from 'react-native';
+import {Pressable, StyleSheet, View} from 'react-native';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-
-import {MonthYear, isSameAsCurrentDate} from '@/utils';
-import {colors} from '@/constants';
 import DayOfWeeks from './DayOfWeeks';
+import {MonthYear, isSameAsCurrentDate} from '@/utils';
 import DateBox from './DateBox';
 
 interface CalendarProps {
@@ -21,7 +21,7 @@ function Calendar({
   onPressDate,
   onChangeMonth,
 }: CalendarProps) {
-  const {lastDate, firstDOW, year, month} = monthYear;
+  const {month, year, lastDate, firstDOW} = monthYear;
 
   return (
     <>
@@ -29,11 +29,7 @@ function Calendar({
         <Pressable
           onPress={() => onChangeMonth(-1)}
           style={styles.monthButtonContainer}>
-          <Ionicons
-            name="arrow-up-circle-outline"
-            size={25}
-            color={colors.BLACK}
-          />
+          <Ionicons name="arrow-back" size={25} color={colors.BLACK} />
         </Pressable>
         <Pressable style={styles.monthYearContainer}>
           <Text style={styles.titleText}>
@@ -48,11 +44,7 @@ function Calendar({
         <Pressable
           onPress={() => onChangeMonth(1)}
           style={styles.monthButtonContainer}>
-          <Ionicons
-            name="arrow-down-circle-outline"
-            size={25}
-            color={colors.BLACK}
-          />
+          <Ionicons name="arrow-forward" size={25} color={colors.BLACK} />
         </Pressable>
       </View>
 
