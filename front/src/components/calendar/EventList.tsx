@@ -1,52 +1,21 @@
+import {CalendarPost} from '@/api';
+import {colors} from '@/constants';
 import React from 'react';
-import {ScrollView, StyleSheet, View, Pressable, Text} from 'react-native';
-import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
+import {Pressable, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import type {BottomTabNavigationProp} from '@react-navigation/bottom-tabs';
-import type {DrawerNavigationProp} from '@react-navigation/drawer';
-
-import type {FeedTabParamList} from '@/navigations/tab/FeedTabNavigator';
-import type {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
-import {
-  colors,
-  feedNavigations,
-  feedTabNavigations,
-  mainNavigations,
-} from '@/constants';
-import type {CalendarPost} from '@/api';
 
 interface EventListProps {
   posts: CalendarPost[];
 }
 
-type Navigation = CompositeNavigationProp<
-  DrawerNavigationProp<MainDrawerParamList>,
-  BottomTabNavigationProp<FeedTabParamList>
->;
-
 function EventList({posts}: EventListProps) {
-  const navigation = useNavigation<Navigation>();
   const insets = useSafeAreaInsets();
-
-  const handlePressItem = (id: number) => {
-    navigation.navigate(mainNavigations.FEED, {
-      screen: feedTabNavigations.FEED_HOME,
-      params: {
-        screen: feedNavigations.FEED_DETAIL,
-        params: {id},
-        initial: false,
-      },
-    });
-  };
 
   return (
     <ScrollView style={styles.container} scrollIndicatorInsets={{right: 1}}>
       <View style={[styles.innerContainer, {marginBottom: insets.bottom + 30}]}>
         {posts?.map(post => (
-          <Pressable
-            key={post.id}
-            style={styles.itemContainer}
-            onPress={() => handlePressItem(post.id)}>
+          <Pressable key={post.id} style={styles.itemContainer}>
             <View style={styles.itemHeader} />
             <View style={styles.infoContainer}>
               <Text

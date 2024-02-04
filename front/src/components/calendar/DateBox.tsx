@@ -6,8 +6,8 @@ import {colors} from '@/constants';
 interface DateBoxProps {
   date: number;
   isToday: boolean;
-  hasSchedule: boolean;
   selectedDate: number;
+  hasSchedule: boolean;
   onPressDate: (date: number) => void;
 }
 
@@ -15,10 +15,10 @@ const deviceWidth = Dimensions.get('window').width;
 
 function DateBox({
   date,
-  isToday,
-  hasSchedule,
   selectedDate,
+  hasSchedule,
   onPressDate,
+  isToday,
 }: DateBoxProps) {
   return (
     <Pressable style={styles.container} onPress={() => onPressDate(date)}>
