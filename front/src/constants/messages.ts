@@ -1,5 +1,6 @@
 const errorMessages = {
   CANNOT_GET_ADDRESS: '주소를 알 수 없습니다.',
+  UNEXPECT_ERROR: '알 수 없는 에러가 발생했습니다.',
 } as const;
 
 const alerts = {
