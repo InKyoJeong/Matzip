@@ -1,20 +1,12 @@
-import React from 'react';
-import {
-  Dimensions,
-  Keyboard,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import type {LatLng} from 'react-native-maps';
-import Octicons from 'react-native-vector-icons/Octicons';
-import {useNavigation} from '@react-navigation/native';
-
+import {colors} from '@/constants';
 import {RegionInfo} from '@/hooks/useSearchLocation';
 import useLocationStore from '@/store/useLocationStore';
-import {colors} from '@/constants';
+import {useNavigation} from '@react-navigation/native';
+import React from 'react';
+import {Dimensions, Pressable, ScrollView, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
+import {LatLng} from 'react-native-maps';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 interface SearchRegionResultProps {
   regionInfo: RegionInfo[];
@@ -22,7 +14,7 @@ interface SearchRegionResultProps {
 
 function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
   const navigation = useNavigation();
-  const {setMoveLocation} = useLocationStore();
+  const {setMoveLocation, setSelectLocation} = useLocationStore();
 
   const handlePressRegionInfo = (latitude: string, longitude: string) => {
     const regionLocation = {
@@ -35,13 +27,14 @@ function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
 
   const moveToMapScreen = (regionLocation: LatLng) => {
     navigation.goBack();
+
     setMoveLocation(regionLocation);
+    setSelectLocation(regionLocation);
   };
 
   return (
     <View style={styles.container}>
       <ScrollView
-        onTouchStart={() => Keyboard.dismiss()}
         showsVerticalScrollIndicator
         indicatorStyle="black"
         contentContainerStyle={styles.scrollContainer}>
@@ -63,7 +56,9 @@ function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
               </Text>
             </View>
             <View style={styles.categoryContainer}>
-              <Text style={styles.distanceText}>{info.distance}</Text>
+              <Text style={styles.distanceText}>
+                {(Number(info.distance) / 1000).toFixed(2)}km
+              </Text>
               <Text style={styles.subInfoText}>{info.category_name}</Text>
             </View>
             <Text style={styles.subInfoText}>{info.road_address_name}</Text>
