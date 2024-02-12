@@ -1,7 +1,17 @@
 import axios from 'axios';
-import React from 'react';
-import {Dimensions, SafeAreaView, StyleSheet} from 'react-native';
-import {WebView, WebViewMessageEvent} from 'react-native-webview';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  Dimensions,
+  SafeAreaView,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {
+  WebView,
+  WebViewMessageEvent,
+  WebViewNavigation,
+} from 'react-native-webview';
 import Config from 'react-native-config';
 
 import useAuth from '@/hooks/queries/useAuth';
@@ -12,6 +22,8 @@ const INJECTED_JAVASCRIPT = "window.ReactNativeWebView.postMessage('')";
 
 function KakaoLoginScreen() {
   const {kakaoLoginMutation} = useAuth();
+  const [isChangeNavigate, setIsChangeNavigate] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleOnMessage = (event: WebViewMessageEvent) => {
     if (event.nativeEvent.url.includes(`${REDIRECT_URI}?code=`)) {
@@ -36,8 +48,19 @@ function KakaoLoginScreen() {
     kakaoLoginMutation.mutate(response.data.access_token);
   };
 
+  const handleNavigationStateChange = (event: WebViewNavigation) => {
+    const isMatched = event.url.includes(`${REDIRECT_URI}?code=`);
+    setIsLoading(isMatched);
+    setIsChangeNavigate(event.loading);
+  };
+
   return (
     <SafeAreaView style={styles.container}>
+      {(isChangeNavigate || isLoading) && (
+        <View style={styles.kakaoLoadingContiner}>
+          <ActivityIndicator size={'small'} color={colors.BLACK} />
+        </View>
+      )}
       <WebView
         style={styles.container}
         source={{
@@ -45,6 +68,7 @@ function KakaoLoginScreen() {
         }}
         onMessage={handleOnMessage}
         injectedJavaScript={INJECTED_JAVASCRIPT}
+        onNavigationStateChange={handleNavigationStateChange}
       />
     </SafeAreaView>
   );
