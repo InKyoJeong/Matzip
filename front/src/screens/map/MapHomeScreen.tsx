@@ -80,6 +80,10 @@ function MapHomeScreen() {
     moveMapView(userLocation);
   };
 
+  const handlePressSearch = () => {
+    navigation.navigate(mapNavigations.SEARCH_LOCATION);
+  };
+
   return (
     <>
       <MapView
@@ -120,6 +124,9 @@ function MapHomeScreen() {
       <View style={styles.buttonList}>
         <Pressable style={styles.mapButton} onPress={handlePressAddPost}>
           <MaterialIcons name="add" color={colors.WHITE} size={25} />
+        </Pressable>
+        <Pressable style={styles.mapButton} onPress={handlePressSearch}>
+          <Ionicons name="search" color={colors.WHITE} size={25} />
         </Pressable>
         <Pressable style={styles.mapButton} onPress={handlePressUserLocation}>
           <MaterialIcons name="my-location" color={colors.WHITE} size={25} />
