@@ -1,9 +1,9 @@
-import SearchInput from '@/components/common/SearchInput';
-import {numbers} from '@/constants';
-import useSearchLocation from '@/hooks/useSearchLocation';
-import useUserLocation from '@/hooks/useUserLocation';
 import React, {useState} from 'react';
 import {Keyboard, StyleSheet, View} from 'react-native';
+import SearchInput from '@/components/common/SearchInput';
+import SearchRegionResult from '@/components/map/SearchRegionResult';
+import useSearchLocation from '@/hooks/useSearchLocation';
+import useUserLocation from '@/hooks/useUserLocation';
 
 function SearchLocationScreen() {
   const [keyword, setKeyword] = useState<string>('');
@@ -14,8 +14,6 @@ function SearchLocationScreen() {
     setKeyword(text);
   };
 
-  console.log('regionInfo', regionInfo);
-
   return (
     <View style={styles.container}>
       <SearchInput
@@ -25,6 +23,7 @@ function SearchLocationScreen() {
         placeholder="검색할 장소를 입력하세요."
         onSubmit={() => Keyboard.dismiss()}
       />
+      <SearchRegionResult regionInfo={regionInfo} />
     </View>
   );
 }
