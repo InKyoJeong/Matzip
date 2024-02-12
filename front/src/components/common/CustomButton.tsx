@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {
   Pressable,
   StyleSheet,
@@ -6,6 +6,9 @@ import {
   PressableProps,
   Dimensions,
   View,
+  StyleProp,
+  ViewStyle,
+  TextStyle,
 } from 'react-native';
 
 import {colors} from '@/constants';
@@ -15,6 +18,9 @@ interface CustomButtonProps extends PressableProps {
   variant?: 'filled' | 'outlined';
   size?: 'large' | 'medium';
   inValid?: boolean;
+  style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
+  icon?: ReactNode;
 }
 
 const deviceHeight = Dimensions.get('screen').height;
@@ -24,6 +30,9 @@ function CustomButton({
   variant = 'filled',
   size = 'large',
   inValid = false,
+  style = null,
+  textStyle = null,
+  icon = null,
   ...props
 }: CustomButtonProps) {
   return (
@@ -33,10 +42,14 @@ function CustomButton({
         styles.container,
         pressed ? styles[`${variant}Pressed`] : styles[variant],
         inValid && styles.inValid,
+        style,
       ]}
       {...props}>
       <View style={styles[size]}>
-        <Text style={[styles.text, styles[`${variant}Text`]]}>{label}</Text>
+        {icon}
+        <Text style={[styles.text, styles[`${variant}Text`], textStyle]}>
+          {label}
+        </Text>
       </View>
     </Pressable>
   );
@@ -72,6 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    gap: 5,
   },
   medium: {
     width: '50%',
@@ -79,6 +93,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    gap: 5,
   },
   text: {
     fontSize: 16,
