@@ -4,11 +4,13 @@ import SearchInput from '@/components/common/SearchInput';
 import SearchRegionResult from '@/components/map/SearchRegionResult';
 import useSearchLocation from '@/hooks/useSearchLocation';
 import useUserLocation from '@/hooks/useUserLocation';
+import Pagination from '@/components/common/Pagination';
 
 function SearchLocationScreen() {
   const [keyword, setKeyword] = useState<string>('');
   const {userLocation} = useUserLocation();
-  const {regionInfo} = useSearchLocation(keyword, userLocation);
+  const {regionInfo, pageParam, fetchNextPage, fetchPrevPage, hasNextPage} =
+    useSearchLocation(keyword, userLocation);
 
   const handleChangeKeyword = (text: string) => {
     setKeyword(text);
@@ -24,6 +26,13 @@ function SearchLocationScreen() {
         onSubmit={() => Keyboard.dismiss()}
       />
       <SearchRegionResult regionInfo={regionInfo} />
+      <Pagination
+        pageParam={pageParam}
+        fetchPrevPage={fetchPrevPage}
+        fetchNextPage={fetchNextPage}
+        hasNextPage={hasNextPage}
+        totalLength={regionInfo.length}
+      />
     </View>
   );
 }
