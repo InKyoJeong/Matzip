@@ -224,8 +224,8 @@ export class AuthService {
       const response = await axios.get(url, { headers });
       const userData = response.data;
       const { id: kakaoId, kakao_account } = userData;
-      const nickname = kakao_account.profile.nickname;
-      const imageUri = kakao_account.profile.thumbnail_image_url?.replace(
+      const nickname = kakao_account?.profile.nickname;
+      const imageUri = kakao_account?.profile.thumbnail_image_url?.replace(
         /^http:/,
         'https:',
       );
