@@ -5,6 +5,7 @@ import {
   ResponseProfile,
   ResponseToken,
   appleLogin,
+  deleteAccount,
   editProfile,
   getAccessToken,
   getProfile,
@@ -123,9 +124,12 @@ function useLogout(mutationOptions?: UseMutationCustomOptions) {
       removeEncryptStorage(storageKeys.REFRESH_TOKEN);
       queryClient.resetQueries({queryKey: [queryKeys.AUTH]});
     },
-
     ...mutationOptions,
   });
+}
+
+function useMutateDeleteAccount(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({mutationFn: deleteAccount, ...mutationOptions});
 }
 
 function useAuth() {
@@ -140,6 +144,9 @@ function useAuth() {
   const appleLoginMutation = useAppleLogin();
   const logoutMutation = useLogout();
   const profileMutation = useUpdateProfile();
+  const deleteAccountMutation = useMutateDeleteAccount({
+    onSuccess: () => logoutMutation.mutate(null),
+  });
 
   return {
     signupMutation,
@@ -150,6 +157,7 @@ function useAuth() {
     kakaoLoginMutation,
     appleLoginMutation,
     profileMutation,
+    deleteAccountMutation,
   };
 }
 
