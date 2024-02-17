@@ -1,6 +1,7 @@
 import React from 'react';
 import {
   Image,
+  Platform,
   Pressable,
   SafeAreaView,
   StyleSheet,
@@ -42,10 +43,28 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
               />
             )}
             {imageUri === null && !!kakaoImageUri && (
-              <Image source={{uri: kakaoImageUri}} style={styles.userImage} />
+              <Image
+                source={{
+                  uri: `${
+                    Platform.OS === 'ios'
+                      ? 'http://localhost:3030/'
+                      : 'http://10.0.2.2:3030/'
+                  }${kakaoImageUri}`,
+                }}
+                style={styles.userImage}
+              />
             )}
             {imageUri !== null && (
-              <Image source={{uri: imageUri}} style={styles.userImage} />
+              <Image
+                source={{
+                  uri: `${
+                    Platform.OS === 'ios'
+                      ? 'http://localhost:3030/'
+                      : 'http://10.0.2.2:3030/'
+                  }${imageUri}`,
+                }}
+                style={styles.userImage}
+              />
             )}
           </Pressable>
 

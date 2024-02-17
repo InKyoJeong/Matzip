@@ -9,9 +9,15 @@ import {getFormDataImages} from '@/utils';
 
 interface UseImagePickerProps {
   initialImages: ImageUri[];
+  mode?: 'multiple' | 'single';
+  onSettled?: () => void;
 }
 
-function useImagePicker({initialImages = []}: UseImagePickerProps) {
+function useImagePicker({
+  initialImages = [],
+  mode = 'multiple',
+  onSettled,
+}: UseImagePickerProps) {
   const [imageUris, setImageUris] = useState(initialImages);
   const uploadImages = useMutateImages();
 
@@ -41,7 +47,7 @@ function useImagePicker({initialImages = []}: UseImagePickerProps) {
       mediaType: 'photo',
       multiple: true,
       includeBase64: true,
-      maxFiles: 5,
+      maxFiles: mode === 'multiple' ? 5 : 1,
       cropperChooseText: '완료',
       cropperCancelText: '취소',
     })
@@ -50,6 +56,7 @@ function useImagePicker({initialImages = []}: UseImagePickerProps) {
 
         uploadImages.mutate(formData, {
           onSuccess: data => addImageUris(data),
+          onSettled: () => onSettled && onSettled(),
         });
       })
       .catch(error => {
