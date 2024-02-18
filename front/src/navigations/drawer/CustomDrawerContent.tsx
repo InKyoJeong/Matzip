@@ -113,14 +113,12 @@ const styles = StyleSheet.create({
   bottomContainer: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 20,
     paddingHorizontal: 20,
     paddingVertical: 15,
     borderTopWidth: 1,
     borderTopColor: colors.GRAY_200,
   },
   bottomMenu: {
-    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
     gap: 5,

@@ -57,7 +57,7 @@ function validateEditProfile(values: {nickname: string}) {
   };
 
   if (isBlank(values.nickname)) {
-    errors.nickname = `닉네임을 입력해주세요.`;
+    errors.nickname = '닉네임을 입력해주세요.';
   }
 
   return errors;

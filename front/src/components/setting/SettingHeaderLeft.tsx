@@ -1,13 +1,12 @@
 import React from 'react';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import type {StackNavigationProp} from '@react-navigation/stack';
-import type {CompositeNavigationProp} from '@react-navigation/native';
-import type {DrawerNavigationProp} from '@react-navigation/drawer';
-
-import type {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
-import type {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 import HeaderButton from '../common/HeaderButton';
 import {colors} from '@/constants';
+import {CompositeNavigationProp} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
+import {DrawerNavigationProp} from '@react-navigation/drawer';
+import {MainDrawerParamList} from '@/navigations/drawer/MainDrawerNavigator';
 
 type SettingHeaderLeftProps = CompositeNavigationProp<
   StackNavigationProp<SettingStackParamList>,

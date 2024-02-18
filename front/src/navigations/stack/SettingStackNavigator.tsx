@@ -1,9 +1,9 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
+import {colors, settingNavigations} from '@/constants';
 import SettingHomeScreen from '@/screens/setting/SettingHomeScreen';
 import EditProfileScreen from '@/screens/setting/EditProfileScreen';
-import {colors, settingNavigations} from '@/constants';
 import SettingHeaderLeft from '@/components/setting/SettingHeaderLeft';
 
 export type SettingStackParamList = {

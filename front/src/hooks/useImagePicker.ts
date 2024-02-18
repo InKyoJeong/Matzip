@@ -30,6 +30,15 @@ function useImagePicker({
     setImageUris(prev => [...prev, ...uris.map(uri => ({uri}))]);
   };
 
+  const replaceImageUri = (uris: string[]) => {
+    if (uris.length > 1) {
+      Alert.alert('이미지 개수 초과', '추가 가능한 이미지는 최대 1개입니다.');
+      return;
+    }
+
+    setImageUris([...uris.map(uri => ({uri}))]);
+  };
+
   const deleteImageUri = (uri: string) => {
     const newImageUris = imageUris.filter(image => image.uri !== uri);
     setImageUris(newImageUris);
@@ -55,7 +64,8 @@ function useImagePicker({
         const formData = getFormDataImages('images', images);
 
         uploadImages.mutate(formData, {
-          onSuccess: data => addImageUris(data),
+          onSuccess: data =>
+            mode === 'multiple' ? addImageUris(data) : replaceImageUri(data),
           onSettled: () => onSettled && onSettled(),
         });
       })

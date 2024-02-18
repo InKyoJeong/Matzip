@@ -1,3 +1,14 @@
+import InputField from '@/components/common/InputField';
+import EditProfileHeaderRight from '@/components/setting/EditProfileHeaderRight';
+import EditProfileImageOption from '@/components/setting/EditProfileImageOption';
+import {colors, errorMessages} from '@/constants';
+import useAuth from '@/hooks/queries/useAuth';
+import useForm from '@/hooks/useForm';
+import useImagePicker from '@/hooks/useImagePicker';
+import useModal from '@/hooks/useModal';
+import {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
+import {validateEditProfile} from '@/utils';
+import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
 import {
   Image,
@@ -8,29 +19,16 @@ import {
   Text,
   View,
 } from 'react-native';
-import {StackScreenProps} from '@react-navigation/stack';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import Toast from 'react-native-toast-message';
-
-import InputField from '@/components/common/InputField';
-import {colors, errorMessages} from '@/constants';
-import useAuth from '@/hooks/queries/useAuth';
-import useForm from '@/hooks/useForm';
-import useImagePicker from '@/hooks/useImagePicker';
-import {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
-import {validateEditProfile} from '@/utils';
-import {ActivityIndicator} from 'react-native';
-import EditProfileHeaderRight from '@/components/setting/EditProfileHeaderRight';
-import EditProfileImageOption from '../../components/setting/EditProfileImageOption';
-import useModal from '@/hooks/useModal';
+import Ionicons from 'react-native-vector-icons/Ionicons';
 
 type EditProfileScreenProps = StackScreenProps<SettingStackParamList>;
 
 function EditProfileScreen({navigation}: EditProfileScreenProps) {
   const {getProfileQuery, profileMutation} = useAuth();
   const {nickname, imageUri, kakaoImageUri} = getProfileQuery.data || {};
-  const imageOption = useModal();
 
+  const imageOption = useModal();
   const imagePicker = useImagePicker({
     initialImages: imageUri ? [{uri: imageUri}] : [],
     mode: 'single',
@@ -47,12 +45,11 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
   };
 
   const handleSubmit = () => {
-    if (editProfile.errors.nickname) {
-      return;
-    }
-
     profileMutation.mutate(
-      {...editProfile.values, imageUri: imagePicker.imageUris[0]?.uri},
+      {
+        ...editProfile.values,
+        imageUri: imagePicker.imageUris[0]?.uri,
+      },
       {
         onSuccess: () =>
           Toast.show({
@@ -65,7 +62,6 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
             type: 'error',
             text1: error.response?.data.message || errorMessages.UNEXPECT_ERROR,
             position: 'bottom',
-            visibilityTime: 2000,
           }),
       },
     );
@@ -75,11 +71,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
     navigation.setOptions({
       headerRight: () => EditProfileHeaderRight(handleSubmit),
     });
-  }, [handleSubmit, navigation]);
-
-  if (imagePicker.isUploading) {
-    return <ActivityIndicator size={'large'} />;
-  }
+  }, [handleSubmit]);
 
   return (
     <View style={styles.container}>
@@ -90,7 +82,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
           {imagePicker.imageUris.length === 0 && !kakaoImageUri && (
             <Ionicons name="camera-outline" size={30} color={colors.GRAY_500} />
           )}
-          {imagePicker.imageUris.length === 0 && !!kakaoImageUri && (
+          {imagePicker.imageUris.length === 0 && kakaoImageUri && (
             <>
               <Image
                 source={{
@@ -103,9 +95,6 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                 style={styles.image}
                 resizeMode="cover"
               />
-              <View style={styles.cameraButton}>
-                <Ionicons name="camera" size={18} color={colors.WHITE} />
-              </View>
             </>
           )}
           {imagePicker.imageUris.length > 0 && (
@@ -121,9 +110,6 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                 style={styles.image}
                 resizeMode="cover"
               />
-              <View style={styles.cameraButton}>
-                <Ionicons name="camera" size={18} color={colors.WHITE} />
-              </View>
             </>
           )}
         </Pressable>
@@ -135,12 +121,10 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
         touched={editProfile.touched.nickname}
         placeholder="닉네임을 입력해주세요."
       />
-
       <Pressable style={styles.deleteAccountContainer}>
         <Ionicons name="remove-circle-sharp" size={18} color={colors.RED_500} />
         <Text style={styles.deleteAccountText}>회원탈퇴</Text>
       </Pressable>
-
       <EditProfileImageOption
         isVisible={imageOption.isVisible}
         hideOption={imageOption.hide}
@@ -176,17 +160,6 @@ const styles = StyleSheet.create({
     borderColor: colors.GRAY_200,
     borderRadius: 50,
     borderWidth: 1,
-  },
-  cameraButton: {
-    position: 'absolute',
-    bottom: 1,
-    right: 1,
-    backgroundColor: colors.PINK_700,
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: 30,
-    height: 30,
-    borderRadius: 30,
   },
   deleteAccountContainer: {
     position: 'absolute',
