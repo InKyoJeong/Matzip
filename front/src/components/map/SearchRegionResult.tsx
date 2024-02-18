@@ -1,6 +1,8 @@
 import {colors} from '@/constants';
 import {RegionInfo} from '@/hooks/useSearchLocation';
 import useLocationStore from '@/store/useLocationStore';
+import useThemeStore from '@/store/useThemeStore';
+import {ThemeMode} from '@/types';
 import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {Dimensions, Pressable, ScrollView, Text} from 'react-native';
@@ -13,6 +15,8 @@ interface SearchRegionResultProps {
 }
 
 function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const navigation = useNavigation();
   const {setMoveLocation, setSelectLocation} = useLocationStore();
 
@@ -47,7 +51,11 @@ function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
             ]}
             onPress={() => handlePressRegionInfo(info.y, info.x)}>
             <View style={styles.placeNameContainer}>
-              <Octicons name="location" size={15} color={colors.PINK_700} />
+              <Octicons
+                name="location"
+                size={15}
+                color={colors[theme].PINK_700}
+              />
               <Text
                 style={styles.placeText}
                 ellipsizeMode="tail"
@@ -75,59 +83,60 @@ function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    borderWidth: 1,
-    borderColor: colors.GRAY_200,
-    borderRadius: 5,
-    height: Dimensions.get('screen').height / 2,
-    marginVertical: 5,
-    width: '100%',
-  },
-  scrollContainer: {
-    padding: 10,
-  },
-  placeNameContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-  },
-  placeText: {
-    color: colors.BLACK,
-    flexShrink: 1,
-    fontSize: 16,
-    fontWeight: '600',
-  },
-  categoryContainer: {
-    flexDirection: 'row',
-    gap: 10,
-  },
-  distanceText: {
-    color: colors.BLACK,
-  },
-  subInfoText: {
-    flexShrink: 1,
-    color: colors.GRAY_500,
-  },
-  itemBorder: {
-    marginHorizontal: 5,
-    paddingVertical: 10,
-    borderBottomColor: colors.GRAY_300,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    gap: 3,
-  },
-  noItemBorder: {
-    borderBottomWidth: 0,
-  },
-  noResultContainer: {
-    flex: 1,
-    alignItems: 'center',
-    marginTop: 50,
-  },
-  noResultText: {
-    color: colors.GRAY_500,
-    fontSize: 16,
-  },
-});
+const styling = (theme: ThemeMode) =>
+  StyleSheet.create({
+    container: {
+      borderWidth: 1,
+      borderColor: colors[theme].GRAY_200,
+      borderRadius: 5,
+      height: Dimensions.get('screen').height / 2,
+      marginVertical: 5,
+      width: '100%',
+    },
+    scrollContainer: {
+      padding: 10,
+    },
+    placeNameContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+    },
+    placeText: {
+      color: colors[theme].BLACK,
+      flexShrink: 1,
+      fontSize: 16,
+      fontWeight: '600',
+    },
+    categoryContainer: {
+      flexDirection: 'row',
+      gap: 10,
+    },
+    distanceText: {
+      color: colors[theme].BLACK,
+    },
+    subInfoText: {
+      flexShrink: 1,
+      color: colors[theme].GRAY_500,
+    },
+    itemBorder: {
+      marginHorizontal: 5,
+      paddingVertical: 10,
+      borderBottomColor: colors[theme].GRAY_300,
+      borderBottomWidth: StyleSheet.hairlineWidth,
+      gap: 3,
+    },
+    noItemBorder: {
+      borderBottomWidth: 0,
+    },
+    noResultContainer: {
+      flex: 1,
+      alignItems: 'center',
+      marginTop: 50,
+    },
+    noResultText: {
+      color: colors[theme].GRAY_500,
+      fontSize: 16,
+    },
+  });
 
 export default SearchRegionResult;

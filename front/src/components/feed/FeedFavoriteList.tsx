@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
 import FeedItem from './FeedItem';
 import useGetInfiniteFavoritePosts from '@/hooks/queries/useGetInfiniteFavoritePosts';
+import useThemeStore from '@/store/useThemeStore';
 
 function FeedFavoriteList() {
+  const {theme} = useThemeStore();
   const {
     data: posts,
     fetchNextPage,
@@ -42,7 +44,7 @@ function FeedFavoriteList() {
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
       scrollIndicatorInsets={{right: 1}}
-      indicatorStyle="black"
+      indicatorStyle={theme === 'dark' ? 'white' : 'black'}
     />
   );
 }

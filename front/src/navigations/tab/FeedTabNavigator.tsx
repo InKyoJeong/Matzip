@@ -12,6 +12,8 @@ import FeedFavoriteScreen from '@/screens/feed/FeedFavoriteScreen';
 import FeedHomeHeaderLeft from '@/components/feed/FeedHomeHeaderLeft';
 import {colors, feedNavigations, feedTabNavigations} from '@/constants';
 import FeedSearchScreen from '@/screens/feed/FeedSearchScreen';
+import useThemeStore from '@/store/useThemeStore';
+import {ThemeMode} from '@/types';
 
 export type FeedTabParamList = {
   [feedTabNavigations.FEED_HOME]: {
@@ -25,7 +27,11 @@ export type FeedTabParamList = {
 
 const Tab = createBottomTabNavigator<FeedTabParamList>();
 
-function TabBarIcons(route: RouteProp<FeedTabParamList>, focused: boolean) {
+function TabBarIcons(
+  route: RouteProp<FeedTabParamList>,
+  focused: boolean,
+  theme: ThemeMode,
+) {
   let iconName = '';
 
   switch (route.name) {
@@ -46,32 +52,34 @@ function TabBarIcons(route: RouteProp<FeedTabParamList>, focused: boolean) {
   return (
     <Ionicons
       name={iconName}
-      color={focused ? colors.PINK_700 : colors.GRAY_500}
+      color={focused ? colors[theme].PINK_700 : colors[theme].GRAY_500}
       size={25}
     />
   );
 }
 
 function FeedTabNavigator() {
+  const {theme} = useThemeStore();
+
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
         headerStyle: {
-          backgroundColor: colors.WHITE,
-          shadowColor: colors.GRAY_200,
+          backgroundColor: colors[theme].WHITE,
+          shadowColor: colors[theme].GRAY_200,
         },
         headerTitleStyle: {
           fontSize: 15,
         },
-        headerTintColor: colors.BLACK,
+        headerTintColor: colors[theme].BLACK,
         tabBarShowLabel: false,
-        tabBarActiveTintColor: colors.PINK_700,
+        tabBarActiveTintColor: colors[theme].PINK_700,
         tabBarStyle: {
-          backgroundColor: colors.WHITE,
-          borderTopColor: colors.GRAY_200,
+          backgroundColor: colors[theme].WHITE,
+          borderTopColor: colors[theme].GRAY_200,
           borderTopWidth: StyleSheet.hairlineWidth,
         },
-        tabBarIcon: ({focused}) => TabBarIcons(route, focused),
+        tabBarIcon: ({focused}) => TabBarIcons(route, focused, theme),
       })}>
       <Tab.Screen
         name={feedTabNavigations.FEED_HOME}
@@ -92,8 +100,8 @@ function FeedTabNavigator() {
             }
 
             return {
-              backgroundColor: colors.WHITE,
-              borderTopColor: colors.GRAY_200,
+              backgroundColor: colors[theme].WHITE,
+              borderTopColor: colors[theme].GRAY_200,
               borderTopWidth: StyleSheet.hairlineWidth,
             };
           })(route),

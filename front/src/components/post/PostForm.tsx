@@ -28,9 +28,10 @@ import ImageInput from '@/components/post/ImageInput';
 import PreviewImageList from '@/components/common/PreviewImageList';
 import {getDateWithSeparator, validateAddPost} from '@/utils';
 import {colors} from '@/constants';
-import {MarkerColor} from '@/types';
+import {MarkerColor, ThemeMode} from '@/types';
 import useDetailPostStore from '@/store/useDetailPostStore';
 import useMutateUpdatePost from '@/hooks/queries/useMutateUpdatePost';
+import useThemeStore from '@/store/useThemeStore';
 
 interface PostFormProps {
   isEdit?: boolean;
@@ -38,6 +39,7 @@ interface PostFormProps {
 }
 
 function PostForm({location, isEdit = false}: PostFormProps) {
+  const {theme} = useThemeStore();
   const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
   const descriptionRef = useRef<TextInput | null>(null);
   const createPost = useMutateCreatePost();
@@ -125,7 +127,11 @@ function PostForm({location, isEdit = false}: PostFormProps) {
             value={address}
             disabled={true}
             icon={
-              <Octicons name="location" size={16} color={colors.GRAY_500} />
+              <Octicons
+                name="location"
+                size={16}
+                color={colors[theme].GRAY_500}
+              />
             }
           />
           <CustomButton

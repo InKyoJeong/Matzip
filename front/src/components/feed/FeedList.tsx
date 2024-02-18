@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import {FlatList, StyleSheet, View} from 'react-native';
 import useGetInfinitePosts from '@/hooks/queries/useGetInfinitePosts';
 import FeedItem from './FeedItem';
+import useThemeStore from '@/store/useThemeStore';
 
 function FeedList() {
+  const {theme} = useThemeStore();
   const {
     data: posts,
     fetchNextPage,
@@ -37,7 +39,7 @@ function FeedList() {
       refreshing={isRefreshing}
       onRefresh={handleRefresh}
       scrollIndicatorInsets={{right: 1}}
-      indicatorStyle="black"
+      indicatorStyle={theme === 'dark' ? 'white' : 'black'}
     />
   );
 }

@@ -1,5 +1,7 @@
 import {colors} from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
+import useThemeStore from '@/store/useThemeStore';
+import {ThemeMode} from '@/types';
 import axios from 'axios';
 import React, {useState} from 'react';
 import {
@@ -21,6 +23,8 @@ const REDIRECT_URI = `${
 }auth/oauth/kakao`;
 
 function KakaoLoginScreen() {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const {kakaoLoginMutation} = useAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [isChangeNavigate, setIsChangeNavigate] = useState(true);
@@ -58,7 +62,7 @@ function KakaoLoginScreen() {
     <SafeAreaView style={styles.container}>
       {(isLoading || isChangeNavigate) && (
         <View style={styles.kakaoLoadingContainer}>
-          <ActivityIndicator size={'small'} color={colors.BLACK} />
+          <ActivityIndicator size={'small'} color={colors[theme].BLACK} />
         </View>
       )}
       <WebView
@@ -73,17 +77,18 @@ function KakaoLoginScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  kakaoLoadingContainer: {
-    backgroundColor: colors.WHITE,
-    height: Dimensions.get('window').height,
-    paddingBottom: 100,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styling = (theme: ThemeMode) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    kakaoLoadingContainer: {
+      backgroundColor: colors[theme].WHITE,
+      height: Dimensions.get('window').height,
+      paddingBottom: 100,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+  });
 
 export default KakaoLoginScreen;
