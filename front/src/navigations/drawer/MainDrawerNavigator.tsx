@@ -104,6 +104,14 @@ function MainDrawerNavigator() {
           title: '캘린더',
           headerShown: true,
           headerLeft: () => FeedHomeHeaderLeft(navigation),
+          headerStyle: {
+            backgroundColor: colors[theme].WHITE,
+            shadowColor: colors[theme].GRAY_200,
+          },
+          headerTintColor: colors[theme].BLACK,
+          headerTitleStyle: {
+            fontSize: 15,
+          },
         })}
       />
       <Drawer.Screen
