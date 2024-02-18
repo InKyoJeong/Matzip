@@ -1,22 +1,21 @@
-import React, {useCallback, useLayoutEffect, useRef} from 'react';
-import {
-  TextInput,
-  ScrollView,
-  StyleSheet,
-  View,
-  SafeAreaView,
-  Text,
-} from 'react-native';
-import type {StackScreenProps} from '@react-navigation/stack';
-
-import type {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
+import InputField from '@/components/common/InputField';
+import EditCategoryHeaderRight from '@/components/setting/EditCategoryHeaderRight';
+import {colorHex, colors, errorMessages} from '@/constants';
 import useAuth from '@/hooks/queries/useAuth';
 import useForm from '@/hooks/useForm';
-import {validateCategory} from '@/utils';
-import {colorHex, colors, errorMessages} from '@/constants';
+import {SettingStackParamList} from '@/navigations/stack/SettingStackNavigator';
 import {MarkerColor} from '@/types';
-import EditCategoryHeaderRight from '@/components/setting/EditCategoryHeaderRight';
-import InputField from '@/components/common/InputField';
+import {validateCategory} from '@/utils';
+import {StackScreenProps} from '@react-navigation/stack';
+import React, {useEffect, useRef} from 'react';
+import {
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
 import Toast from 'react-native-toast-message';
 
 const categoryList: MarkerColor[] = [
@@ -52,7 +51,7 @@ function EditCategoryScreen({navigation}: EditCategoryScreenProps) {
     validate: validateCategory,
   });
 
-  const handleSubmit = useCallback(() => {
+  const handleSubmit = () => {
     categoryMutation.mutate(category.values, {
       onSuccess: () =>
         Toast.show({
@@ -67,13 +66,13 @@ function EditCategoryScreen({navigation}: EditCategoryScreenProps) {
           position: 'bottom',
         }),
     });
-  }, [category.values, categoryMutation]);
+  };
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     navigation.setOptions({
       headerRight: () => EditCategoryHeaderRight(handleSubmit),
     });
-  }, [handleSubmit, navigation]);
+  }, [handleSubmit]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -92,7 +91,7 @@ function EditCategoryScreen({navigation}: EditCategoryScreenProps) {
         <View style={styles.formContainer}>
           {categoryList.map((color, i) => {
             return (
-              <View key={i} style={styles.categoryContainer}>
+              <View key={i} style={[styles.categoryContainer]}>
                 <View
                   style={[styles.category, {backgroundColor: colorHex[color]}]}
                 />

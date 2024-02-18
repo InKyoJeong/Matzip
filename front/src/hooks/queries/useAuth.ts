@@ -119,6 +119,19 @@ function useGetProfile(
   });
 }
 
+function useMutateCategory(mutationOptions?: UseMutationCustomOptions) {
+  return useMutation({
+    mutationFn: editCategory,
+    onSuccess: newProfile => {
+      queryClient.setQueryData(
+        [queryKeys.AUTH, queryKeys.GET_PROFILE],
+        newProfile,
+      );
+    },
+    ...mutationOptions,
+  });
+}
+
 function useUpdateProfile(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
     mutationFn: editProfile,
@@ -145,18 +158,8 @@ function useLogout(mutationOptions?: UseMutationCustomOptions) {
 }
 
 function useMutateDeleteAccount(mutationOptions?: UseMutationCustomOptions) {
-  return useMutation({mutationFn: deleteAccount, ...mutationOptions});
-}
-
-function useMutateCategory(mutationOptions?: UseMutationCustomOptions) {
   return useMutation({
-    mutationFn: editCategory,
-    onSuccess: newProfile => {
-      queryClient.setQueryData(
-        [queryKeys.AUTH, queryKeys.GET_PROFILE],
-        newProfile,
-      );
-    },
+    mutationFn: deleteAccount,
     ...mutationOptions,
   });
 }

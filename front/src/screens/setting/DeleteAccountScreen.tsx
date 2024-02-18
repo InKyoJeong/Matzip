@@ -1,13 +1,15 @@
+import CustomButton from '@/components/common/CustomButton';
+import {alerts, colors, errorMessages} from '@/constants';
+import useAuth from '@/hooks/queries/useAuth';
 import React from 'react';
-import {Alert, StyleSheet, Text, View} from 'react-native';
+import {Alert, Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import Toast from 'react-native-toast-message';
 
-import useAuth from '@/hooks/queries/useAuth';
-import {alerts, colors, errorMessages} from '@/constants';
-import CustomButton from '../../components/common/CustomButton';
+interface DeleteAccountScreenProps {}
 
-function DeleteAccountScreen() {
-  const {deleteAccountMutation, logoutMutation} = useAuth();
+function DeleteAccountScreen({}: DeleteAccountScreenProps) {
+  const {deleteAccountMutation} = useAuth();
 
   const handlePressDeleteAccount = () => {
     Alert.alert(
@@ -18,14 +20,12 @@ function DeleteAccountScreen() {
           text: '탈퇴',
           onPress: () =>
             deleteAccountMutation.mutate(null, {
-              onSuccess: () => {
-                logoutMutation.mutate(null);
+              onSuccess: () =>
                 Toast.show({
                   type: 'success',
                   text1: '탈퇴가 완료되었습니다.',
                   position: 'bottom',
-                });
-              },
+                }),
               onError: error =>
                 Toast.show({
                   type: 'error',
@@ -55,12 +55,8 @@ function DeleteAccountScreen() {
           저장된 장소가 남아있다면 삭제해주세요.
         </Text>
       </View>
-      <CustomButton
-        label="회원탈퇴"
-        variant="filled"
-        size="large"
-        onPress={handlePressDeleteAccount}
-      />
+
+      <CustomButton label="회원탈퇴" onPress={handlePressDeleteAccount} />
     </View>
   );
 }
@@ -69,7 +65,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 20,
-    marginBottom: 10,
+    marginBottom: 20,
   },
   infoContainer: {
     alignItems: 'center',

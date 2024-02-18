@@ -68,11 +68,13 @@ function validateEditProfile(values: {nickname: string}) {
 function validateCategory(values: Category) {
   const errors = {
     RED: '',
-    YELLOW: '',
     GREEN: '',
+    YELLOW: '',
     BLUE: '',
     PURPLE: '',
   };
+
+  //
 
   return errors;
 }

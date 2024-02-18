@@ -164,7 +164,6 @@ function FeedDetailScreen({route, navigation}: FeedDetailScreenProps) {
               </View>
               <View style={styles.infoColumn}>
                 <Text style={styles.infoColumnKeyText}>카테고리</Text>
-
                 {categories?.[post.color] ? (
                   <Text style={styles.infoColumnValueText}>
                     {categories?.[post.color]}
