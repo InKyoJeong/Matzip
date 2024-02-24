@@ -12,6 +12,7 @@ function useGetPost(
     queryFn: () => getPost(Number(id)),
     queryKey: [queryKeys.POST, queryKeys.GET_POST, id],
     enabled: Boolean(id),
+    throwOnError: true,
     ...queryOptions,
   });
 }
