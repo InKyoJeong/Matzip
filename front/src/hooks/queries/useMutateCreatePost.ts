@@ -37,7 +37,6 @@ function useMutateCreatePost(mutationOptions?: UseMutationCustomOptions) {
         },
       );
     },
-
     ...mutationOptions,
   });
 }

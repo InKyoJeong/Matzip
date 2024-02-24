@@ -5,7 +5,7 @@ import {
   InfiniteData,
   QueryKey,
   UseInfiniteQueryOptions,
-  useInfiniteQuery,
+  useSuspenseInfiniteQuery,
 } from '@tanstack/react-query';
 
 function useGetInfiniteFavoritePosts(
@@ -18,7 +18,7 @@ function useGetInfiniteFavoritePosts(
     number
   >,
 ) {
-  return useInfiniteQuery({
+  return useSuspenseInfiniteQuery({
     queryFn: ({pageParam}) => getFavoritePosts(pageParam),
     queryKey: [
       queryKeys.POST,
@@ -30,6 +30,7 @@ function useGetInfiniteFavoritePosts(
       const lastPost = lastPage[lastPage.length - 1];
       return lastPost ? allPages.length + 1 : undefined;
     },
+
     ...queryOptions,
   });
 }

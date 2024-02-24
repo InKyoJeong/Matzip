@@ -1,11 +1,14 @@
-import React from 'react';
+import React, {Suspense} from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import FeedList from '@/components/feed/FeedList';
+import Indicator from '@/components/common/Indicator';
 
 function FeedHomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <FeedList />
+      <Suspense fallback={<Indicator />}>
+        <FeedList />
+      </Suspense>
     </SafeAreaView>
   );
 }
