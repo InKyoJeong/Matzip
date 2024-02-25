@@ -8,7 +8,7 @@ import {
 
 import {colors} from '@/constants';
 
-function Indicator({
+function Loader({
   children,
   size = 'small',
   color = colors.light.GRAY_500,
@@ -38,4 +38,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Indicator;
+export default Loader;
