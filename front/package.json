@@ -7,7 +7,11 @@
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
-    "test": "jest"
+    "test": "jest",
+    "appcenter-key:android": "appcenter codepush deployment list -a kyokyo/matzip-android -k",
+    "appcenter-key:ios": "appcenter codepush deployment list --app kyokyo/matzip-ios -k",
+    "codepush:android": "appcenter codepush release-react -a kyokyo/matzip-android -d Staging -s -o ./build -m -t 1.0",
+    "codepush:ios": "appcenter codepush release-react -a kyokyo/matzip-ios -d Staging -s -o ./build -m -t 1.0"
   },
   "dependencies": {
     "@invertase/react-native-apple-authentication": "^2.3.0",
@@ -19,10 +23,14 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "@tanstack/react-query": "^5.8.7",
+    "appcenter": "5.0.1",
+    "appcenter-analytics": "5.0.1",
+    "appcenter-crashes": "5.0.1",
     "axios": "^1.6.2",
     "react": "18.2.0",
     "react-error-boundary": "^4.0.12",
     "react-native": "0.72.6",
+    "react-native-code-push": "^8.2.1",
     "react-native-config": "^1.5.1",
     "react-native-date-picker": "^4.3.5",
     "react-native-encrypted-storage": "^4.0.3",

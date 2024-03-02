@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar} from 'react-native';
+import {StatusBar, Text, View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import {QueryClientProvider} from '@tanstack/react-query';
 import Toast, {
@@ -7,11 +7,13 @@ import Toast, {
   BaseToastProps,
   ErrorToast,
 } from 'react-native-toast-message';
+import CodePush from 'react-native-code-push';
 
 import RootNavigator from './src/navigations/root/RootNavigator';
 import queryClient from './src/api/queryClient';
 import {colors} from '@/constants';
 import useThemeStorage from '@/hooks/useThemeStorage';
+import useCodePush from '@/hooks/useCodePush';
 
 const toastConfig = {
   success: (props: BaseToastProps) => (
@@ -42,6 +44,7 @@ const toastConfig = {
 
 function App() {
   const {theme} = useThemeStorage();
+  const {hasUpdate, syncProgress} = useCodePush();
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -49,11 +52,18 @@ function App() {
         barStyle={theme === 'light' ? 'dark-content' : 'light-content'}
       />
       <NavigationContainer>
-        <RootNavigator />
+        {hasUpdate ? (
+          <View>
+            <Text>업데이트중...</Text>
+          </View>
+        ) : (
+          <RootNavigator />
+        )}
+
         <Toast config={toastConfig} />
       </NavigationContainer>
     </QueryClientProvider>
   );
 }
 
-export default App;
+export default CodePush(App);
