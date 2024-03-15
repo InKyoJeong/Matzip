@@ -71,6 +71,12 @@ export class PostService {
       const foundPost = await this.postRepository
         .createQueryBuilder('post')
         .leftJoinAndSelect('post.images', 'image')
+        .leftJoinAndSelect(
+          'post.favorites',
+          'favorite',
+          'favorite.userId = :userId',
+          { userId: user.id },
+        )
         .where('post.userId = :userId', { userId: user.id })
         .andWhere('post.id = :id', { id })
         .getOne();
@@ -79,7 +85,10 @@ export class PostService {
         throw new NotFoundException('존재하지 않는 피드입니다.');
       }
 
-      return foundPost;
+      const { favorites, ...rest } = foundPost;
+      const postWithIsFavorites = { ...rest, isFavorite: favorites.length > 0 };
+
+      return postWithIsFavorites;
     } catch (error) {
       console.log(error);
       throw new InternalServerErrorException(
