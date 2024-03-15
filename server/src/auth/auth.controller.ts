@@ -68,4 +68,21 @@ export class AuthController {
   ) {
     return this.authService.updateCategory(categories, user);
   }
+
+  @Post('/oauth/kakao')
+  kakaoLogin(@Body() kakaoToken: { token: string }) {
+    return this.authService.kakaoLogin(kakaoToken);
+  }
+
+  @Post('/oauth/apple')
+  appleLogin(
+    @Body()
+    appleIdentity: {
+      identityToken: string;
+      appId: string;
+      nickname: string | null;
+    },
+  ) {
+    return this.authService.appleLogin(appleIdentity);
+  }
 }
