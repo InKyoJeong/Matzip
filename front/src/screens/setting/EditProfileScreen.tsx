@@ -94,11 +94,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
             <>
               <Image
                 source={{
-                  uri: `${
-                    Platform.OS === 'ios'
-                      ? 'http://localhost:3030/'
-                      : 'http://10.0.2.2:3030/'
-                  }${kakaoImageUri}`,
+                  uri: kakaoImageUri,
                 }}
                 style={styles.image}
                 resizeMode="cover"
@@ -109,11 +105,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
             <>
               <Image
                 source={{
-                  uri: `${
-                    Platform.OS === 'ios'
-                      ? 'http://localhost:3030/'
-                      : 'http://10.0.2.2:3030/'
-                  }${imagePicker.imageUris[0]?.uri}`,
+                  uri: imagePicker.imageUris[0]?.uri,
                 }}
                 style={styles.image}
                 resizeMode="cover"

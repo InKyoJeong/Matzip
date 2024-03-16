@@ -49,17 +49,7 @@ function PreviewImageList({
           return (
             <View key={uri} style={styles.imageContainer}>
               <Pressable onPress={() => handlePressImage(index)}>
-                <Image
-                  style={styles.image}
-                  source={{
-                    uri: `${
-                      Platform.OS === 'ios'
-                        ? 'http://localhost:3030/'
-                        : 'http://10.0.2.2:3030/'
-                    }${uri}`,
-                  }}
-                  resizeMode="cover"
-                />
+                <Image style={styles.image} source={{uri}} resizeMode="cover" />
                 {showOption && (
                   <>
                     <Pressable

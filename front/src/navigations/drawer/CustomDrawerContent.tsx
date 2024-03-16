@@ -49,11 +49,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             {imageUri === null && !!kakaoImageUri && (
               <Image
                 source={{
-                  uri: `${
-                    Platform.OS === 'ios'
-                      ? 'http://localhost:3030/'
-                      : 'http://10.0.2.2:3030/'
-                  }${kakaoImageUri}`,
+                  uri: kakaoImageUri,
                 }}
                 style={styles.userImage}
               />
@@ -61,11 +57,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
             {imageUri !== null && (
               <Image
                 source={{
-                  uri: `${
-                    Platform.OS === 'ios'
-                      ? 'http://localhost:3030/'
-                      : 'http://10.0.2.2:3030/'
-                  }${imageUri}`,
+                  uri: imageUri,
                 }}
                 style={styles.userImage}
               />

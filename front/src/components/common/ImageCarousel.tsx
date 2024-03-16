@@ -54,11 +54,7 @@ function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
             <Image
               style={styles.image}
               source={{
-                uri: `${
-                  Platform.OS === 'ios'
-                    ? 'http://localhost:3030/'
-                    : 'http://10.0.2.2:3030/'
-                }${item.uri}`,
+                uri: item.uri,
               }}
               resizeMode="contain"
             />
