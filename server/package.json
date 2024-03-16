@@ -1,8 +1,8 @@
 {
-  "name": "server",
+  "name": "matzip-server",
   "version": "0.0.1",
   "description": "",
-  "author": "",
+  "author": "InKyoJeong",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
