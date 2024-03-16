@@ -5,13 +5,8 @@ import AuthHomeScreen from '../screens/AuthHomeScreen';
 import LoginScreen from '../screens/LoginScreen';
 import {authNaviagtions} from '../constants';
 
-export type AuthStackParamList = {
-  [authNaviagtions.AUTH_HOME]: undefined;
-  [authNaviagtions.LOGIN]: undefined;
-};
-
 function AuthStackNavigator() {
-  const Stack = createStackNavigator<AuthStackParamList>();
+  const Stack = createStackNavigator();
 
   return (
     <Stack.Navigator>
