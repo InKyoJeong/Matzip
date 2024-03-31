@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Image,
   Platform,
   Pressable,
   SafeAreaView,
@@ -8,6 +7,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {
   DrawerContentComponentProps,
   DrawerContentScrollView,
@@ -41,13 +41,13 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         <View style={styles.userInfoContainer}>
           <Pressable style={styles.userImageContainer}>
             {imageUri === null && kakaoImageUri === null && (
-              <Image
+              <FastImage
                 source={require('@/assets/user-default.png')}
                 style={styles.userImage}
               />
             )}
             {imageUri === null && !!kakaoImageUri && (
-              <Image
+              <FastImage
                 source={{
                   uri: `${
                     Platform.OS === 'ios'
@@ -59,7 +59,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
               />
             )}
             {imageUri !== null && (
-              <Image
+              <FastImage
                 source={{
                   uri: `${
                     Platform.OS === 'ios'

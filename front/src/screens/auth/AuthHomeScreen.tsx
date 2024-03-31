@@ -2,7 +2,6 @@ import React from 'react';
 import {StackScreenProps} from '@react-navigation/stack';
 import {
   Dimensions,
-  Image,
   Platform,
   Pressable,
   SafeAreaView,
@@ -10,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {
   appleAuth,
@@ -63,8 +63,8 @@ function AuthHomeScreen({navigation}: AuthHomeScreenProps) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
-        <Image
-          resizeMode="contain"
+        <FastImage
+          resizeMode={FastImage.resizeMode.contain}
           style={styles.image}
           source={require('@/assets/matzip.png')}
         />

@@ -13,7 +13,6 @@ import {validateEditProfile} from '@/utils';
 import {StackScreenProps} from '@react-navigation/stack';
 import React, {useEffect} from 'react';
 import {
-  Image,
   Keyboard,
   Platform,
   Pressable,
@@ -21,6 +20,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import Toast from 'react-native-toast-message';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 
@@ -92,7 +92,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
           )}
           {imagePicker.imageUris.length === 0 && kakaoImageUri && (
             <>
-              <Image
+              <FastImage
                 source={{
                   uri: `${
                     Platform.OS === 'ios'
@@ -101,13 +101,13 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                   }${kakaoImageUri}`,
                 }}
                 style={styles.image}
-                resizeMode="cover"
+                resizeMode={FastImage.resizeMode.cover}
               />
             </>
           )}
           {imagePicker.imageUris.length > 0 && (
             <>
-              <Image
+              <FastImage
                 source={{
                   uri: `${
                     Platform.OS === 'ios'
@@ -116,7 +116,7 @@ function EditProfileScreen({navigation}: EditProfileScreenProps) {
                   }${imagePicker.imageUris[0]?.uri}`,
                 }}
                 style={styles.image}
-                resizeMode="cover"
+                resizeMode={FastImage.resizeMode.cover}
               />
             </>
           )}

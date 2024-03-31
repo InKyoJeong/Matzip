@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Dimensions,
-  Image,
   Modal,
   Platform,
   Pressable,
@@ -10,6 +9,7 @@ import {
   Text,
   View,
 } from 'react-native';
+import FastImage from 'react-native-fast-image';
 import Octicons from 'react-native-vector-icons/Octicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import {CompositeNavigationProp, useNavigation} from '@react-navigation/native';
@@ -74,7 +74,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
             <View style={styles.cardAlign}>
               {post.images.length > 0 && (
                 <View style={styles.imageContainer}>
-                  <Image
+                  <FastImage
                     style={styles.image}
                     source={{
                       uri: `${
@@ -83,7 +83,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
                           : 'http://10.0.2.2:3030/'
                       }${post.images[0]?.uri}`,
                     }}
-                    resizeMode="cover"
+                    resizeMode={FastImage.resizeMode.cover}
                   />
                 </View>
               )}
