@@ -28,6 +28,7 @@
     "react-native-encrypted-storage": "^4.0.3",
     "react-native-gesture-handler": "^2.13.4",
     "react-native-image-crop-picker": "^0.40.2",
+    "react-native-map-clustering": "^3.4.2",
     "react-native-maps": "^1.8.3",
     "react-native-permissions": "^4.0.1",
     "react-native-reanimated": "^3.5.4",
