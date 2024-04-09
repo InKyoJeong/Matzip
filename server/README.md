@@ -9,7 +9,7 @@
 프로젝트 위치에서 명령어를 실행합니다.
 
 ```
-npm install 
+npm install
 ```
 
 2. 환경 변수 설정
@@ -23,7 +23,7 @@ DB_PASSWORD=postgres
 DB_DATABASE=matzip-app
 DB_HOST=localhost
 JWT_SECRET=SecretMatzip
-JWT_ACCRESS_TOKEN_EXPIRATION=30m
+JWT_ACCESS_TOKEN_EXPIRATION=30m
 JWT_REFRESH_TOKEN_EXPIRATION=30d
 ```
 
