@@ -3,6 +3,7 @@ import {useEffect, useState} from 'react';
 import {storageKeys} from '@/constants';
 import type {Marker} from '@/types';
 import {getEncryptStorage, setEncryptStorage} from '@/utils';
+import useMarkerFilterStore from '@/store/useMarkerFilterStore';
 
 const initialFilters = {
   RED: true,
@@ -18,8 +19,7 @@ const initialFilters = {
 };
 
 function useMarkerFilterStorage() {
-  const [filterItems, setFilterItems] =
-    useState<Record<string, boolean>>(initialFilters);
+  const {filterItems, setFilterItems} = useMarkerFilterStore();
 
   const set = async (items: Record<string, boolean>) => {
     await setEncryptStorage(storageKeys.MARKER_FILTER, items);
@@ -41,7 +41,7 @@ function useMarkerFilterStorage() {
         (await getEncryptStorage(storageKeys.MARKER_FILTER)) ?? initialFilters;
       setFilterItems(storedData);
     })();
-  }, [filterItems]);
+  }, []);
 
   return {set, items: filterItems, transformFilteredMarker};
 }
