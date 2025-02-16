@@ -3,7 +3,7 @@ import {StackScreenProps} from '@react-navigation/stack';
 import React from 'react';
 import {Button, StyleSheet, Text, View} from 'react-native';
 import {authNaviagtions} from '../constants';
-import {AuthStackParamList} from '../navigations/AuthStackNavigator';
+import {AuthStackParamList} from '../navigations/stack/AuthStackNavigator';
 
 type AuthHomeScreenProps = StackScreenProps<
   AuthStackParamList,

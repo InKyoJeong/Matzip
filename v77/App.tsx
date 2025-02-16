@@ -1,16 +1,13 @@
 import React from 'react';
-import {SafeAreaView, StyleSheet, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import AuthStackNavigator from './src/navigations/AuthStackNavigator';
+import RootNavigator from './src/navigations/RootNavigator';
 
 function App() {
   return (
     <NavigationContainer>
-      <AuthStackNavigator />
+      <RootNavigator />
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default App;
