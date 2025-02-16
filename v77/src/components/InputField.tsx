@@ -1,26 +1,49 @@
-import React from 'react';
-import {StyleSheet, TextInput, View, TextInputProps, Text} from 'react-native';
+import React, {ForwardedRef, forwardRef, useRef} from 'react';
+import {
+  StyleSheet,
+  TextInput,
+  View,
+  TextInputProps,
+  Text,
+  Pressable,
+} from 'react-native';
 import {colors} from '../constants';
+import {mergeRefs} from '../utils/mergeRefs';
 
 interface InputFieldProps extends TextInputProps {
   error?: string;
   touched?: boolean;
 }
 
-function InputField({error, touched, ...props}: InputFieldProps) {
+function InputField(
+  {error, touched, ...props}: InputFieldProps,
+  ref?: ForwardedRef<TextInput>,
+) {
+  const innerRef = useRef<TextInput | null>(null);
+
+  const handlePressInput = () => {
+    innerRef.current?.focus();
+  };
+
   return (
-    <View
-      style={[
-        styles.container,
-        touched && Boolean(error) && styles.inputError,
-      ]}>
-      <TextInput
-        placeholderTextColor={colors.GRAY_500}
-        style={styles.input}
-        {...props}
-      />
-      {touched && Boolean(error) && <Text style={styles.error}>{error}</Text>}
-    </View>
+    <Pressable onPress={handlePressInput}>
+      <View
+        style={[
+          styles.container,
+          touched && Boolean(error) && styles.inputError,
+        ]}>
+        <TextInput
+          ref={ref ? mergeRefs(innerRef, ref) : innerRef}
+          placeholderTextColor={colors.GRAY_500}
+          style={styles.input}
+          autoCapitalize="none"
+          spellCheck={false}
+          autoCorrect={false}
+          {...props}
+        />
+        {touched && Boolean(error) && <Text style={styles.error}>{error}</Text>}
+      </View>
+    </Pressable>
   );
 }
 
@@ -45,4 +68,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default InputField;
+export default forwardRef(InputField);
