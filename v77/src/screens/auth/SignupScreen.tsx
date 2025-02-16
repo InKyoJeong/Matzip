@@ -1,16 +1,14 @@
 import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 
-interface LoginScreenProps {}
-
-function LoginScreen({}: LoginScreenProps) {
+function SignScreen() {
   return (
     <View>
-      <Text>Login</Text>
+      <Text>회원가입</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({});
 
-export default LoginScreen;
+export default SignScreen;
