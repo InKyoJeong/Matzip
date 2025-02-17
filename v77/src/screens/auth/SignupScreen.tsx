@@ -4,14 +4,26 @@ import InputField from '../../components/InputField';
 import CustomButton from '../../components/CustomButton';
 import useForm from '../../hooks/useForm';
 import {validateSignup} from '../../utils/validate';
+import useAuth from '../../hooks/queries/useAuth';
 
 function SignupScreen() {
   const passwordRef = useRef<TextInput | null>(null);
   const passwordConfirmRef = useRef<TextInput | null>(null);
+  const {signupMutation, loginMutation} = useAuth();
   const signup = useForm({
     initialValue: {email: '', password: '', passwordConfirm: ''},
     validate: validateSignup,
   });
+
+  const handleSubmit = () => {
+    const {email, password} = signup.values;
+    signupMutation.mutate(
+      {email, password},
+      {
+        onSuccess: () => loginMutation.mutate({email, password}),
+      },
+    );
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,6 +32,7 @@ function SignupScreen() {
           autoFocus
           placeholder="이메일"
           submitBehavior="submit"
+          inputMode="email"
           onSubmitEditing={() => passwordRef.current?.focus()}
           error={signup.errors.email}
           touched={signup.touched.email}
@@ -42,12 +55,18 @@ function SignupScreen() {
           secureTextEntry
           returnKeyType="join"
           placeholder="비밀번호 확인"
+          onSubmitEditing={handleSubmit}
           error={signup.errors.passwordConfirm}
           touched={signup.touched.passwordConfirm}
           {...signup.getTextInputProps('passwordConfirm')}
         />
       </View>
-      <CustomButton label="회원가입" variant="filled" size="large" />
+      <CustomButton
+        label="회원가입"
+        variant="filled"
+        size="large"
+        onPress={handleSubmit}
+      />
     </SafeAreaView>
   );
 }
