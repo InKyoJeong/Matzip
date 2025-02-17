@@ -7,8 +7,8 @@ import {
   Text,
   Pressable,
 } from 'react-native';
-import {colors} from '../constants';
-import {mergeRefs} from '../utils/mergeRefs';
+import {mergeRefs} from '@/utils';
+import {colors} from '@/constants';
 
 interface InputFieldProps extends TextInputProps {
   error?: string;
