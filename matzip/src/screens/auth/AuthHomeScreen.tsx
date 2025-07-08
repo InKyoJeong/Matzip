@@ -1,17 +1,20 @@
-import {useNavigation} from '@react-navigation/native';
+import {SafeAreaView, StyleSheet} from 'react-native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import React, {useEffect} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
-import {AuthStackParamList} from '../../types/navigation';
+
+import {AuthStackParamList} from '@/types/navigation';
+import CustomButton from '@/components/CustomButton';
+import {useNavigation} from '@react-navigation/native';
 
 type Navigation = StackNavigationProp<AuthStackParamList>;
 
 function AuthHomeScreen() {
   const navigation = useNavigation<Navigation>();
-
   return (
     <SafeAreaView>
-      <Text onPress={() => navigation.navigate('Login')}>로그인으로 이동</Text>
+      <CustomButton
+        label="이메일 로그인"
+        onPress={() => navigation.navigate('Login')}
+      />
     </SafeAreaView>
   );
 }
