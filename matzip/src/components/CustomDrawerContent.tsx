@@ -12,7 +12,8 @@ import {
   Text,
   View,
 } from 'react-native';
-import {colors} from '../constants/colors';
+
+import {colors} from '@/constants/colors';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
   return (
@@ -24,7 +25,7 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         <Pressable style={styles.profileContainer}>
           <View style={styles.userImageContainer}>
             <Image
-              source={require('../assets/default-user.png')}
+              source={require('@/assets/default-user.png')}
               style={styles.userImage}
             />
           </View>
