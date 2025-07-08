@@ -2,8 +2,6 @@ import {createStaticNavigation} from '@react-navigation/native';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 
 import {FeedStack} from './FeedNavigation';
-import {MapStack} from './MapNavigation';
-import CalendarScreen from '../screens/calendar/CalendarScreen';
 import DrawerButton from '../components/DrawerButton';
 import {colors} from '../constants/colors';
 import CustomDrawerContent from '../components/CustomDrawerContent';
@@ -29,8 +27,8 @@ const MainDrawer = createDrawerNavigator({
     headerBackButtonDisplayMode: 'minimal',
     headerTintColor: colors.BLACK,
     headerStyle: {
-      shadowColor: colors.GRAY_500,
       backgroundColor: colors.WHITE,
+      shadowColor: colors.GRAY_500,
     },
     headerTitleStyle: {
       fontSize: 16,
