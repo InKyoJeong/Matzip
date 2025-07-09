@@ -9,7 +9,7 @@ function LoginScreen() {
     <SafeAreaView style={styles.container}>
       <View style={styles.inputContainer}>
         <InputField placeholder="이메일" />
-        <InputField placeholder="비밀번호" />
+        <InputField secureTextEntry placeholder="비밀번호" />
       </View>
       <CustomButton label="로그인" variant="filled" size="large" />
     </SafeAreaView>
