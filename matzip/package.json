@@ -18,6 +18,7 @@
     "@react-navigation/stack": "^7.4.2",
     "react": "19.0.0",
     "react-native": "0.79.4",
+    "react-native-encrypted-storage": "^4.0.3",
     "react-native-gesture-handler": "^2.27.1",
     "react-native-reanimated": "^3.18.0",
     "react-native-safe-area-context": "^5.5.1",
