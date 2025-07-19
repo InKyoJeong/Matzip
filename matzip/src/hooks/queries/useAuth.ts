@@ -1,4 +1,5 @@
 import {getAccessToken, getProfile, postLogin, postSignup} from '@/api/auth';
+import queryClient from '@/api/queryClient';
 import {numbers} from '@/constants/numbers';
 import {UseMutationCustomOptions, UseQueryCustomOptions} from '@/types/api';
 import {Profile} from '@/types/domain';
@@ -20,6 +21,9 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
     onSuccess: async ({accessToken, refreshToken}) => {
       setHeader('Authorization', `Bearer ${accessToken}`);
       await setEncryptStorage('refreshToken', refreshToken);
+      queryClient.fetchQuery({
+        queryKey: ['auth', 'getAccessToken'],
+      });
     },
     ...mutationOptions,
   });
@@ -61,3 +65,16 @@ function useGetProfile(queryOptions?: UseQueryCustomOptions<Profile>) {
     ...queryOptions,
   });
 }
+
+function useAuth() {
+  const signupMutation = useSignup();
+  const loginMutation = useLogin();
+  const refreshTokenQuery = useGetRefreshToken();
+  const {data, isSuccess: isLogin} = useGetProfile({
+    enabled: refreshTokenQuery.isSuccess,
+  });
+
+  return {signupMutation, loginMutation, isLogin};
+}
+
+export default useAuth;
