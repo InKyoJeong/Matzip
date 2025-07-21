@@ -8,11 +8,13 @@ import DrawerButton from '@/components/DrawerButton';
 import {colors} from '@/constants/colors';
 import useUserLocation from '@/hooks/useUserLocation';
 import {numbers} from '@/constants/numbers';
+import usePermission from '@/hooks/usePermission';
 
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
+  usePermission();
 
   const moveMapView = (coordinate: LatLng) => {
     mapRef.current?.animateToRegion({
