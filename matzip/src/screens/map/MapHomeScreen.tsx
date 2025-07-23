@@ -14,7 +14,7 @@ function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
-  usePermission();
+  usePermission('LOCATION');
 
   const moveMapView = (coordinate: LatLng) => {
     mapRef.current?.animateToRegion({
