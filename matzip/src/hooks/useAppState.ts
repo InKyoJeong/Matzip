@@ -11,11 +11,11 @@ function useAppState() {
         appState.current.match(/inactive|background/) &&
         nextAppState === 'active'
       ) {
-        if (!isComeback) setIsComeback(true);
+        setIsComeback(true);
       }
 
       if (appState.current.match(/active/) && nextAppState === 'background') {
-        if (isComeback) setIsComeback(false);
+        setIsComeback(false);
       }
 
       appState.current = nextAppState;
