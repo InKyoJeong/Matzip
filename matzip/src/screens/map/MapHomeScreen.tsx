@@ -39,6 +39,7 @@ function MapHomeScreen() {
         color={colors.WHITE}
       />
       <MapView
+        googleMapId="f397ec96980a97c3c96a731d"
         style={styles.container}
         ref={mapRef}
         region={{
