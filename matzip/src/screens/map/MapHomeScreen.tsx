@@ -6,17 +6,17 @@ import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
 import Toast from 'react-native-toast-message';
 
 import DrawerButton from '@/components/DrawerButton';
-import {colors} from '@/constants/colors';
-import useUserLocation from '@/hooks/useUserLocation';
-import {numbers} from '@/constants/numbers';
-import usePermission from '@/hooks/usePermission';
 import CustomMarker from '@/components/CustomMarker';
+import useUserLocation from '@/hooks/useUserLocation';
+import usePermission from '@/hooks/usePermission';
 import useMoveMapView from '@/hooks/useMoveMapView';
+import {colors} from '@/constants/colors';
+import {numbers} from '@/constants/numbers';
 
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
-  const {userLocation, isUserLocationError} = useUserLocation();
   const [selectLocation, setSelectLocation] = useState<LatLng | null>();
+  const {userLocation, isUserLocationError} = useUserLocation();
   const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
   usePermission('LOCATION');
 
