@@ -58,9 +58,10 @@ function MapHomeScreen() {
           setSelectLocation(nativeEvent.coordinate)
         }>
         <CustomMarker
-          color={colors.BLUE_400}
+          color={colors.PINK_400}
+          score={3}
           coordinate={{
-            latitude: 37.5536032365118,
+            latitude: 37.5546032365118,
             longitude: 126.98989626020192,
           }}
         />
