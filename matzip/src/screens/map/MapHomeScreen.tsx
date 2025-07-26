@@ -3,19 +3,21 @@ import {Pressable, StyleSheet, View} from 'react-native';
 import MapView, {LatLng, PROVIDER_GOOGLE} from 'react-native-maps';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
+import Toast from 'react-native-toast-message';
+import Config from 'react-native-config';
 
 import DrawerButton from '@/components/DrawerButton';
 import {colors} from '@/constants/colors';
 import useUserLocation from '@/hooks/useUserLocation';
 import {numbers} from '@/constants/numbers';
 import usePermission from '@/hooks/usePermission';
-import Toast from 'react-native-toast-message';
 
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const mapRef = useRef<MapView | null>(null);
   const {userLocation, isUserLocationError} = useUserLocation();
   usePermission('LOCATION');
+  console.log(Config.GOOGLE_MAP_API_KEY);
 
   const moveMapView = (coordinate: LatLng) => {
     mapRef.current?.animateToRegion({

@@ -15,7 +15,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    GMSServices.provideAPIKey("YOUR_KEY")
+    if let googleApiKey = RNCConfig.env(for: "GOOGLE_MAP_API_KEY"){
+      GMSServices.provideAPIKey(googleApiKey)
+    }
 
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
