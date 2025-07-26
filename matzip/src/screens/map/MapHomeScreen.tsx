@@ -10,6 +10,7 @@ import {colors} from '@/constants/colors';
 import useUserLocation from '@/hooks/useUserLocation';
 import {numbers} from '@/constants/numbers';
 import usePermission from '@/hooks/usePermission';
+import CustomMarker from '@/components/CustomMarker';
 
 function MapHomeScreen() {
   const inset = useSafeAreaInsets();
@@ -56,16 +57,11 @@ function MapHomeScreen() {
         onLongPress={({nativeEvent}) =>
           setSelectLocation(nativeEvent.coordinate)
         }>
-        <Marker
+        <CustomMarker
+          color={colors.BLUE_400}
           coordinate={{
-            latitude: 37.5516032365118,
+            latitude: 37.5536032365118,
             longitude: 126.98989626020192,
-          }}
-        />
-        <Marker
-          coordinate={{
-            latitude: 37.5526032365118,
-            longitude: 126.98889626020192,
           }}
         />
         {selectLocation && <Marker coordinate={selectLocation} />}
