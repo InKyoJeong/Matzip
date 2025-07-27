@@ -5,10 +5,15 @@ import {colors} from '@/constants/colors';
 
 interface MarkerColorInputProps {
   color: string;
+  score: number;
   onChangeColor: (value: string) => void;
 }
 
-function MarkerColorInput({color, onChangeColor}: MarkerColorInputProps) {
+function MarkerColorInput({
+  color,
+  score,
+  onChangeColor,
+}: MarkerColorInputProps) {
   return (
     <View style={styles.container}>
       <Text style={styles.markerLabel}>마커선택</Text>
@@ -29,7 +34,7 @@ function MarkerColorInput({color, onChangeColor}: MarkerColorInputProps) {
                   color === selectColor && styles.pressedMarker,
                 ]}
                 onPress={() => onChangeColor(selectColor)}>
-                <CustomMarker color={selectColor} />
+                <CustomMarker color={selectColor} score={score} />
               </Pressable>
             );
           })}
