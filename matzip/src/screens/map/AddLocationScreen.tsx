@@ -10,6 +10,8 @@ import {validateAddPost} from '@/utils/validation';
 import useGetAddress from '@/hooks/useGetAddress';
 import DatePicker from 'react-native-date-picker';
 import {getDateWithSeparator} from '@/utils/date';
+import MarkerColorInput from '@/components/MarkerColorInput';
+import {colors} from '@/constants/colors';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
@@ -21,6 +23,7 @@ function AddLocationScreen({route}: Props) {
       title: '',
       description: '',
       date: new Date(),
+      color: colors.PINK_400,
     },
     validate: validateAddPost,
   });
@@ -46,6 +49,10 @@ function AddLocationScreen({route}: Props) {
         error={postForm.errors.description}
         touched={postForm.touched.description}
         {...postForm.getTextInputProps('description')}
+      />
+      <MarkerColorInput
+        color={postForm.values.color}
+        onChangeColor={value => postForm.onChange('color', value)}
       />
       <DatePicker
         modal
