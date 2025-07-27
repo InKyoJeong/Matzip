@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {SafeAreaView, ScrollView, StyleSheet, Text, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 
@@ -7,11 +7,15 @@ import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
 import useForm from '@/hooks/useForm';
 import {validateAddPost} from '@/utils/validation';
+import axios from 'axios';
+import Config from 'react-native-config';
+import useGetAddress from '@/hooks/useGetAddress';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
 function AddLocationScreen({route}: Props) {
   const {location} = route.params;
+  const address = useGetAddress(location);
   const postForm = useForm({
     initialValue: {
       title: '',
@@ -22,7 +26,7 @@ function AddLocationScreen({route}: Props) {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <InputField />
+      <InputField disabled value={address} />
       <CustomButton variant="outlined" label="날짜 선택" />
       <InputField
         placeholder="제목을 입력하세요."
