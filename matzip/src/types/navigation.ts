@@ -1,8 +1,9 @@
 import {NavigatorScreenParams} from '@react-navigation/native';
+import {LatLng} from 'react-native-maps';
 
 export type MapStackParamList = {
   MapHome: undefined;
-  AddLocation: undefined;
+  AddLocation: {location: LatLng};
   SearchLocation: undefined;
 };
 
