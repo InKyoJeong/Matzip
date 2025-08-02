@@ -1,20 +1,23 @@
 import React, {useState} from 'react';
 import {ScrollView, StyleSheet} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import DatePicker from 'react-native-date-picker';
+import ImagePicker from 'react-native-image-crop-picker';
 
-import {MapStackParamList} from '@/types/navigation';
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
-import useForm from '@/hooks/useForm';
-import {validateAddPost} from '@/utils/validation';
-import useGetAddress from '@/hooks/useGetAddress';
-import DatePicker from 'react-native-date-picker';
-import {getDateWithSeparator} from '@/utils/date';
 import MarkerColorInput from '@/components/MarkerColorInput';
-import {colors} from '@/constants/colors';
 import ScoreInput from '@/components/ScoreInput';
 import FixedBottomCTA from '@/components/FixedBottomCTA';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import useForm from '@/hooks/useForm';
+import useGetAddress from '@/hooks/useGetAddress';
+import {colors} from '@/constants/colors';
+import {validateAddPost} from '@/utils/validation';
+import {getDateWithSeparator} from '@/utils/date';
+import {MapStackParamList} from '@/types/navigation';
+import ImageInput from '@/components/ImageInput';
+import usePermission from '@/hooks/usePermission';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
@@ -33,9 +36,19 @@ function AddLocationScreen({route}: Props) {
     validate: validateAddPost,
   });
   const [openDate, setOpenDate] = useState(false);
+  usePermission('PHOTO');
 
   const handleSubmit = () => {
     console.log('postForm.values', postForm.values);
+  };
+
+  const handleChangeImage = () => {
+    ImagePicker.openPicker({
+      mediaType: 'photo',
+      multiple: true,
+      includeBase64: true,
+      maxFiles: 5,
+    }).then(images => console.log('images', images));
   };
 
   return (
@@ -88,6 +101,7 @@ function AddLocationScreen({route}: Props) {
           }}
           onCancel={() => setOpenDate(false)}
         />
+        <ImageInput onChange={handleChangeImage} />
       </ScrollView>
       <FixedBottomCTA label="저장" onPress={handleSubmit} />
     </>
