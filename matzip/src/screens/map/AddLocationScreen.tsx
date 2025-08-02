@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, StyleSheet} from 'react-native';
+import {ScrollView, StyleSheet, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker';
@@ -18,6 +18,7 @@ import {MapStackParamList} from '@/types/navigation';
 import ImageInput from '@/components/ImageInput';
 import usePermission from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagePicker';
+import PreviewImageList from '@/components/PreviewImageList';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
@@ -93,7 +94,13 @@ function AddLocationScreen({route}: Props) {
           }}
           onCancel={() => setOpenDate(false)}
         />
-        <ImageInput onChange={imagePicker.handleChangeImage} />
+        <View style={{flexDirection: 'row'}}>
+          <ImageInput onChange={imagePicker.handleChangeImage} />
+          <PreviewImageList
+            imageUris={imagePicker.imageUris}
+            onDelete={imagePicker.delete}
+          />
+        </View>
       </ScrollView>
       <FixedBottomCTA label="저장" onPress={handleSubmit} />
     </>
