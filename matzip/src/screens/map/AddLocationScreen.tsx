@@ -19,11 +19,14 @@ import ImageInput from '@/components/ImageInput';
 import usePermission from '@/hooks/usePermission';
 import useImagePicker from '@/hooks/useImagePicker';
 import PreviewImageList from '@/components/PreviewImageList';
+import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
+import {useNavigation} from '@react-navigation/native';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
 function AddLocationScreen({route}: Props) {
   const {location} = route.params;
+  const navigation = useNavigation();
   const inset = useSafeAreaInsets();
   const address = useGetAddress(location);
   const imagePicker = useImagePicker();
@@ -38,10 +41,21 @@ function AddLocationScreen({route}: Props) {
     validate: validateAddPost,
   });
   const [openDate, setOpenDate] = useState(false);
+  const createPost = useMutateCreatePost();
   usePermission('PHOTO');
 
   const handleSubmit = () => {
-    console.log('postForm.values', postForm.values);
+    createPost.mutate(
+      {
+        address,
+        ...location,
+        ...postForm.values,
+        imageUris: imagePicker.imageUris,
+      },
+      {
+        onSuccess: () => navigation.goBack(),
+      },
+    );
   };
 
   return (
