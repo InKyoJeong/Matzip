@@ -3,7 +3,6 @@ import {ScrollView, StyleSheet} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import DatePicker from 'react-native-date-picker';
-import ImagePicker from 'react-native-image-crop-picker';
 
 import InputField from '@/components/InputField';
 import CustomButton from '@/components/CustomButton';
@@ -18,6 +17,7 @@ import {getDateWithSeparator} from '@/utils/date';
 import {MapStackParamList} from '@/types/navigation';
 import ImageInput from '@/components/ImageInput';
 import usePermission from '@/hooks/usePermission';
+import useImagePicker from '@/hooks/useImagePicker';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
@@ -25,6 +25,7 @@ function AddLocationScreen({route}: Props) {
   const {location} = route.params;
   const inset = useSafeAreaInsets();
   const address = useGetAddress(location);
+  const imagePicker = useImagePicker();
   const postForm = useForm({
     initialValue: {
       title: '',
@@ -40,15 +41,6 @@ function AddLocationScreen({route}: Props) {
 
   const handleSubmit = () => {
     console.log('postForm.values', postForm.values);
-  };
-
-  const handleChangeImage = () => {
-    ImagePicker.openPicker({
-      mediaType: 'photo',
-      multiple: true,
-      includeBase64: true,
-      maxFiles: 5,
-    }).then(images => console.log('images', images));
   };
 
   return (
@@ -101,7 +93,7 @@ function AddLocationScreen({route}: Props) {
           }}
           onCancel={() => setOpenDate(false)}
         />
-        <ImageInput onChange={handleChangeImage} />
+        <ImageInput onChange={imagePicker.handleChangeImage} />
       </ScrollView>
       <FixedBottomCTA label="저장" onPress={handleSubmit} />
     </>
