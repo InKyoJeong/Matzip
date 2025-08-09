@@ -4,9 +4,9 @@ import FontAwesome6 from '@react-native-vector-icons/fontawesome6';
 
 import {FeedStack} from './FeedNavigation';
 import {MapStack} from './MapNavigation';
-import DrawerButton from '@/components/DrawerButton';
+import DrawerButton from '@/components/common/DrawerButton';
 import CalendarScreen from '@/screens/calendar/CalendarScreen';
-import CustomDrawerContent from '@/components/CustomDrawerContent';
+import CustomDrawerContent from '@/components/common/CustomDrawerContent';
 import {colors} from '@/constants/colors';
 import {MainDrawerParamList} from '@/types/navigation';
 

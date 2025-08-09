@@ -1,6 +1,6 @@
 import {createStackNavigator} from '@react-navigation/stack';
 
-import DrawerButton from '@/components/DrawerButton';
+import DrawerButton from '@/components/common/DrawerButton';
 import {colors} from '@/constants/colors';
 import EditLocationScreen from '@/screens/feed/EditLocationScreen';
 import FeedDetailScreen from '@/screens/feed/FeedDetailScreen';

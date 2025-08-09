@@ -10,7 +10,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {useNavigation} from '@react-navigation/native';
 
 import {AuthStackParamList} from '@/types/navigation';
-import CustomButton from '@/components/CustomButton';
+import CustomButton from '@/components/common/CustomButton';
 import {colors} from '@/constants/colors';
 
 type Navigation = StackNavigationProp<AuthStackParamList>;
