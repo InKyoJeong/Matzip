@@ -113,6 +113,7 @@ function AddLocationScreen({route}: Props) {
           <PreviewImageList
             imageUris={imagePicker.imageUris}
             onDelete={imagePicker.delete}
+            showDeleteButton
           />
         </View>
       </ScrollView>

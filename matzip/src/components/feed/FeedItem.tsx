@@ -12,14 +12,21 @@ import {baseUrls} from '@/api/axios';
 import {colors} from '@/constants/colors';
 import {Post} from '@/types/domain';
 import {getDateWithSeparator} from '@/utils/date';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {FeedStackParamList} from '@/types/navigation';
 
 interface FeedItemProps {
   post: Post;
 }
 
 function FeedItem({post}: FeedItemProps) {
+  const navigation = useNavigation<StackNavigationProp<FeedStackParamList>>();
+
   return (
-    <Pressable style={styles.container}>
+    <Pressable
+      style={styles.container}
+      onPress={() => navigation.navigate('FeedDetail', {id: post.id})}>
       {post.imageUris.length > 0 && (
         <View style={styles.imageContainer}>
           <Image
