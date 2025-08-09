@@ -3,7 +3,6 @@ import {
   Dimensions,
   Image,
   Platform,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -22,6 +21,8 @@ import {getDateWithSeparator} from '@/utils/date';
 import CustomButton from '@/components/common/CustomButton';
 import PreviewImageList from '@/components/common/PreviewImageList';
 import useLocationStore from '@/store/location';
+import FeedDetailActionSheet from '@/components/feed/FeedDetailActionSheet';
+import useModal from '@/hooks/useModal';
 
 type Props = StackScreenProps<FeedStackParamList, 'FeedDetail'>;
 
@@ -31,6 +32,7 @@ function FeedDetailScreen({route}: Props) {
   const insets = useSafeAreaInsets();
   const {data: post, isPending, isError} = useGetPost(id);
   const {setMoveLocation} = useLocationStore();
+  const detailAction = useModal();
 
   if (isPending || isError) {
     return <></>;
@@ -54,7 +56,12 @@ function FeedDetailScreen({route}: Props) {
           color={colors.WHITE}
           onPress={() => navigation.goBack()}
         />
-        <Ionicons name="ellipsis-vertical" size={30} color={colors.WHITE} />
+        <Ionicons
+          name="ellipsis-vertical"
+          size={30}
+          color={colors.WHITE}
+          onPress={detailAction.show}
+        />
       </View>
       <ScrollView>
         <View style={styles.imageContainer}>
@@ -132,6 +139,11 @@ function FeedDetailScreen({route}: Props) {
           onPress={handlePressLocation}
         />
       </View>
+
+      <FeedDetailActionSheet
+        isVisible={detailAction.isVisible}
+        hideAction={detailAction.hide}
+      />
     </>
   );
 }
