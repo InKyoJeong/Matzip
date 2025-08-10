@@ -6,9 +6,13 @@ import useMutateImages from '@/hooks/queries/useMutateImages';
 import {getFormDataImages} from '@/utils/image';
 import {ImageUri} from '@/types/domain';
 
-function useImagePicker() {
+interface UseImagePickerProps {
+  initialImages: ImageUri[];
+}
+
+function useImagePicker({initialImages}: UseImagePickerProps) {
   const uploadImages = useMutateImages();
-  const [imageUris, setImageUris] = useState<ImageUri[]>([]);
+  const [imageUris, setImageUris] = useState<ImageUri[]>(initialImages);
 
   const addImageUris = (uris: string[]) => {
     setImageUris(prev => [...prev, ...uris.map(uri => ({uri}))]);
