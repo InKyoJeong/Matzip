@@ -1,6 +1,3 @@
-import {baseUrls} from '@/api/axios';
-import {colors} from '@/constants/colors';
-import useGetPost from '@/hooks/queries/useGetPost';
 import React from 'react';
 import {
   Image,
@@ -13,6 +10,11 @@ import {
   View,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import {useNavigation} from '@react-navigation/native';
+
+import {baseUrls} from '@/api/axios';
+import {colors} from '@/constants/colors';
+import useGetPost from '@/hooks/queries/useGetPost';
 import {getDateWithSeparator} from '@/utils/date';
 
 interface MarkerModalProps {
@@ -22,16 +24,29 @@ interface MarkerModalProps {
 }
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
+  const navigation = useNavigation();
   const {data: post, isPending, isError} = useGetPost(markerId);
 
   if (isPending || isError) {
     return <></>;
   }
 
+  const handlePressModal = () => {
+    navigation.navigate('Feed', {
+      screen: 'FeedDetail',
+      params: {
+        id: post.id,
+      },
+      initial: false,
+    });
+
+    hide();
+  };
+
   return (
     <Modal visible={isVisible} transparent animationType="slide">
       <SafeAreaView style={styles.background} onTouchEnd={hide}>
-        <Pressable style={styles.cardContainer}>
+        <Pressable style={styles.cardContainer} onPress={handlePressModal}>
           <View style={styles.cardInner}>
             <View style={styles.cardAlign}>
               {post.imageUris.length > 0 && (
