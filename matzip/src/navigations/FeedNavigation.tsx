@@ -1,4 +1,6 @@
+import {Pressable} from 'react-native';
 import {createStackNavigator} from '@react-navigation/stack';
+import Ionicons from '@react-native-vector-icons/ionicons';
 
 import DrawerButton from '@/components/common/DrawerButton';
 import {colors} from '@/constants/colors';
@@ -27,10 +29,17 @@ export const FeedStack = createStackNavigator({
   screens: {
     FeedList: {
       screen: FeedListScreen,
-      options: {
+      options: ({navigation}) => ({
         title: '피드',
         headerLeft: () => <DrawerButton />,
-      },
+        headerRight: () => (
+          <Pressable
+            style={{paddingHorizontal: 12}}
+            onPress={() => navigation.navigate('FeedFavorite')}>
+            <Ionicons name="star" size={25} color={colors.PINK_700} />
+          </Pressable>
+        ),
+      }),
     },
     FeedDetail: {
       screen: FeedDetailScreen,
@@ -40,6 +49,17 @@ export const FeedStack = createStackNavigator({
     },
     FeedFavorite: {
       screen: FeedFavoriteScreen,
+      options: ({navigation}) => ({
+        title: '즐겨찾기',
+        headerLeft: () => (
+          <Ionicons
+            name="chevron-back"
+            size={30}
+            color={colors.BLACK}
+            onPress={() => navigation.navigate('FeedList')}
+          />
+        ),
+      }),
     },
     EditLocation: {
       screen: EditLocationScreen,

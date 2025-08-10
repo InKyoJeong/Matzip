@@ -23,6 +23,7 @@ import PreviewImageList from '@/components/common/PreviewImageList';
 import useLocationStore from '@/store/location';
 import FeedDetailActionSheet from '@/components/feed/FeedDetailActionSheet';
 import useModal from '@/hooks/useModal';
+import useMutateFavoritePost from '@/hooks/queries/useMutateFavoritePost';
 
 type Props = StackScreenProps<FeedStackParamList, 'FeedDetail'>;
 
@@ -33,6 +34,7 @@ function FeedDetailScreen({route}: Props) {
   const {data: post, isPending, isError} = useGetPost(id);
   const {setMoveLocation} = useLocationStore();
   const detailAction = useModal();
+  const favoriteMutation = useMutateFavoritePost();
 
   if (isPending || isError) {
     return <></>;
@@ -129,8 +131,15 @@ function FeedDetailScreen({route}: Props) {
       <View style={[styles.bottomContainer, {paddingBottom: insets.bottom}]}>
         <CustomButton
           size="small"
-          label={<Ionicons name="star" size={25} color={colors.WHITE} />}
+          label={
+            <Ionicons
+              name="star"
+              size={25}
+              color={post.isFavorite ? colors.YELLOW_500 : colors.WHITE}
+            />
+          }
           style={{paddingHorizontal: 5}}
+          onPress={() => favoriteMutation.mutate(post.id)}
         />
         <CustomButton
           size="small"
