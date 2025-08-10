@@ -1,19 +1,21 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   Dimensions,
   FlatList,
   Image,
+  NativeScrollEvent,
+  NativeSyntheticEvent,
   Platform,
   Pressable,
   StyleSheet,
   View,
 } from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
+import {useNavigation} from '@react-navigation/native';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 import {ImageUri} from '@/types/domain';
 import {colors} from '@/constants/colors';
-import {useNavigation} from '@react-navigation/native';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {baseUrls} from '@/api/axios';
 
 interface ImageCarouselProps {
@@ -21,10 +23,18 @@ interface ImageCarouselProps {
   pressedIndex?: number;
 }
 
-function ImageCarousel({images, pressedIndex}: ImageCarouselProps) {
+function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const deviceWidth = Dimensions.get('window').width;
+  const [initialIndex, setInitialIndex] = useState(pressedIndex);
+  const [page, setPage] = useState(pressedIndex);
+
+  const handleScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const newPage = Math.round(e.nativeEvent.contentOffset.x / deviceWidth);
+
+    setPage(newPage);
+  };
 
   return (
     <View style={styles.container}>
@@ -50,9 +60,28 @@ function ImageCarousel({images, pressedIndex}: ImageCarouselProps) {
           </View>
         )}
         keyExtractor={item => String(item.id)}
+        onScroll={handleScroll}
         horizontal
         pagingEnabled
+        initialScrollIndex={initialIndex}
+        onScrollToIndexFailed={() => {
+          setInitialIndex(pressedIndex);
+        }}
+        getItemLayout={(_, index) => ({
+          length: deviceWidth,
+          offset: deviceWidth * index,
+          index,
+        })}
       />
+
+      <View style={[styles.pageContainer, {bottom: insets.bottom + 10}]}>
+        {Array.from({length: images.length}, (_, index) => (
+          <View
+            key={index}
+            style={[styles.pageDot, index === page && styles.currentPageDot]}
+          />
+        ))}
+      </View>
     </View>
   );
 }
@@ -76,6 +105,21 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: '100%',
+  },
+  pageContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    position: 'absolute',
+  },
+  pageDot: {
+    margin: 4,
+    backgroundColor: colors.GRAY_200,
+    width: 8,
+    height: 8,
+    borderRadius: 8,
+  },
+  currentPageDot: {
+    backgroundColor: colors.PINK_700,
   },
 });
 
