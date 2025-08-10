@@ -18,6 +18,7 @@ export type FeedStackParamList = {
   FeedDetail: {id: number};
   FeedFavorite: undefined;
   EditLocation: {id: number};
+  ImageZoom: {id?: number; index: number};
 };
 
 export type MainDrawerParamList = {
