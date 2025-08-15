@@ -1,14 +1,30 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import React, {useState} from 'react';
+import {SafeAreaView, StyleSheet} from 'react-native';
+
+import Calendar from '@/components/calendar/Calendar';
+import {colors} from '@/constants/colors';
+import {getMonthYearDetails, getNewMonthYear} from '@/utils/date';
 
 function CalendarScreen() {
+  const currentMonthYear = getMonthYearDetails(new Date());
+  const [monthYear, setMonthYear] = useState(currentMonthYear);
+
+  const handleUpdateMonth = (increment: number) => {
+    setMonthYear(prev => getNewMonthYear(prev, increment));
+  };
+
   return (
-    <SafeAreaView>
-      <Text>CalendarScreen</Text>
+    <SafeAreaView style={styles.container}>
+      <Calendar monthYear={monthYear} onChangeMonth={handleUpdateMonth} />
     </SafeAreaView>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: colors.WHITE,
+  },
+});
 
 export default CalendarScreen;
