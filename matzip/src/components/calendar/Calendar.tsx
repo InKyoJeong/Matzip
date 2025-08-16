@@ -6,6 +6,8 @@ import {isSameAsCurrentDate, MonthYear} from '@/utils/date';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
 import {ResponseCalendarPost} from '@/api/post';
+import useModal from '@/hooks/useModal';
+import YearSelector from './YearSelector';
 
 interface CalendarProps {
   monthYear: MonthYear;
@@ -24,16 +26,26 @@ function Calendar({
 }: CalendarProps) {
   const {month, year, firstDOW, lastDate} = monthYear;
 
+  const yearSelector = useModal();
+
+  const handleChangeYear = (selectYear: number) => {
+    onChangeMonth((selectYear - year) * 12);
+    yearSelector.hide();
+  };
+
   return (
     <>
       <View style={styles.headerContainer}>
         <Pressable style={styles.monthButton} onPress={() => onChangeMonth(-1)}>
           <Ionicons name="arrow-back" size={25} color={colors.BLACK} />
         </Pressable>
-        <Pressable style={styles.monthYearContainer}>
+        <Pressable
+          style={styles.monthYearContainer}
+          onPress={yearSelector.show}>
           <Text style={styles.monthYearText}>
             {year}년 {month}월
           </Text>
+          <Ionicons name="chevron-down" size={20} color={colors.GRAY_500} />
         </Pressable>
         <Pressable style={styles.monthButton} onPress={() => onChangeMonth(1)}>
           <Ionicons name="arrow-forward" size={25} color={colors.BLACK} />
@@ -60,6 +72,13 @@ function Calendar({
           numColumns={7}
         />
       </View>
+
+      <YearSelector
+        isVisible={yearSelector.isVisible}
+        currentyear={year}
+        onChangeYear={handleChangeYear}
+        hide={yearSelector.hide}
+      />
     </>
   );
 }
