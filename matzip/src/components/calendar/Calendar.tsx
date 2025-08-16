@@ -2,16 +2,23 @@ import React from 'react';
 import {FlatList, Pressable, StyleSheet, Text, View} from 'react-native';
 import Ionicons from '@react-native-vector-icons/ionicons';
 import {colors} from '@/constants/colors';
-import {MonthYear} from '@/utils/date';
+import {isSameAsCurrentDate, MonthYear} from '@/utils/date';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
 
 interface CalendarProps {
   monthYear: MonthYear;
   onChangeMonth: (increment: number) => void;
+  selectedDate: number;
+  onPressDate: (date: number) => void;
 }
 
-function Calendar({monthYear, onChangeMonth}: CalendarProps) {
+function Calendar({
+  monthYear,
+  onChangeMonth,
+  selectedDate,
+  onPressDate,
+}: CalendarProps) {
   const {month, year, firstDOW, lastDate} = monthYear;
 
   return (
@@ -37,7 +44,14 @@ function Calendar({monthYear, onChangeMonth}: CalendarProps) {
             id: index,
             date: index - firstDOW + 1,
           }))}
-          renderItem={({item}) => <DateBox date={item.date} />}
+          renderItem={({item}) => (
+            <DateBox
+              date={item.date}
+              isToday={isSameAsCurrentDate(year, month, item.date)}
+              selectedDate={selectedDate}
+              onPressDate={onPressDate}
+            />
+          )}
           keyExtractor={item => String(item.id)}
           numColumns={7}
         />
