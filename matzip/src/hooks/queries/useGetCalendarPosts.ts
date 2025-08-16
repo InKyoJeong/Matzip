@@ -1,8 +1,8 @@
-import {keepPreviousData, useQuery} from '@tanstack/react-query';
+import {useQuery} from '@tanstack/react-query';
 
 import {getCalendarPosts, ResponseCalendarPost} from '@/api/post';
-import {queryKeys} from '@/constants/keys';
 import {UseQueryCustomOptions} from '@/types/api';
+import {queryKeys} from '@/constants/keys';
 
 function useGetCalendarPosts(
   year: number,
@@ -18,7 +18,6 @@ function useGetCalendarPosts(
       year,
       month,
     ],
-    placeholderData: keepPreviousData,
     ...queryOptions,
   });
 }

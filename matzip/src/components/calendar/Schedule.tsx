@@ -1,5 +1,6 @@
 import React from 'react';
 import {Pressable, StyleSheet, Text, View} from 'react-native';
+
 import {colors} from '@/constants/colors';
 
 interface ScheduleProps {
@@ -13,9 +14,9 @@ function Schedule({subTitle, title}: ScheduleProps) {
       <View style={styles.line} />
       <View style={styles.infoContainer}>
         <Text
-          style={styles.subTitleText}
           numberOfLines={1}
-          ellipsizeMode="tail">
+          ellipsizeMode="tail"
+          style={styles.subTitleText}>
           {subTitle}
         </Text>
         <Text style={styles.titleText}>{title}</Text>
