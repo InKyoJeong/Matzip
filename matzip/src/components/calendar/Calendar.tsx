@@ -5,12 +5,14 @@ import {colors} from '@/constants/colors';
 import {isSameAsCurrentDate, MonthYear} from '@/utils/date';
 import DayOfWeeks from './DayOfWeeks';
 import DateBox from './DateBox';
+import {ResponseCalendarPost} from '@/api/post';
 
 interface CalendarProps {
   monthYear: MonthYear;
   onChangeMonth: (increment: number) => void;
   selectedDate: number;
   onPressDate: (date: number) => void;
+  schedules: ResponseCalendarPost;
 }
 
 function Calendar({
@@ -18,6 +20,7 @@ function Calendar({
   onChangeMonth,
   selectedDate,
   onPressDate,
+  schedules,
 }: CalendarProps) {
   const {month, year, firstDOW, lastDate} = monthYear;
 
@@ -50,6 +53,7 @@ function Calendar({
               isToday={isSameAsCurrentDate(year, month, item.date)}
               selectedDate={selectedDate}
               onPressDate={onPressDate}
+              hasSchedule={Boolean(schedules[item.date])}
             />
           )}
           keyExtractor={item => String(item.id)}

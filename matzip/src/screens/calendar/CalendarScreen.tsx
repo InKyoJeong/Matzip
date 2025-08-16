@@ -32,6 +32,14 @@ function CalendarScreen() {
     setMonthYear(prev => getNewMonthYear(prev, increment));
   };
 
+  const handlePressSchedule = (postId: number) => {
+    navigation.navigate('Feed', {
+      screen: 'FeedDetail',
+      params: {id: postId},
+      initial: false,
+    });
+  };
+
   useEffect(() => {
     navigation.setOptions({
       headerRight: () => (
@@ -46,6 +54,7 @@ function CalendarScreen() {
     <SafeAreaView style={styles.container}>
       <Calendar
         monthYear={monthYear}
+        schedules={posts ?? {}}
         onChangeMonth={handleUpdateMonth}
         selectedDate={selectedDate}
         onPressDate={(date: number) => setSelectedDate(date)}
@@ -54,7 +63,12 @@ function CalendarScreen() {
         style={styles.scheduleContainer}
         contentContainerStyle={{gap: 20}}>
         {posts?.[selectedDate]?.map(post => (
-          <Schedule key={post.id} subTitle={post.address} title={post.title} />
+          <Schedule
+            key={post.id}
+            subTitle={post.address}
+            title={post.title}
+            onPress={() => handlePressSchedule(post.id)}
+          />
         ))}
       </ScrollView>
     </SafeAreaView>
