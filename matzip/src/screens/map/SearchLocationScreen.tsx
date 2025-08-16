@@ -4,6 +4,7 @@ import {StyleSheet, View} from 'react-native';
 import SearchInput from '@/components/map/SearchInput';
 import useUserLocation from '@/hooks/useUserLocation';
 import useSearchLocation from '@/hooks/useSearchLocation';
+import SearchRegionResult from '@/components/map/SearchRegionResult';
 
 function SearchLocationScreen() {
   const [keyword, setKeyword] = useState('');
@@ -23,6 +24,7 @@ function SearchLocationScreen() {
         onSubmit={handleSubmitKeyword}
         placeholder="검색할 장소를 입력해주세요."
       />
+      <SearchRegionResult regionInfo={regionInfo} />
     </View>
   );
 }

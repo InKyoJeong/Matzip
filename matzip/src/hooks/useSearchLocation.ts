@@ -14,7 +14,7 @@ type Meta = {
   };
 };
 
-type RegionInfo = {
+export type RegionInfo = {
   address_name: string;
   category_group_code: string;
   category_group_name: string;
