@@ -9,11 +9,12 @@ import CalendarScreen from '@/screens/calendar/CalendarScreen';
 import CustomDrawerContent from '@/components/common/CustomDrawerContent';
 import {colors} from '@/constants/colors';
 import {MainDrawerParamList} from '@/types/navigation';
+import {SettingStack} from './SettingNavigation';
 
 type DraweIconName = 'map' | 'book' | 'calendar';
 
 function DrawerIcons(routeName: keyof MainDrawerParamList, focused: boolean) {
-  let iconName: DraweIconName;
+  let iconName: DraweIconName = 'map';
 
   switch (routeName) {
     case 'Map': {
@@ -92,6 +93,16 @@ const MainDrawer = createDrawerNavigator({
       options: {
         title: '캘린더',
         headerLeft: () => <DrawerButton />,
+      },
+    },
+    Setting: {
+      screen: SettingStack,
+      options: {
+        title: '설정',
+        headerShown: false,
+        drawerItemStyle: {
+          height: 0,
+        },
       },
     },
   },
