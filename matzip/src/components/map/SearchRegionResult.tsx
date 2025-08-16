@@ -11,12 +11,34 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 
 import {colors} from '@/constants/colors';
 import {RegionInfo} from '@/hooks/useSearchLocation';
+import {LatLng} from 'react-native-maps';
+import {useNavigation} from '@react-navigation/native';
+import useLocationStore from '@/store/location';
 
 interface SearchRegionResultProps {
   regionInfo: RegionInfo[];
 }
 
 function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
+  const navigation = useNavigation();
+  const {setMoveLocation, setSelectLocation} = useLocationStore();
+
+  const handlePressRegionInfo = (latitude: string, longitude: string) => {
+    const regionLocation = {
+      latitude: Number(latitude),
+      longitude: Number(longitude),
+    };
+
+    moveToMapScreen(regionLocation);
+  };
+
+  const moveToMapScreen = (location: LatLng) => {
+    navigation.goBack();
+
+    setMoveLocation(location);
+    setSelectLocation(location);
+  };
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
@@ -26,7 +48,8 @@ function SearchRegionResult({regionInfo}: SearchRegionResultProps) {
             style={[
               styles.itemBorder,
               index === regionInfo.length - 1 && styles.noItemBorder,
-            ]}>
+            ]}
+            onPress={() => handlePressRegionInfo(info.y, info.x)}>
             <View style={styles.placeNameContainer}>
               <Ionicons name="location" size={10} color={colors.PINK_700} />
               <Text
