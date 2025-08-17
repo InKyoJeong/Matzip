@@ -20,6 +20,8 @@ import useGetMarkers from '@/hooks/queries/useGetMarkers';
 import MarkerModal from '@/components/map/MarkerModal';
 import useModal from '@/hooks/useModal';
 import useLocationStore from '@/store/location';
+import MarkerFilterAction from '@/components/map/MarkerFilterAction';
+import useFilterStore from '@/store/filter';
 
 type Navigation = StackNavigationProp<MapStackParamList>;
 
@@ -28,10 +30,19 @@ function MapHomeScreen() {
   const inset = useSafeAreaInsets();
   const [markerId, setSetMarkerId] = useState<number>();
   const {selectLocation, setSelectLocation} = useLocationStore();
+  const {filters} = useFilterStore();
   const {userLocation, isUserLocationError} = useUserLocation();
   const {mapRef, moveMapView, handleChangeDelta} = useMoveMapView();
-  const {data: markers = []} = useGetMarkers();
+  const {data: markers = []} = useGetMarkers({
+    select: data =>
+      data.filter(
+        marker =>
+          filters[marker.color] === true &&
+          filters[String(marker.score)] === true,
+      ),
+  });
   const markerModal = useModal();
+  const filterAction = useModal();
   usePermission('LOCATION');
 
   const handlePressUserLocation = () => {
@@ -104,6 +115,7 @@ function MapHomeScreen() {
           name="magnifying-glass"
           onPress={() => navigation.navigate('SearchLocation')}
         />
+        <MapIconButton name="filter" onPress={filterAction.show} />
         <MapIconButton name="plus" onPress={handlePressAddPost} />
         <MapIconButton
           name="location-crosshairs"
@@ -115,6 +127,10 @@ function MapHomeScreen() {
         isVisible={markerModal.isVisible}
         markerId={Number(markerId)}
         hide={markerModal.hide}
+      />
+      <MarkerFilterAction
+        isVisible={filterAction.isVisible}
+        hideAction={filterAction.hide}
       />
     </>
   );
