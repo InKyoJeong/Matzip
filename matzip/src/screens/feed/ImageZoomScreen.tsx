@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
 import {StackScreenProps} from '@react-navigation/stack';
 
 import useGetPost from '@/hooks/queries/useGetPost';
@@ -14,7 +13,5 @@ function ImageZoomScreen({route}: Props) {
 
   return <ImageCarousel images={post?.imageUris ?? []} pressedIndex={index} />;
 }
-
-const styles = StyleSheet.create({});
 
 export default ImageZoomScreen;

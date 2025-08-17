@@ -13,6 +13,8 @@ const queryKeys = {
 
 const storageKeys = {
   REFRESH_TOKEN: 'refreshToken',
+  THEME_MODE: 'themeMode',
+  THEME_SYSTEM: 'themeSystem',
 };
 
 export {queryKeys, storageKeys};

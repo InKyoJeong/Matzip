@@ -22,10 +22,13 @@ import useModal from '@/hooks/useModal';
 import useLocationStore from '@/store/location';
 import MarkerFilterAction from '@/components/map/MarkerFilterAction';
 import useFilterStore from '@/store/filter';
+import useThemeStore, {Theme} from '@/store/theme';
 
 type Navigation = StackNavigationProp<MapStackParamList>;
 
 function MapHomeScreen() {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const navigation = useNavigation<Navigation>();
   const inset = useSafeAreaInsets();
   const [markerId, setSetMarkerId] = useState<number>();
@@ -83,7 +86,7 @@ function MapHomeScreen() {
     <>
       <DrawerButton
         style={[styles.drawerButton, {top: inset.top + 10}]}
-        color={colors.WHITE}
+        color={colors[theme].WHITE}
       />
       <MapView
         googleMapId="f397ec96980a97c3c96a731d"
@@ -136,28 +139,29 @@ function MapHomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  drawerButton: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    zIndex: 1,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    backgroundColor: colors.PINK_700,
-    borderTopRightRadius: 50,
-    borderBottomRightRadius: 50,
-    boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
-  },
-  buttonList: {
-    position: 'absolute',
-    bottom: 30,
-    right: 20,
-    zIndex: 1,
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    drawerButton: {
+      position: 'absolute',
+      left: 0,
+      top: 0,
+      zIndex: 1,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      backgroundColor: colors[theme].PINK_700,
+      borderTopRightRadius: 50,
+      borderBottomRightRadius: 50,
+      boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.5)',
+    },
+    buttonList: {
+      position: 'absolute',
+      bottom: 30,
+      right: 20,
+      zIndex: 1,
+    },
+  });
 
 export default MapHomeScreen;

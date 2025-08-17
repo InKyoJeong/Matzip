@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, StyleSheet} from 'react-native';
+import {Alert} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 
 import {ActionSheet} from '../common/ActionSheet';
@@ -67,7 +67,5 @@ function FeedDetailActionSheet({
     </ActionSheet>
   );
 }
-
-const styles = StyleSheet.create({});
 
 export default FeedDetailActionSheet;

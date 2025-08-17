@@ -17,6 +17,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {ImageUri} from '@/types/domain';
 import {colors} from '@/constants/colors';
 import {baseUrls} from '@/api/axios';
+import useThemeStore, {Theme} from '@/store/theme';
 
 interface ImageCarouselProps {
   images: ImageUri[];
@@ -24,6 +25,8 @@ interface ImageCarouselProps {
 }
 
 function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const navigation = useNavigation();
   const insets = useSafeAreaInsets();
   const deviceWidth = Dimensions.get('window').width;
@@ -41,7 +44,7 @@ function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
       <Pressable
         style={[styles.backButton, {marginTop: insets.top + 10}]}
         onPress={() => navigation.goBack()}>
-        <Ionicons name="chevron-back" size={30} color={colors.WHITE} />
+        <Ionicons name="chevron-back" size={30} color={colors[theme].WHITE} />
       </Pressable>
 
       <FlatList
@@ -86,41 +89,42 @@ function ImageCarousel({images, pressedIndex = 0}: ImageCarouselProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: colors.BLACK,
-  },
-  backButton: {
-    position: 'absolute',
-    left: 20,
-    zIndex: 1,
-    height: 40,
-    width: 40,
-    borderRadius: 40,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-  },
-  pageContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    position: 'absolute',
-  },
-  pageDot: {
-    margin: 4,
-    backgroundColor: colors.GRAY_200,
-    width: 8,
-    height: 8,
-    borderRadius: 8,
-  },
-  currentPageDot: {
-    backgroundColor: colors.PINK_700,
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      backgroundColor: colors[theme].BLACK,
+    },
+    backButton: {
+      position: 'absolute',
+      left: 20,
+      zIndex: 1,
+      height: 40,
+      width: 40,
+      borderRadius: 40,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+    },
+    pageContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      position: 'absolute',
+    },
+    pageDot: {
+      margin: 4,
+      backgroundColor: colors[theme].GRAY_200,
+      width: 8,
+      height: 8,
+      borderRadius: 8,
+    },
+    currentPageDot: {
+      backgroundColor: colors[theme].PINK_700,
+    },
+  });
 
 export default ImageCarousel;

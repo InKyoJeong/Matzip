@@ -4,9 +4,12 @@ import {ErrorBoundary} from 'react-error-boundary';
 import {StyleSheet, Text, View} from 'react-native';
 import CustomButton from './CustomButton';
 import {colors} from '@/constants/colors';
+import useThemeStore, {Theme} from '@/store/theme';
 
 function RetryErrorBoundary({children}: PropsWithChildren) {
   const {reset} = useQueryErrorResetBoundary();
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
 
   return (
     <ErrorBoundary
@@ -30,23 +33,24 @@ function RetryErrorBoundary({children}: PropsWithChildren) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    backgroundColor: colors.WHITE,
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: colors.BLACK,
-  },
-  descriptionText: {
-    fontSize: 15,
-    color: colors.GRAY_500,
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: 10,
+      backgroundColor: colors[theme].WHITE,
+    },
+    titleText: {
+      fontSize: 18,
+      fontWeight: '600',
+      color: colors[theme].BLACK,
+    },
+    descriptionText: {
+      fontSize: 15,
+      color: colors[theme].GRAY_500,
+    },
+  });
 
 export default RetryErrorBoundary;

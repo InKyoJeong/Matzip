@@ -19,8 +19,11 @@ import Ionicons from '@react-native-vector-icons/ionicons';
 import {colors} from '@/constants/colors';
 import useAuth from '@/hooks/queries/useAuth';
 import {baseUrls} from '@/api/axios';
+import useThemeStore, {Theme} from '@/store/theme';
 
 function CustomDrawerContent(props: DrawerContentComponentProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const {auth} = useAuth();
   const navigation = useNavigation();
 
@@ -53,7 +56,11 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
         <Pressable
           style={styles.bottomMenu}
           onPress={() => navigation.navigate('Setting')}>
-          <Ionicons name="settings-outline" size={20} color={colors.BLACK} />
+          <Ionicons
+            name="settings-outline"
+            size={20}
+            color={colors[theme].BLACK}
+          />
           <Text style={styles.menuText}>설정</Text>
         </Pressable>
       </View>
@@ -61,47 +68,50 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  contentContainer: {
-    gap: 5,
-    marginTop: 30,
-  },
-  profileContainer: {
-    alignItems: 'center',
-    marginBottom: 30,
-    gap: 5,
-  },
-  userImageContainer: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-  userImage: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 35,
-  },
-  nickname: {
-    fontSize: 14,
-  },
-  bottomContainer: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    padding: 20,
-    borderTopWidth: 1,
-    borderTopColor: colors.GRAY_200,
-  },
-  menuText: {
-    fontSize: 15,
-  },
-  bottomMenu: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    contentContainer: {
+      gap: 5,
+      marginTop: 30,
+    },
+    profileContainer: {
+      alignItems: 'center',
+      marginBottom: 30,
+      gap: 5,
+    },
+    userImageContainer: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+    },
+    userImage: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 35,
+    },
+    nickname: {
+      fontSize: 14,
+      color: colors[theme].BLACK,
+    },
+    bottomContainer: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      padding: 20,
+      borderTopWidth: 1,
+      borderTopColor: colors[theme].GRAY_200,
+    },
+    menuText: {
+      fontSize: 15,
+      color: colors[theme].BLACK,
+    },
+    bottomMenu: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 3,
+    },
+  });
 
 export default CustomDrawerContent;

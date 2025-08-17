@@ -21,10 +21,12 @@ import useImagePicker from '@/hooks/useImagePicker';
 import PreviewImageList from '@/components/common/PreviewImageList';
 import useMutateCreatePost from '@/hooks/queries/useMutateCreatePost';
 import {useNavigation} from '@react-navigation/native';
+import useThemeStore from '@/store/theme';
 
 type Props = StackScreenProps<MapStackParamList, 'AddLocation'>;
 
 function AddLocationScreen({route}: Props) {
+  const {theme} = useThemeStore();
   const {location} = route.params;
   const navigation = useNavigation();
   const inset = useSafeAreaInsets();
@@ -35,7 +37,7 @@ function AddLocationScreen({route}: Props) {
       title: '',
       description: '',
       date: new Date(),
-      color: colors.PINK_400,
+      color: colors[theme].PINK_400,
       score: 3,
     },
     validate: validateAddPost,

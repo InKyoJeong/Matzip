@@ -12,11 +12,15 @@ import {useNavigation} from '@react-navigation/native';
 import {AuthStackParamList} from '@/types/navigation';
 import CustomButton from '@/components/common/CustomButton';
 import {colors} from '@/constants/colors';
+import useThemeStore, {Theme} from '@/store/theme';
 
 type Navigation = StackNavigationProp<AuthStackParamList>;
 
 function AuthHomeScreen() {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const navigation = useNavigation<Navigation>();
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.imageContainer}>
@@ -39,30 +43,31 @@ function AuthHomeScreen() {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  imageContainer: {
-    flex: 1.5,
-    alignItems: 'center',
-  },
-  image: {
-    width: 200,
-    height: '100%',
-  },
-  buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    paddingHorizontal: 30,
-    gap: 5,
-  },
-  emailText: {
-    textDecorationLine: 'underline',
-    fontWeight: '500',
-    padding: 10,
-    color: colors.BLACK,
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+    },
+    imageContainer: {
+      flex: 1.5,
+      alignItems: 'center',
+    },
+    image: {
+      width: 200,
+      height: '100%',
+    },
+    buttonContainer: {
+      flex: 1,
+      alignItems: 'center',
+      paddingHorizontal: 30,
+      gap: 5,
+    },
+    emailText: {
+      textDecorationLine: 'underline',
+      fontWeight: '500',
+      padding: 10,
+      color: colors[theme].BLACK,
+    },
+  });
 
 export default AuthHomeScreen;

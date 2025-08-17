@@ -16,6 +16,7 @@ import {baseUrls} from '@/api/axios';
 import {colors} from '@/constants/colors';
 import useGetPost from '@/hooks/queries/useGetPost';
 import {getDateWithSeparator} from '@/utils/date';
+import useThemeStore, {Theme} from '@/store/theme';
 
 interface MarkerModalProps {
   markerId: number;
@@ -24,6 +25,8 @@ interface MarkerModalProps {
 }
 
 function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
+  const {theme} = useThemeStore();
+  const styles = styling(theme);
   const navigation = useNavigation();
   const {data: post, isPending, isError} = useGetPost(markerId);
 
@@ -73,7 +76,7 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
                   <Ionicons
                     name="location-outline"
                     size={10}
-                    color={colors.GRAY_500}
+                    color={colors[theme].GRAY_500}
                   />
                   <Text
                     style={styles.addressText}
@@ -95,7 +98,11 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
             </View>
 
             <View style={styles.nextButton}>
-              <Ionicons name="chevron-forward" size={25} color={colors.BLACK} />
+              <Ionicons
+                name="chevron-forward"
+                size={25}
+                color={colors[theme].BLACK}
+              />
             </View>
           </View>
         </Pressable>
@@ -104,80 +111,81 @@ function MarkerModal({markerId, isVisible, hide}: MarkerModalProps) {
   );
 }
 
-const styles = StyleSheet.create({
-  background: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  cardContainer: {
-    backgroundColor: colors.WHITE,
-    margin: 10,
-    borderWidth: 1,
-    borderColor: colors.GRAY_500,
-    borderRadius: 15,
-    boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
-  },
-  cardInner: {
-    padding: 20,
-    width: '100%',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  imageContainer: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 35,
-  },
-  emptyImageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: colors.GRAY_200,
-  },
-  emptyText: {
-    fontSize: 12,
-    color: colors.GRAY_500,
-  },
-  infoContainer: {
-    marginLeft: 15,
-    gap: 5,
-  },
-  addressText: {
-    color: colors.GRAY_500,
-    fontSize: 10,
-  },
-  cardAlign: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  addressContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 2,
-  },
-  titleText: {
-    color: colors.BLACK,
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  dateText: {
-    fontSize: 12,
-    fontWeight: 'bold',
-    color: colors.PINK_700,
-  },
-  nextButton: {
-    width: 40,
-    height: 40,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
-  },
-});
+const styling = (theme: Theme) =>
+  StyleSheet.create({
+    background: {
+      flex: 1,
+      justifyContent: 'flex-end',
+    },
+    cardContainer: {
+      backgroundColor: colors[theme].WHITE,
+      margin: 10,
+      borderWidth: 1,
+      borderColor: colors[theme].GRAY_500,
+      borderRadius: 15,
+      boxShadow: '1px 1px 3px rgba(0, 0, 0, 0.3)',
+    },
+    cardInner: {
+      padding: 20,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+    },
+    imageContainer: {
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+    },
+    image: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 35,
+    },
+    emptyImageContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderWidth: 1,
+      borderColor: colors[theme].GRAY_200,
+    },
+    emptyText: {
+      fontSize: 12,
+      color: colors[theme].GRAY_500,
+    },
+    infoContainer: {
+      marginLeft: 15,
+      gap: 5,
+    },
+    addressText: {
+      color: colors[theme].GRAY_500,
+      fontSize: 10,
+    },
+    cardAlign: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    addressContainer: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 2,
+    },
+    titleText: {
+      color: colors[theme].BLACK,
+      fontSize: 15,
+      fontWeight: 'bold',
+    },
+    dateText: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      color: colors[theme].PINK_700,
+    },
+    nextButton: {
+      width: 40,
+      height: 40,
+      alignItems: 'flex-end',
+      justifyContent: 'center',
+    },
+  });
 
 export default MarkerModal;
