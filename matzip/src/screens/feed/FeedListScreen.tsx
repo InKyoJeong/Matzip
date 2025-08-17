@@ -3,13 +3,16 @@ import {SafeAreaView, StyleSheet} from 'react-native';
 
 import FeedList from '@/components/feed/FeedList';
 import Indicator from '@/components/common/Indicator';
+import RetryErrorBoundary from '@/components/common/RetryErrorBoundary';
 
 function FeedListScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <Suspense fallback={<Indicator size={'large'} />}>
-        <FeedList />
-      </Suspense>
+      <RetryErrorBoundary>
+        <Suspense fallback={<Indicator size={'large'} />}>
+          <FeedList />
+        </Suspense>
+      </RetryErrorBoundary>
     </SafeAreaView>
   );
 }
