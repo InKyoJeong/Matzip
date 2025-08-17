@@ -41,8 +41,8 @@ function CustomDrawerContent(props: DrawerContentComponentProps) {
       </DrawerContentScrollView>
       <View style={styles.bottomContainer}>
         <Pressable
-          onPress={() => navigation.navigate('Setting')}
-          style={styles.bottomMenu}>
+          style={styles.bottomMenu}
+          onPress={() => navigation.navigate('Setting')}>
           <Ionicons name="settings-outline" size={20} color={colors.BLACK} />
           <Text style={styles.menuText}>설정</Text>
         </Pressable>

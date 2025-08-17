@@ -1,20 +1,20 @@
-import {StyleSheet, Text, Pressable, PressableProps, View} from 'react-native';
+import React from 'react';
+import {Pressable, PressableProps, StyleSheet, Text} from 'react-native';
 import {colors} from '@/constants/colors';
 
 interface SettingItemProps extends PressableProps {
   title: string;
-  subTitle?: string;
   color?: string;
 }
 
-function SettingItem({title, subTitle, color, ...props}: SettingItemProps) {
+function SettingItem({title, color, ...props}: SettingItemProps) {
   return (
     <Pressable
+      {...props}
       style={({pressed}) => [
         styles.container,
         pressed && styles.pressedContainer,
-      ]}
-      {...props}>
+      ]}>
       <Text style={[styles.titleText, {color: color ?? colors.BLACK}]}>
         {title}
       </Text>
