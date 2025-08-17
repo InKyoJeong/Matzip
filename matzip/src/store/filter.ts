@@ -8,11 +8,11 @@ interface FilterState {
 
 const useFilterStore = create<FilterState>(set => ({
   filters: {
-    [colors.PINK_400]: true,
-    [colors.YELLOW_400]: true,
-    [colors.GREEN_400]: true,
-    [colors.BLUE_400]: true,
-    [colors.PURPLE_400]: true,
+    [colors['light'].PINK_400]: true,
+    [colors['light'].YELLOW_400]: true,
+    [colors['light'].GREEN_400]: true,
+    [colors['light'].BLUE_400]: true,
+    [colors['light'].PURPLE_400]: true,
     '1': true,
     '2': true,
     '3': true,

@@ -89,6 +89,7 @@ function MapHomeScreen() {
         color={colors[theme].WHITE}
       />
       <MapView
+        userInterfaceStyle={theme}
         googleMapId="f397ec96980a97c3c96a731d"
         style={styles.container}
         ref={mapRef}
