@@ -50,4 +50,12 @@ async function logout() {
   await axiosInstance.post('/auth/logout');
 }
 
-export {postSignup, postLogin, getProfile, getAccessToken, logout};
+type RequestProfile = Pick<Profile, 'nickname' | 'imageUri'>;
+
+async function editProfile(body: RequestProfile): Promise<Profile> {
+  const {data} = await axiosInstance.patch('/auth/me', body);
+
+  return data;
+}
+
+export {postSignup, postLogin, getProfile, getAccessToken, logout, editProfile};
