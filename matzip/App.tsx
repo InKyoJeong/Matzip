@@ -4,13 +4,15 @@ import Toast, {
   BaseToastProps,
   ErrorToast,
 } from 'react-native-toast-message';
+import {StatusBar} from 'react-native';
+import {useEffect} from 'react';
+import BootSplash from 'react-native-bootsplash';
 
 import RootNavigation from './src/navigations/RootNavigation';
 import queryClient from '@/api/queryClient';
 import {colors} from '@/constants/colors';
 import useThemeStorage from '@/hooks/useThemeStorage';
-import {StatusBar} from 'react-native';
-import {DefaultTheme, NavigationContainer} from '@react-navigation/native';
+import useAuth from '@/hooks/queries/useAuth';
 
 const toastConfig = {
   success: (props: BaseToastProps) => (
@@ -33,6 +35,16 @@ const toastConfig = {
 
 function App() {
   const {theme} = useThemeStorage();
+
+  useEffect(() => {
+    const prepare = async () => {
+      await new Promise(resolve => setTimeout(resolve, 1000));
+    };
+
+    prepare().finally(async () => {
+      await BootSplash.hide({fade: true});
+    });
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>

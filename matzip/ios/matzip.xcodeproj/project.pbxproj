@@ -8,9 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
+		2E4C175BDF834E7F93297300 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26236FE778F4442F9305C109 /* Colors.xcassets */; };
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8DCA7D4B3B9E2261159BCFE1 /* libPods-matzip.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6920A72E9B3C3626CB40F035 /* libPods-matzip.a */; };
+		C88E80D73ECC4F0682F9F9F4 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EA32689E6ED9472D9129DB4A /* BootSplash.storyboard */; };
 		D2340D53921AB39C900D4921 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		F32D2758FE5E4EEDBFC7E44F /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 7DE0022F5A4B48CA9D47513C /* Config.xcconfig */; };
 /* End PBXBuildFile section */
@@ -20,6 +22,7 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = matzip/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = matzip/Info.plist; sourceTree = "<group>"; };
 		13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = PrivacyInfo.xcprivacy; path = matzip/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
+		26236FE778F4442F9305C109 /* Colors.xcassets */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = folder.assetcatalog; name = Colors.xcassets; path = matzip/Colors.xcassets; sourceTree = "<group>"; };
 		6920A72E9B3C3626CB40F035 /* libPods-matzip.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-matzip.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = matzip/AppDelegate.swift; sourceTree = "<group>"; };
 		7DE0022F5A4B48CA9D47513C /* Config.xcconfig */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 4; includeInIndex = 0; lastKnownFileType = text.xcconfig; name = Config.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
@@ -27,6 +30,7 @@
 		974A0369AEFD72A7AB4D5A09 /* Pods-matzip.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matzip.release.xcconfig"; path = "Target Support Files/Pods-matzip/Pods-matzip.release.xcconfig"; sourceTree = "<group>"; };
 		9DD3CF2714A9DB8FEB3E4959 /* Pods-matzip.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-matzip.debug.xcconfig"; path = "Target Support Files/Pods-matzip/Pods-matzip.debug.xcconfig"; sourceTree = "<group>"; };
 		B2D91BA92E349302005209EB /* matzip-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "matzip-Bridging-Header.h"; sourceTree = "<group>"; };
+		EA32689E6ED9472D9129DB4A /* BootSplash.storyboard */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = BootSplash.storyboard; path = matzip/BootSplash.storyboard; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -50,6 +54,8 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */,
+				EA32689E6ED9472D9129DB4A /* BootSplash.storyboard */,
+				26236FE778F4442F9305C109 /* Colors.xcassets */,
 			);
 			name = matzip;
 			sourceTree = "<group>";
@@ -167,6 +173,8 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				D2340D53921AB39C900D4921 /* PrivacyInfo.xcprivacy in Resources */,
+				C88E80D73ECC4F0682F9F9F4 /* BootSplash.storyboard in Resources */,
+				2E4C175BDF834E7F93297300 /* Colors.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

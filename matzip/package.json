@@ -23,6 +23,7 @@
     "react": "19.0.0",
     "react-error-boundary": "^6.0.0",
     "react-native": "0.79.4",
+    "react-native-bootsplash": "^6.3.10",
     "react-native-config": "^1.5.5",
     "react-native-date-picker": "^5.0.12",
     "react-native-encrypted-storage": "^4.0.3",
