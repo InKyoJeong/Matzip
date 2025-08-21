@@ -11,7 +11,7 @@ async function postSignup({email, password}: RequsetUser): Promise<void> {
   await axiosInstance.post('/auth/signup', {email, password});
 }
 
-type ResponseToken = {
+export type ResponseToken = {
   accessToken: string;
   refreshToken: string;
 };
@@ -24,6 +24,12 @@ async function postLogin({
     email,
     password,
   });
+
+  return data;
+}
+
+async function kakaoLogin(token: string): Promise<ResponseToken> {
+  const {data} = await axiosInstance.post('/auth/oauth/kakao', {token});
 
   return data;
 }
@@ -58,4 +64,12 @@ async function editProfile(body: RequestProfile): Promise<Profile> {
   return data;
 }
 
-export {postSignup, postLogin, getProfile, getAccessToken, logout, editProfile};
+export {
+  postSignup,
+  postLogin,
+  getProfile,
+  getAccessToken,
+  logout,
+  editProfile,
+  kakaoLogin,
+};

@@ -1,13 +1,15 @@
 import {useEffect} from 'react';
-import {useMutation, useQuery} from '@tanstack/react-query';
+import {MutationFunction, useMutation, useQuery} from '@tanstack/react-query';
 
 import {
   editProfile,
   getAccessToken,
   getProfile,
+  kakaoLogin,
   logout,
   postLogin,
   postSignup,
+  ResponseToken,
 } from '@/api/auth';
 import queryClient from '@/api/queryClient';
 import {queryKeys, storageKeys} from '@/constants/keys';
@@ -25,9 +27,12 @@ function useSignup(mutationOptions?: UseMutationCustomOptions) {
   });
 }
 
-function useLogin(mutationOptions?: UseMutationCustomOptions) {
+function useLogin<T>(
+  loginAPI: MutationFunction<ResponseToken, T>,
+  mutationOptions?: UseMutationCustomOptions,
+) {
   return useMutation({
-    mutationFn: postLogin,
+    mutationFn: loginAPI,
     onSuccess: async ({accessToken, refreshToken}) => {
       setHeader('Authorization', `Bearer ${accessToken}`);
       await setEncryptStorage(storageKeys.REFRESH_TOKEN, refreshToken);
@@ -38,6 +43,14 @@ function useLogin(mutationOptions?: UseMutationCustomOptions) {
     throwOnError: error => Number(error.response?.status) >= 500,
     ...mutationOptions,
   });
+}
+
+function useEmailLogin(mutationOptions?: UseMutationCustomOptions) {
+  return useLogin(postLogin, mutationOptions);
+}
+
+function useKakaoLogin(mutationOptions?: UseMutationCustomOptions) {
+  return useLogin(kakaoLogin, mutationOptions);
 }
 
 function useGetRefreshToken() {
@@ -104,7 +117,8 @@ function useUpdateProfile(mutationOptions?: UseMutationCustomOptions) {
 
 function useAuth() {
   const signupMutation = useSignup();
-  const loginMutation = useLogin();
+  const loginMutation = useEmailLogin();
+  const kakaoLoginMutation = useKakaoLogin();
   const refreshTokenQuery = useGetRefreshToken();
   const {data, isSuccess: isLogin} = useGetProfile({
     enabled: refreshTokenQuery.isSuccess,
@@ -121,6 +135,7 @@ function useAuth() {
     },
     signupMutation,
     loginMutation,
+    kakaoLoginMutation,
     isLogin,
     logoutMutation,
     profileMutation,

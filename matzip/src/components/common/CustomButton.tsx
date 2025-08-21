@@ -5,6 +5,7 @@ import {
   StyleProp,
   StyleSheet,
   Text,
+  TextStyle,
   ViewStyle,
 } from 'react-native';
 
@@ -16,6 +17,7 @@ interface CustomButtonProps extends PressableProps {
   variant?: 'filled' | 'outlined';
   size?: 'large' | 'small';
   style?: StyleProp<ViewStyle>;
+  textStyle?: StyleProp<TextStyle>;
 }
 
 function CustomButton({
@@ -23,6 +25,7 @@ function CustomButton({
   variant = 'filled',
   size = 'large',
   style = null,
+  textStyle = null,
   ...props
 }: CustomButtonProps) {
   const {theme} = useThemeStore();
@@ -39,7 +42,7 @@ function CustomButton({
       ]}
       {...props}>
       {typeof label === 'string' ? (
-        <Text style={styles[`${variant}Text`]}>{label}</Text>
+        <Text style={[styles[`${variant}Text`], textStyle]}>{label}</Text>
       ) : (
         label
       )}

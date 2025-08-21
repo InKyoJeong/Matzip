@@ -35,6 +35,7 @@
     "react-native-safe-area-context": "^5.5.1",
     "react-native-screens": "^4.11.1",
     "react-native-toast-message": "^2.3.3",
+    "react-native-webview": "^13.15.0",
     "zustand": "^5.0.7"
   },
   "devDependencies": {
