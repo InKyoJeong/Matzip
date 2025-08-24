@@ -34,6 +34,18 @@ async function kakaoLogin(token: string): Promise<ResponseToken> {
   return data;
 }
 
+type RequestAppleIdentity = {
+  identityToken: string;
+  appId: string;
+  nickname: string | null;
+};
+
+async function appleLogin(body: RequestAppleIdentity): Promise<ResponseToken> {
+  const {data} = await axiosInstance.post('/auth/oauth/apple', body);
+
+  return data;
+}
+
 async function getProfile(): Promise<Profile> {
   const {data} = await axiosInstance.get('/auth/me');
 
@@ -72,4 +84,5 @@ export {
   logout,
   editProfile,
   kakaoLogin,
+  appleLogin,
 };
